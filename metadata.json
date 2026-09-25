@@ -1,0 +1,6 @@
+{
+  "name": "Jhota Gamer",
+  "description": "Portal gamer profissional de Jhota Gamer: guias, tutoriais, builds e novidades de Albion Online, Lineage 2 e o universo MMORPG.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
