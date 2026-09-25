@@ -38,7 +38,6 @@ import { Footer } from './components/Footer';
 import { GuideReaderModal } from './components/GuideReaderModal';
 import { VideoPlayerModal } from './components/VideoPlayerModal';
 import { NewsReaderModal } from './components/NewsReaderModal';
-import { LiveCustomizerModal } from './components/LiveCustomizerModal';
 
 export default function App() {
   // --- ESTADOS DE DADOS (Mantidos conforme original com limpeza e persistência) ---
@@ -227,7 +226,6 @@ export default function App() {
   const [readingGuide, setReadingGuide] = useState<Guide | null>(null);
   const [playingVideo, setPlayingVideo] = useState<VideoItem | null>(null);
   const [readingNews, setReadingNews] = useState<NewsItem | null>(null);
-  const [isCustomizerOpen, setIsCustomizerOpen] = useState<boolean>(false);
 
   // --- FUNÇÕES DE ATUALIZAÇÃO ---
   const handleUpdateBio = (updatedBio: BioData) => {
@@ -277,7 +275,6 @@ export default function App() {
         
         {/* Navbar agora usa as rotas do Router */}
         <Navbar
-          onOpenCustomizer={() => setIsCustomizerOpen(true)}
           brandName={bio.brandName}
         />
 
@@ -292,7 +289,6 @@ export default function App() {
                   subTagline={bio.subTagline}
                   bannerUrl={bio.bannerUrl}
                   onUpdateBannerUrl={(newUrl) => handleUpdateBio({ ...bio, bannerUrl: newUrl })}
-                  onOpenCustomizer={() => setIsCustomizerOpen(true)}
                   onLearnMoreBio={() => {
                     const el = document.getElementById('secao-biografia');
                     el?.scrollIntoView({ behavior: 'smooth' });
@@ -301,13 +297,10 @@ export default function App() {
                 <WhatYouFindSection />
                 <FeaturedGamesSection
                   games={games}
-                  onOpenCustomizer={() => setIsCustomizerOpen(true)} 
                 />
-                <BioSection bio={bio} onOpenCustomizer={() => setIsCustomizerOpen(true)} />
                 <RecentVideosSection
                   videos={videos}
                   onPlayVideo={(v) => setPlayingVideo(v)}
-                  onOpenCustomizer={() => setIsCustomizerOpen(true)}
                   onUpdateVideos={handleUpdateVideos}
                 />
                 <RecentNewsSection
@@ -321,7 +314,6 @@ export default function App() {
             <Route path="/jogos" element={
               <GamesPage 
                 games={games} 
-                onOpenCustomizer={() => setIsCustomizerOpen(true)} 
               />
             } />
 
@@ -359,14 +351,12 @@ export default function App() {
                 bio={bio} 
                 onUpdateSocials={setSocials} 
                 onUpdateBio={setBio} 
-                onOpenCustomizer={() => setIsCustomizerOpen(true)} 
               />
             } />
             
             <Route path="/links-uteis" element={
               <UsefulLinksPage 
                 links={usefulLinks} 
-                onOpenCustomizer={() => setIsCustomizerOpen(true)} 
               />
             } />
 
@@ -379,15 +369,12 @@ export default function App() {
           </Routes>
         </main>
 
-        <Footer brandName={bio.brandName} onOpenCustomizer={() => setIsCustomizerOpen(true)} />
 
         {/* Modais Globais */}
         <GuideReaderModal guide={readingGuide} onClose={() => setReadingGuide(null)} />
         <VideoPlayerModal video={playingVideo} onClose={() => setPlayingVideo(null)} />
         <NewsReaderModal news={readingNews} onClose={() => setReadingNews(null)} />
-        <LiveCustomizerModal
           isOpen={isCustomizerOpen}
-          onClose={() => setIsCustomizerOpen(false)}
           bio={bio}
           onUpdateBio={handleUpdateBio}
           socials={socials}

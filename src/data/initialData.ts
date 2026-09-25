@@ -12,7 +12,6 @@ export const initialBio: BioData = {
   bioParagraphs: [
     "Olá, guerreiros e aventureiros! Eu sou o Jhota, criador de conteúdo focado nos universos mais desafiadores e imersivos dos games. Desde as primeiras batalhas campais no Lineage 2 até as guerras impiedosas de guilda na Zona Negra de Albion Online, os jogos sempre foram minha maior paixão.",
     "O canal Jhota Gamer nasceu com o propósito de unir veteranos e iniciantes. Aqui você não encontra apenas gameplay comum: produzimos guias detalhados passo a passo, análises de meta em tempo real, rotas econômicas comprovadas e as melhores builds para você dominar qualquer servidor.",
-    "*(Texto demonstrativo editável — clique em 'Personalizar Conteúdo' para substituir esta biografia pela sua história real, foto ou link de redes sociais!)*"
   ],
   trajectoryIntro: "Comecei a jogar com 14 anos no ano de 2006, jogando em lan house com amigos, e de lá para cá nunca deixei de me aventurar em diversos jogos.",
   trajectory: [
