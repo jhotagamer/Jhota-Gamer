@@ -374,15 +374,6 @@ export default function App() {
         <GuideReaderModal guide={readingGuide} onClose={() => setReadingGuide(null)} />
         <VideoPlayerModal video={playingVideo} onClose={() => setPlayingVideo(null)} />
         <NewsReaderModal news={readingNews} onClose={() => setReadingNews(null)} />
-          isOpen={isCustomizerOpen}
-          bio={bio}
-          onUpdateBio={handleUpdateBio}
-          socials={socials}
-          onUpdateSocials={handleUpdateSocials}
-          usefulLinks={usefulLinks}
-          onUpdateUsefulLinks={handleUpdateUsefulLinks}
-          onResetDefaults={handleResetDefaults}
-        />
       </div>
     </Router>
   );
