@@ -8,24 +8,19 @@ import {
   Instagram, 
   Tv, 
   Facebook, 
-  ShieldCheck, 
-  Sliders, 
-  Heart,
-  Gamepad2
 } from 'lucide-react';
 
 interface FooterProps {
   brandName: string;
   onNavigate?: (page: PageType) => void;
   onSelectGame?: (gameId: string) => void;
-  onOpenCustomizer?: () => void;
+  // onOpenCustomizer removido daqui pois não será mais usado
 }
 
 export const Footer: React.FC<FooterProps> = ({
   brandName,
   onNavigate,
   onSelectGame,
-  onOpenCustomizer
 }) => {
   const navigate = useNavigate();
 
@@ -76,10 +71,10 @@ export const Footer: React.FC<FooterProps> = ({
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           
-          {/* Brand Col (2 spans) */}
-          <div className="lg:col-span-2 space-y-4">
+          {/* Brand Col (Agora ocupa 1 coluna para equilibrar o grid) */}
+          <div className="space-y-4">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-amber-500 via-orange-600 to-rose-700 p-0.5 shadow-lg shadow-amber-500/20">
                 <div className="w-full h-full bg-[#0d1017] rounded-[7px] flex items-center justify-center">
@@ -94,7 +89,7 @@ export const Footer: React.FC<FooterProps> = ({
             </div>
 
             <p className="text-sm text-zinc-400 max-w-sm leading-relaxed font-sans">
-              Portal oficial dedicado aos entusiastas de MMORPG e RPG de mundo aberto. Guias didáticos, análises de mecânicas e economia, builds otimizadas e conteúdos focados na comunidade gamer.
+              Portal dedicado aos entusiastas de MMORPG e RPG de mundo aberto. Guias didáticos, análises de mecânicas e economia, builds otimizadas e conteúdos focados na comunidade gamer.
             </p>
 
             <div className="flex items-center gap-3 pt-2">
@@ -231,24 +226,8 @@ export const Footer: React.FC<FooterProps> = ({
             </ul>
           </div>
 
-          {/* Management / Customizer & Back to Top */}
-          <div className="space-y-4">
-            <h4 className="font-cinzel text-sm font-bold text-zinc-200 uppercase tracking-wider mb-4">
-              Personalização
-            </h4>
-            <p className="text-xs text-zinc-400 leading-relaxed">
-              Substitua qualquer texto provisório de biografia, links ou jogos pelo painel ao vivo:
-            </p>
-            {onOpenCustomizer && (
-              <button
-                onClick={onOpenCustomizer}
-                className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-xs font-semibold text-amber-300 border border-amber-500/30 transition-colors cursor-pointer"
-              >
-                <Sliders className="w-3.5 h-3.5 text-amber-400" />
-                <span>Painel de Conteúdo</span>
-              </button>
-            )}
-
+          {/* Back to Top Column */}
+          <div className="flex flex-col justify-end">
             <button
               id="btn-back-to-top"
               onClick={scrollToTop}
@@ -261,16 +240,24 @@ export const Footer: React.FC<FooterProps> = ({
 
         </div>
 
-        {/* Bottom copyright line */}
-        <div className="mt-12 pt-6 border-t border-zinc-800/80 flex flex-col sm:flex-row items-center justify-between text-xs text-zinc-500 gap-4">
-          <div>
-            &copy; {new Date().getFullYear()} <strong className="text-zinc-300 font-semibold">{brandName}</strong>. Todos os direitos reservados.
+        {/* Bottom area with copyright and legal disclaimer */}
+        <div className="mt-12 pt-6 border-t border-zinc-800/80">
+          <div className="flex flex-col sm:flex-row items-center justify-between text-xs text-zinc-500 gap-4 mb-4">
+            <div>
+              &copy; {new Date().getFullYear()} <strong className="text-zinc-300 font-semibold">{brandName}</strong>. Todos os direitos reservados.
+            </div>
+            <div className="flex items-center gap-4 text-[11px]">
+              <span>Desenvolvido para Comunidades Gamers</span>
+              <span>&bull;</span>
+              <span>MMORPG &bull; RPG</span>
+            </div>
           </div>
-          <div className="flex items-center gap-4 text-[11px]">
-            <span>Desenvolvido para Comunidades Gamers</span>
-            <span>&bull;</span>
-            <span>MMORPG &bull; RPG</span>
-          </div>
+
+          {/* Legal Disclaimer - Adicionado aqui para proteção de direitos autorais */}
+          <p className="text-center text-[10px] text-zinc-600 leading-relaxed max-w-3xl mx-auto opacity-60">
+            Este site é um projeto independente criado por um fã e não possui vínculo oficial, patrocínio ou afiliação com as empresas desenvolvedoras dos jogos mencionados. 
+            Todos os direitos de imagem, marcas e propriedades intelectuais dos jogos pertencem aos seus respectivos detentores.
+          </p>
         </div>
 
       </div>
