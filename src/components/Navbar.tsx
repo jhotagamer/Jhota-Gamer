@@ -10,17 +10,14 @@ import {
   Link as LinkIcon, 
   Mail, 
   Youtube, 
-  Sliders, 
   ChevronRight,
 } from 'lucide-react';
 
 interface NavbarProps {
-  onOpenCustomizer: () => void;
   brandName: string;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
-  onOpenCustomizer,
   brandName
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -59,7 +56,7 @@ export const Navbar: React.FC<NavbarProps> = ({
       {/* Top micro-bar for gamer notification */}
       <div className="bg-gradient-to-r from-amber-600/20 via-orange-600/20 to-cyan-600/20 border-b border-amber-500/20 px-4 py-1 text-center text-xs font-medium text-amber-300/90 flex items-center justify-center gap-2">
         <span className="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-        <span>Portal oficial do canal <strong className="text-amber-200">{brandName}</strong> • Novos guias de Albion Online e Lineage 2 adicionados!</span>
+        <span>Portal dedicado ao canal <strong className="text-amber-200">{brandName}</strong> • Novos guias de Albion Online e Lineage 2 adicionados!</span>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -116,14 +113,6 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           {/* Right Action buttons */}
           <div className="hidden lg:flex items-center gap-3">
-            <button
-              onClick={onOpenCustomizer}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-semibold bg-zinc-800/80 hover:bg-zinc-700 text-amber-300 border border-zinc-700/80 transition-colors cursor-pointer"
-            >
-              <Sliders className="w-3.5 h-3.5 text-amber-400" />
-              <span>Personalizar Conteúdo</span>
-            </button>
-
             <a
               href="https://www.youtube.com/@JhotaGamerOficial"
               target="_blank"
@@ -137,12 +126,6 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           {/* Mobile menu hamburger */}
           <div className="flex items-center gap-2 md:hidden">
-            <button
-              onClick={onOpenCustomizer}
-              className="p-2 rounded-md text-amber-400 bg-zinc-800/80 border border-zinc-700"
-            >
-              <Sliders className="w-4 h-4" />
-            </button>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="p-2 rounded-md text-zinc-300 hover:text-white hover:bg-zinc-800"
@@ -179,16 +162,6 @@ export const Navbar: React.FC<NavbarProps> = ({
           })}
 
           <div className="pt-3 border-t border-zinc-800/80 flex flex-col gap-2">
-            <button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                onOpenCustomizer();
-              }}
-              className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold bg-zinc-800 text-amber-300 border border-zinc-700"
-            >
-              <Sliders className="w-4 h-4 text-amber-400" />
-              <span>Personalizar Meu Conteúdo</span>
-            </button>
             <a
               href="https://www.youtube.com/@JhotaGamerOficial"
               target="_blank"
