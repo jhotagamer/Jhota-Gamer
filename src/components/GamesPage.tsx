@@ -6,7 +6,7 @@ import {
   Search, 
   ArrowRight, 
   Layers 
-} from 'lucide-//lucide-react';
+} from 'lucide-react';
 
 interface GamesPageProps {
   games: Game[];
@@ -44,7 +44,6 @@ export const GamesPage: React.FC<GamesPageProps> = ({
     <div className="py-12 bg-[#090b10] min-h-[80vh]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Page Title & Hero */}
         <div className="text-center max-w-3xl mx-auto mb-12">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-semibold uppercase tracking-wider mb-3">
             <Gamepad2 className="w-3.5 h-3.5" />
@@ -58,7 +57,6 @@ export const GamesPage: React.FC<GamesPageProps> = ({
           </p>
         </div>
 
-        {/* Search & Filter Bar */}
         <div className="mb-10 p-4 rounded-2xl bg-zinc-900/60 border border-zinc-800 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="relative w-full md:w-80">
             <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" />
@@ -105,7 +103,6 @@ export const GamesPage: React.FC<GamesPageProps> = ({
           </div>
         </div>
 
-        {/* Games Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {filteredGames.map((game) => {
             const isAmber = game.themeColor === 'amber';
@@ -128,8 +125,7 @@ export const GamesPage: React.FC<GamesPageProps> = ({
                 <div className="relative h-60 w-full overflow-hidden bg-zinc-950">
                   <img
                     src={game.bannerImage || game.coverImage}
-                    alt={// Corrected alt text
-                    game.name}
+                    alt={game.name}
                     className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
                     referrerPolicy="no-referrer"
                   />
