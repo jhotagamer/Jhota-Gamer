@@ -293,27 +293,6 @@ export const SocialMediaPage: React.FC<SocialMediaPageProps> = ({
               </span>
             )}
             
-            <button
-              type="button"
-              onClick={openMetricsModal}
-              className="px-3.5 py-1.5 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/40 hover:border-amber-500/70 text-xs font-semibold text-amber-300 flex items-center gap-1.5 transition-all cursor-pointer active:scale-95 shadow-sm"
-              title="Ajustar números reais de seguidores do Instagram e Facebook"
-            >
-              <Sliders className="w-3.5 h-3.5" />
-              <span>Sincronizar Manualmente</span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => handleSyncMetrics(true)}
-              disabled={isSyncing}
-              className="px-3.5 py-1.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 hover:border-zinc-500 text-xs font-semibold text-zinc-200 flex items-center gap-2 transition-all cursor-pointer disabled:opacity-60 active:scale-95 shadow-sm"
-              title="Consultar métricas em tempo real"
-            >
-              <RefreshCw className={`w-3.5 h-3.5 text-amber-400 ${isSyncing ? 'animate-spin' : ''}`} />
-              <span>{isSyncing ? 'Sincronizando...' : 'Sincronizar Agora'}</span>
-            </button>
-          </div>
         </div>
 
         {/* Highlighted VIP Area: YouTube Channel */}
@@ -378,15 +357,6 @@ export const SocialMediaPage: React.FC<SocialMediaPageProps> = ({
             </p>
           </div>
 
-          <button
-            type="button"
-            onClick={onOpenCustomizer}
-            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-xs font-semibold text-amber-400 border border-amber-500/30 hover:border-amber-500/60 transition-all cursor-pointer shadow active:scale-95"
-          >
-            <Sliders className="w-3.5 h-3.5" />
-            <span>Editar Meus Links</span>
-          </button>
-        </div>
 
         {/* Grid of Dynamic Social Media Button Cards - Click anywhere to open social link */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

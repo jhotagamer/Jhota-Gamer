@@ -43,15 +43,6 @@ export const BioSection: React.FC<BioSectionProps> = ({
           </div>
 
           {/* Notice & Quick Edit Trigger */}
-          <button
-            id="bio-edit-shortcut-btn"
-            onClick={onOpenCustomizer}
-            className="self-start md:self-auto flex items-center gap-2 px-3.5 py-2 rounded-lg bg-zinc-800/90 hover:bg-zinc-700 text-xs font-semibold text-amber-300 border border-amber-500/30 transition-all cursor-pointer shadow-sm"
-          >
-            <Edit3 className="w-3.5 h-3.5 text-amber-400" />
-            <span>Editar Minha Biografia & Foto</span>
-          </button>
-        </div>
 
         {/* Main Bio Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">

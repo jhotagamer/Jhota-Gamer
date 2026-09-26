@@ -248,14 +248,6 @@ export const GamesPage: React.FC<GamesPageProps> = ({
             </div>
           </div>
 
-          <button
-            onClick={onOpenCustomizer}
-            className="shrink-0 px-6 py-3 rounded-xl text-sm font-bold text-amber-300 bg-zinc-800 hover:bg-zinc-700 border border-amber-500/40 flex items-center gap-2 cursor-pointer"
-          >
-            <PlusCircle className="w-4 h-4 text-amber-400" />
-            <span>Gerenciar Biblioteca de Jogos</span>
-          </button>
-        </div>
 
       </div>
     </div>

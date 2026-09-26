@@ -150,13 +150,6 @@ export const RecentVideosSection: React.FC<RecentVideosSectionProps> = ({
               <span>{isSyncing ? 'Sincronizando...' : 'Sincronizar Canal'}</span>
             </button>
 
-            <button
-              onClick={() => setIsImportModalOpen(true)}
-              className="px-3.5 py-1.5 rounded-lg text-xs font-semibold text-amber-300 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 flex items-center gap-1.5 transition-colors cursor-pointer"
-            >
-              <Plus className="w-3.5 h-3.5" />
-              <span>Importar Vídeo</span>
-            </button>
 
             <a
               href={YOUTUBE_CHANNEL_URL}
@@ -311,21 +304,7 @@ export const RecentVideosSection: React.FC<RecentVideosSectionProps> = ({
           </div>
 
           <div className="flex items-center gap-3 shrink-0 flex-wrap">
-            <button
-              onClick={() => setIsImportModalOpen(true)}
-              className="px-4 py-2 rounded-lg text-xs font-semibold bg-zinc-800 hover:bg-zinc-700 text-amber-300 border border-zinc-700 cursor-pointer flex items-center gap-1.5"
-            >
-              <Plus className="w-3.5 h-3.5" />
-              <span>Adicionar Vídeo do Canal</span>
-            </button>
-            {onOpenCustomizer && (
-              <button
-                onClick={onOpenCustomizer}
-                className="px-4 py-2 rounded-lg text-xs font-semibold bg-zinc-800 hover:bg-zinc-700 text-zinc-300 border border-zinc-700 cursor-pointer"
-              >
-                Gerenciar Conteúdo
-              </button>
-            )}
+
             <a
               href={YOUTUBE_CHANNEL_URL}
               target="_blank"

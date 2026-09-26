@@ -297,19 +297,7 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({
                 aria-label="Upload banner"
               />
 
-              {/* Quick Action Button: Trocar ou Recarregar Banner */}
-              <div className="absolute bottom-2 sm:bottom-3 right-2 sm:right-3 z-20 flex items-center gap-2">
-                <button
-                  type="button"
-                  onClick={() => fileInputRef.current?.click()}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-black/75 hover:bg-amber-500/90 text-zinc-200 hover:text-black border border-amber-500/30 hover:border-amber-400 text-xs font-semibold backdrop-blur-md transition-all shadow-lg cursor-pointer group"
-                  title="Alterar imagem do banner ou carregar novo arquivo"
-                >
-                  <Upload className="w-3.5 h-3.5 text-amber-400 group-hover:text-black transition-colors" />
-                  <span className="hidden sm:inline">Trocar Banner</span>
-                  <span className="sm:hidden">Banner</span>
-                </button>
-              </div>
+
             </div>
           </div>
         </div>

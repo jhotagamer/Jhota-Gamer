@@ -149,14 +149,6 @@ export const UsefulLinksPage: React.FC<UsefulLinksPageProps> = ({
                 <option value="Lineage 2 Exilium World">Lineage 2 Exilium World</option>
               </select>
 
-              <button
-                onClick={onOpenCustomizer}
-                className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold bg-amber-500/10 text-amber-300 border border-amber-500/40 hover:bg-amber-500/20 transition-colors cursor-pointer"
-              >
-                <PlusCircle className="w-3.5 h-3.5" />
-                <span>Adicionar / Editar Links</span>
-              </button>
-            </div>
           </div>
 
           {/* Category Tabs */}
