@@ -4,27 +4,18 @@ import { Game } from '../types';
 import { 
   Gamepad2, 
   Search, 
-  BookOpen, 
-  Swords, 
-  Video, 
   ArrowRight, 
-  Filter, 
-  PlusCircle, 
-  Sparkles, 
-  Shield, 
   Layers 
-} from 'lucide-react';
+} from 'lucide-//lucide-react';
 
 interface GamesPageProps {
   games: Game[];
   onSelectGame?: (gameId: string) => void;
-  onOpenCustomizer: () => void;
 }
 
 export const GamesPage: React.FC<GamesPageProps> = ({
   games,
   onSelectGame,
-  onOpenCustomizer
 }) => {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
@@ -69,8 +60,6 @@ export const GamesPage: React.FC<GamesPageProps> = ({
 
         {/* Search & Filter Bar */}
         <div className="mb-10 p-4 rounded-2xl bg-zinc-900/60 border border-zinc-800 flex flex-col md:flex-row items-center justify-between gap-4">
-          
-          {/* Search Field */}
           <div className="relative w-full md:w-80">
             <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" />
             <input
@@ -82,7 +71,6 @@ export const GamesPage: React.FC<GamesPageProps> = ({
             />
           </div>
 
-          {/* Genre Filters */}
           <div className="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-1 md:pb-0">
             <button
               onClick={() => setSelectedGenre('todos')}
@@ -137,31 +125,26 @@ export const GamesPage: React.FC<GamesPageProps> = ({
                 onClick={() => handleGameClick(game.id)}
                 className={`group flex flex-col rounded-2xl bg-zinc-900/80 border border-zinc-800 transition-all duration-300 hover:-translate-y-1.5 overflow-hidden shadow-xl cursor-pointer ${borderGlow}`}
               >
-                {/* Image Header */}
                 <div className="relative h-60 w-full overflow-hidden bg-zinc-950">
                   <img
                     src={game.bannerImage || game.coverImage}
-                    alt={game.name}
+                    alt={// Corrected alt text
+                    game.name}
                     className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
                     referrerPolicy="no-referrer"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 via-zinc-900/40 to-transparent" />
-
-                  {/* Top status */}
                   <div className="absolute top-3 left-3">
                     <span className="text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-md bg-black/80 backdrop-blur-md border border-zinc-700 text-amber-300">
                       {game.badge}
                     </span>
                   </div>
-
                   <div className="absolute top-3 right-3">
                     <span className="text-[11px] font-semibold px-2.5 py-1 rounded-md bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 flex items-center gap-1.5">
                       <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                       <span>{game.status}</span>
                     </span>
                   </div>
-
-                  {/* Title & Genre */}
                   <div className="absolute bottom-4 left-4 right-4">
                     <span className="text-xs font-mono font-bold text-amber-400">
                       {game.genre}
@@ -172,7 +155,6 @@ export const GamesPage: React.FC<GamesPageProps> = ({
                   </div>
                 </div>
 
-                {/* Body Content */}
                 <div className="p-6 flex-1 flex flex-col justify-between space-y-6">
                   <div>
                     <p className="text-xs text-zinc-300 font-medium italic mb-3">
@@ -181,8 +163,6 @@ export const GamesPage: React.FC<GamesPageProps> = ({
                     <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed mb-6">
                       {game.description}
                     </p>
-
-                    {/* Features list */}
                     <div className="space-y-2 mb-6">
                       <div className="text-xs font-bold text-zinc-300 uppercase tracking-wider mb-2">
                         Principais Destaques:
@@ -194,8 +174,6 @@ export const GamesPage: React.FC<GamesPageProps> = ({
                         </div>
                       ))}
                     </div>
-
-                    {/* Content metrics */}
                     <div className={`grid ${game.id === 'lineage-2' ? 'grid-cols-2' : 'grid-cols-3'} gap-2 p-3 rounded-xl bg-zinc-950/60 border border-zinc-800 text-center`}>
                       <div>
                         <div className="text-xs font-bold text-amber-400">{game.guidesCount}</div>
@@ -214,7 +192,6 @@ export const GamesPage: React.FC<GamesPageProps> = ({
                     </div>
                   </div>
 
-                  {/* Open Game Button */}
                   <button
                     id={`btn-view-game-content-${game.id}`}
                     onClick={(e) => {
@@ -232,7 +209,6 @@ export const GamesPage: React.FC<GamesPageProps> = ({
           })}
         </div>
 
-        {/* Community Suggestion / Add New Game Box */}
         <div className="mt-14 p-8 rounded-2xl bg-zinc-900/40 border border-zinc-800/80 flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-4 text-center md:text-left">
             <div className="w-14 h-14 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 shrink-0">
@@ -247,7 +223,7 @@ export const GamesPage: React.FC<GamesPageProps> = ({
               </p>
             </div>
           </div>
-
+        </div>
 
       </div>
     </div>
