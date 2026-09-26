@@ -155,7 +155,7 @@ export const FeaturedGamesSection: React.FC<FeaturedGamesSectionProps> = ({
                       {game.id !== 'lineage-2' && (
                         <div className="flex flex-col items-center">
                           <Swords className="w-3.5 h-3.5 text-rose-400 mb-1" />
-                          <span className="text-xs font-bold text-zinc-200">{game.buildsCount}</span>
+                          <span className="text-xs font-bold text-zinc-200">{game.id === 'albion-online' ? 'Explorar' : game.buildsCount}</span>
                           <span className="text-[10px] text-zinc-500">Builds</span>
                         </div>
                       )}
@@ -163,7 +163,7 @@ export const FeaturedGamesSection: React.FC<FeaturedGamesSectionProps> = ({
                       <div className="flex flex-col items-center">
                         <Video className="w-3.5 h-3.5 text-cyan-400 mb-1" />
                         <span className="text-xs font-bold text-zinc-200">{game.videosCount}</span>
-                        <span className="text-[10px] text-zinc-500">Vídeos</span>
+                        <span className="text-[10px] text-zinc-500">Vídeos no site</span>
                       </div>
                     </div>
                   </div>

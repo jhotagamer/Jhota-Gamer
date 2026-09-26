@@ -18,6 +18,7 @@ import {
 } from './data/initialData';
 import { syncSocialMetrics } from './utils/socialSync';
 import { syncYoutubeVideos } from './utils/youtubeSync';
+import { getGamesWithContentCounts } from './utils/contentCounts';
 
 import { Navbar } from './components/Navbar';
 import { HeroBanner } from './components/HeroBanner';
@@ -186,6 +187,9 @@ export default function App() {
     return initialVideos;
   });
 
+  const [videosLoading, setVideosLoading] = useState(true);
+  const countedGames = getGamesWithContentCounts(games, guides, builds, videos);
+
   // --- AUTO-SINCRONIZAÇÃO GERAL (YOUTUBE & REDES SOCIAIS) ---
   useEffect(() => {
     // 1. Sincronizar dados ao vivo de redes sociais (Discord membros online, YouTube, Instagram, Facebook)
@@ -221,7 +225,7 @@ export default function App() {
       }
     }).catch(() => {
       // fallback
-    });
+    }).finally(() => setVideosLoading(false));
   }, []);
 
   // --- ESTADOS DE MODAIS ---
@@ -301,7 +305,7 @@ export default function App() {
     <BioSection bio={bio} /> 
 
     <FeaturedGamesSection
-      games={games}
+      games={countedGames}
     />
     <RecentVideosSection
       videos={videos}
@@ -315,14 +319,14 @@ export default function App() {
             {/* PÁGINA DE LISTA DE JOGOS */}
             <Route path="/jogos" element={
               <GamesPage 
-                games={games} 
+                games={countedGames}
               />
             } />
 
             {/* PÁGINA DE DETALHES DO JOGO (URL DINÂMICA: /jogo/albion-online) */}
             <Route path="/jogo/:gameId" element={
               <GameDetailPageWrapper 
-                games={games} 
+                games={countedGames}
                 guides={guides} 
                 builds={builds} 
                 news={news} 
@@ -333,7 +337,7 @@ export default function App() {
               />
             } />
             <Route path="/jogo/:gameId/guia/:guideId" element={<GuidePage />} />
-            <Route path="/jogo/:gameId/video/:videoId" element={<VideoPage />} />
+            <Route path="/jogo/:gameId/video/:videoId" element={<VideoPage videos={videos} loading={videosLoading} />} />
             {/* Redirecionamento de rotas legadas do marketplace */}
             <Route path="/marketplace-l2" element={<Navigate to="/jogo/lineage-2" replace />} />
             <Route path="/l2-rules" element={<Navigate to="/jogo/lineage-2" replace />} />

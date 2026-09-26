@@ -52,7 +52,7 @@ export const GameDetailPage: React.FC<GameDetailPageProps> = ({
   const tabs = [
     { id: 'guias' as const, label: 'Guias & Tutoriais', count: gameGuides.length, icon: BookOpen },
     ...(!isLineage
-      ? [{ id: 'builds' as const, label: 'Builds & Meta', count: gameBuilds.length, icon: Swords }]
+      ? [{ id: 'builds' as const, label: 'Builds & Meta', count: isAlbion ? 0 : gameBuilds.length, icon: Swords }]
       : []),
     { id: 'videos' as const, label: 'Vídeos do Canal', count: gameVideos.length, icon: Video },
     { id: 'noticias' as const, label: 'Notícias & Patches', count: gameNews.length, icon: Newspaper },

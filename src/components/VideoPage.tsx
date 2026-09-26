@@ -13,18 +13,19 @@ import {
   Check
 } from 'lucide-react';
 import { VideoItem } from '../types';
-import { initialVideos } from '../data/initialData';
 
-export const VideoPage: React.FC = () => {
+interface VideoPageProps {
+  videos: VideoItem[];
+  loading?: boolean;
+}
+
+export const VideoPage: React.FC<VideoPageProps> = ({ videos, loading = false }) => {
   const { gameId, videoId } = useParams();
   const navigate = useNavigate();
-  const [video, setVideo] = useState<VideoItem | null>(null);
+  const video = videos.find(v => v.id === videoId && v.gameId === gameId);
   const [copiedLink, setCopiedLink] = useState(false);
 
   useEffect(() => {
-    // Busca o vídeo baseado no ID da URL
-    const foundVideo = initialVideos.find(v => v.id === videoId);
-    setVideo(foundVideo || null);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [videoId]);
 
@@ -35,6 +36,10 @@ export const VideoPage: React.FC = () => {
       setTimeout(() => setCopiedLink(false), 2000);
     }
   };
+
+  if (!video && loading) {
+    return <div className="min-h-[50vh] flex items-center justify-center text-zinc-300" role="status">Carregando vídeos do canal...</div>;
+  }
 
   if (!video) {
     return (
@@ -174,7 +179,7 @@ export const VideoPage: React.FC = () => {
                 Vídeos Relacionados
               </h3>
               <div className="space-y-4">
-                {initialVideos.filter(v => v.gameId === currentGameId && v.id !== video.id).slice(0, 4).map(relVideo => (
+                {videos.filter(v => v.gameId === currentGameId && v.id !== video.id).slice(0, 4).map(relVideo => (
                   <div 
                     key={relVideo.id} 
                     onClick={() => navigate(`/jogo/${currentGameId}/video/${relVideo.id}`)}

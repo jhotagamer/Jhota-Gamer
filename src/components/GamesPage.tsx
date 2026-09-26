@@ -177,13 +177,13 @@ export const GamesPage: React.FC<GamesPageProps> = ({
                       </div>
                       {game.id !== 'lineage-2' && (
                         <div>
-                          <div className="text-xs font-bold text-rose-400">{game.buildsCount}</div>
+                          <div className="text-xs font-bold text-rose-400">{game.id === 'albion-online' ? 'Explorar' : game.buildsCount}</div>
                           <div className="text-[10px] text-zinc-500 uppercase">Builds</div>
                         </div>
                       )}
                       <div>
                         <div className="text-xs font-bold text-cyan-400">{game.videosCount}</div>
-                        <div className="text-[10px] text-zinc-500 uppercase">Vídeos</div>
+                        <div className="text-[10px] text-zinc-500 uppercase">Vídeos no site</div>
                       </div>
                     </div>
                   </div>
