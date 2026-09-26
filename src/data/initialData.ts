@@ -1,3 +1,5 @@
+import albionArtwork from '../assets/images/albion-jhota.png';
+import lineageArtwork from '../assets/images/lineage-jhota.png';
 import { BioData, Game, Guide, Build, NewsItem, VideoItem, SocialMedia, UsefulLink } from '../types';
 
 export const OFFICIAL_BANNER_URL = "https://i.postimg.cc/L4W075s2/banner-limpo.png";
@@ -51,8 +53,8 @@ export const initialGames: Game[] = [
     description: "Um clássico MMORPG medieval sem classes fixas onde a economia, as guerras de guildas na Zona Negra (Black Zone) e o PvP full-loot ditam o destino de cada império. Aqui no canal Jhota Gamer você aprende desde a economia básica e refino até as composições de ZvZ mais letais.",
     badge: "Builds & Dicas",
     themeColor: "amber",
-    coverImage: "https://i.postimg.cc/ZR4x7N00/albion-online.jpg",
-    bannerImage: "https://i.postimg.cc/ZR4x7N00/albion-online.jpg",
+    coverImage: albionArtwork,
+    bannerImage: albionArtwork,
     status: "Em Destaque",
     stats: [
       { label: "Servidor Principal", value: "Albion Americas / Europa" },
@@ -79,8 +81,8 @@ export const initialGames: Game[] = [
     description: "Um dos MMORPGs mais emblemáticos de todos os tempos. Batalhas ferozes pelas Grand Olympiads, caça a World Bosses como Antharas, Valakas e Baium, além dos lendários Castle Sieges que paravam servidores inteiros. Trazemos análises de servidores privados, oficiais e guias de evolução rápida.",
     badge: "Nostalgia & Épico",
     themeColor: "rose",
-    coverImage: "https://i.postimg.cc/Mp63Thzt/lineage-2.png",
-    bannerImage: "https://i.postimg.cc/Mp63Thzt/lineage-2.png",
+    coverImage: lineageArtwork,
+    bannerImage: lineageArtwork,
     status: "Série Regular",
     stats: [
       { label: "Crônicas Focadas", value: "C4, Interlude & Classic" },

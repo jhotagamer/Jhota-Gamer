@@ -94,7 +94,8 @@ export const GameDetailPage: React.FC<GameDetailPageProps> = ({
       <div className="relative h-72 sm:h-96 w-full overflow-hidden bg-zinc-950 border-b border-zinc-800">
         <img 
           src={game.bannerImage || game.coverImage} 
-          alt={game.name} 
+          alt={game.name}
+                    style={{ objectPosition: game.id === 'lineage-2' ? '45% 20%' : '45% 40%' }}
           className="w-full h-full object-cover object-center" 
           referrerPolicy="no-referrer"
         />

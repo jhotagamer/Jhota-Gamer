@@ -105,6 +105,7 @@ export const FeaturedGamesSection: React.FC<FeaturedGamesSectionProps> = ({
                   <img
                     src={game.coverImage}
                     alt={game.name}
+                    style={{ objectPosition: game.id === 'lineage-2' ? '45% 20%' : '45% 40%' }}
                     className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
                     referrerPolicy="no-referrer"
                   />

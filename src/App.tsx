@@ -65,7 +65,10 @@ export default function App() {
     if (saved) {
       try {
         const parsed: Game[] = JSON.parse(saved);
-        return parsed.filter((g) => g.id !== 'league-of-legends');
+        return parsed.filter((g) => g.id !== 'league-of-legends').map((g) => {
+          const current = initialGames.find((item) => item.id === g.id);
+          return current ? { ...g, coverImage: current.coverImage, bannerImage: current.bannerImage } : g;
+        });
       } catch { return initialGames; }
     }
     return initialGames;
