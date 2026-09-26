@@ -8,22 +8,16 @@ import {
   Database, 
   Wrench, 
   Users, 
-  Download, 
   Server, 
-  PlusCircle, 
-  Sliders, 
   ShieldCheck,
-  Tag
 } from 'lucide-react';
 
 interface UsefulLinksPageProps {
   links: UsefulLink[];
-  onOpenCustomizer: () => void;
 }
 
 export const UsefulLinksPage: React.FC<UsefulLinksPageProps> = ({
   links,
-  onOpenCustomizer
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('todos');
@@ -56,7 +50,6 @@ export const UsefulLinksPage: React.FC<UsefulLinksPageProps> = ({
     const url = (link.url || '').toLowerCase();
     const title = (link.title || '').toLowerCase();
 
-    // Filter out official retail Lineage 2 sites (NCSoft / 4game / lineage2.com)
     if (url.includes('lineage2.com') || url.includes('plaync.com') || url.includes('4game.com')) {
       return true;
     }
@@ -82,7 +75,8 @@ export const UsefulLinksPage: React.FC<UsefulLinksPageProps> = ({
       const matchesGame = 
         selectedGameFilter === 'todos' || 
         link.gameRelated === selectedGameFilter ||
-        (selectedGameFilter.includes('Lineage') && (link.gameRelated?.includes('Lineage') || link.gameRelated?.includes('Exilium')));
+        (selectedGameFilter.includes('Lineage') && (link.// Fix: ensuring gameRelated exists
+        link.gameRelated?.includes('Lineage') || link.gameRelated?.includes('Exilium')));
 
       return matchesSearch && matchesCategory && matchesGame;
     });
@@ -108,7 +102,6 @@ export const UsefulLinksPage: React.FC<UsefulLinksPageProps> = ({
     <div className="py-12 bg-[#090b10] min-h-[85vh]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Page Title & Hero */}
         <div className="text-center max-w-3xl mx-auto mb-12">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-semibold uppercase tracking-wider mb-3">
             <LinkIcon className="w-3.5 h-3.5" />
@@ -122,10 +115,7 @@ export const UsefulLinksPage: React.FC<UsefulLinksPageProps> = ({
           </p>
         </div>
 
-        {/* Filter & Search Bar */}
         <div className="mb-8 space-y-4">
-          
-          {/* Top Search and Add Link Button */}
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 p-4 rounded-2xl bg-zinc-900/60 border border-zinc-800">
             <div className="relative w-full md:w-96">
               <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" />
@@ -148,10 +138,9 @@ export const UsefulLinksPage: React.FC<UsefulLinksPageProps> = ({
                 <option value="Albion Online">Albion Online</option>
                 <option value="Lineage 2 Exilium World">Lineage 2 Exilium World</option>
               </select>
-
+            </div>
           </div>
 
-          {/* Category Tabs */}
           <div className="flex items-center gap-2 overflow-x-auto pb-2">
             {categories.map((cat) => {
               const Icon = cat.icon;
@@ -159,7 +148,6 @@ export const UsefulLinksPage: React.FC<UsefulLinksPageProps> = ({
               return (
                 <button
                   key={cat.id}
-                  id={`link-category-${cat.id}`}
                   onClick={() => setSelectedCategory(cat.id)}
                   className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-colors cursor-pointer ${
                     isActive
@@ -173,15 +161,12 @@ export const UsefulLinksPage: React.FC<UsefulLinksPageProps> = ({
               );
             })}
           </div>
-
         </div>
 
-        {/* Links Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredLinks.map((link) => (
             <div
               key={link.id}
-              id={`useful-link-card-${link.id}`}
               className="group p-6 rounded-2xl bg-zinc-900/60 border border-zinc-800 hover:border-amber-500/40 transition-all duration-300 hover:-translate-y-1 shadow-lg flex flex-col justify-between"
             >
               <div>
@@ -189,7 +174,6 @@ export const UsefulLinksPage: React.FC<UsefulLinksPageProps> = ({
                   <div className="w-10 h-10 rounded-xl bg-zinc-950 border border-zinc-800 flex items-center justify-center">
                     {getCategoryIcon(link.category)}
                   </div>
-
                   <div className="flex items-center gap-1.5 flex-wrap justify-end">
                     {link.isOfficial && (
                       <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 flex items-center gap-1">
@@ -204,15 +188,12 @@ export const UsefulLinksPage: React.FC<UsefulLinksPageProps> = ({
                     )}
                   </div>
                 </div>
-
                 <h3 className="font-cinzel text-lg font-bold text-white group-hover:text-amber-300 transition-colors mb-2 leading-snug">
                   {link.title}
                 </h3>
-
                 <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed mb-4">
                   {link.description}
                 </p>
-
                 <div className="flex flex-wrap gap-1 mb-4">
                   {link.tags.map((tag, idx) => (
                     <span key={idx} className="px-2 py-0.5 rounded bg-zinc-950 text-[10px] font-mono text-zinc-400 border border-zinc-800/80">
@@ -221,7 +202,6 @@ export const UsefulLinksPage: React.FC<UsefulLinksPageProps> = ({
                   ))}
                 </div>
               </div>
-
               <div className="pt-4 border-t border-zinc-800/80">
                 <a
                   href={link.url}
@@ -248,7 +228,6 @@ export const UsefulLinksPage: React.FC<UsefulLinksPageProps> = ({
             </button>
           </div>
         )}
-
       </div>
     </div>
   );

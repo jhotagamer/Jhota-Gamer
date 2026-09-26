@@ -281,34 +281,39 @@ export default function App() {
         <main className="flex-1">
           <Routes>
             {/* PÁGINA INICIAL (HOME) */}
-            <Route path="/" element={
-              <>
-                <HeroBanner
-                  brandName={bio.brandName}
-                  tagline={bio.tagline}
-                  subTagline={bio.subTagline}
-                  bannerUrl={bio.bannerUrl}
-                  onUpdateBannerUrl={(newUrl) => handleUpdateBio({ ...bio, bannerUrl: newUrl })}
-                  onLearnMoreBio={() => {
-                    const el = document.getElementById('secao-biografia');
-                    el?.scrollIntoView({ behavior: 'smooth' });
-                  }}
-                />
-                <WhatYouFindSection />
-                <FeaturedGamesSection
-                  games={games}
-                />
-                <RecentVideosSection
-                  videos={videos}
-                  onPlayVideo={(v) => setPlayingVideo(v)}
-                  onUpdateVideos={handleUpdateVideos}
-                />
-                <RecentNewsSection
-                  news={news}
-                  onSelectNews={(item) => setReadingNews(item)}
-                />
-              </>
-            } />
+<Route path="/" element={
+  <>
+    <HeroBanner
+      brandName={bio.brandName}
+      tagline={bio.tagline}
+      subTagline={bio.subTagline}
+      bannerUrl={bio.bannerUrl}
+      onUpdateBannerUrl={(newUrl) => handleUpdateBio({ ...bio, bannerUrl: newUrl })}
+      onLearnMoreBio={() => {
+        const el = document.getElementById('secao-biografia');
+        el?.scrollIntoView({ behavior: 'smooth' });
+      }}
+    />
+    <WhatYouFindSection />
+    
+    {/* ADICIONE ESTA LINHA ABAIXO PARA A BIO VOLTAR */}
+    <BioSection bio={bio} /> 
+
+    <FeaturedGamesSection
+      games={games}
+    />
+    <RecentVideosSection
+      videos={videos}
+      onPlayVideo={(v) => setPlayingVideo(v)}
+      onUpdateVideos={handleUpdateVideos}
+    />
+    <RecentNewsSection
+      news={news}
+      onSelectNews={(item) => setReadingNews(item)}
+    />
+  </>
+} />
+
 
             {/* PÁGINA DE LISTA DE JOGOS */}
             <Route path="/jogos" element={

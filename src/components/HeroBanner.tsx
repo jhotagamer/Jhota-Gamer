@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
-import { Gamepad2, UserCheck, Sparkles, ChevronDown, Upload, Image as ImageIcon } from 'lucide-react';
+import { Gamepad2, UserCheck, Sparkles } from 'lucide-//lucide-react'; // Limpamos os ícones não usados
 import { motion } from 'motion/react';
 import { OFFICIAL_BANNER_URL } from '../data/initialData';
 
@@ -8,11 +8,9 @@ interface HeroBannerProps {
   tagline?: string;
   subTagline?: string;
   bannerUrl?: string;
-  onUpdateBannerUrl?: (newUrl: string) => void;
   onExploreGames?: () => void;
   onLearnMoreBio?: () => void;
   onNavigate?: (page: 'home' | 'jogos' | 'redes' | 'links' | 'sobre') => void;
-  onOpenCustomizer?: () => void;
 }
 
 export const HeroBanner: React.FC<HeroBannerProps> = ({
@@ -20,14 +18,11 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({
   tagline = "Seu universo gamer começa aqui!",
   subTagline = "MMORPG • RPG • Sandbox • Guias • Builds • Notícias e Estratégias",
   bannerUrl,
-  onUpdateBannerUrl,
   onExploreGames,
   onLearnMoreBio,
   onNavigate,
-  onOpenCustomizer
 }) => {
   const [imgError, setImgError] = useState(false);
-  const fileInputRef = useRef<HTMLInputElement>(null);
   const bannerContainerRef = useRef<HTMLDivElement>(null);
 
   // Mouse spotlight tracking for dynamic interactive lighting
@@ -60,29 +55,6 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({
     setMousePos((prev) => ({ ...prev, isHovering: false }));
   };
 
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const dataUrl = event.target?.result as string;
-      if (dataUrl) {
-        setActiveBanner(dataUrl);
-        setImgError(false);
-        try {
-          localStorage.setItem('jhota_banner_url', dataUrl);
-        } catch {
-          // localStorage quota exception handling
-        }
-        if (onUpdateBannerUrl) {
-          onUpdateBannerUrl(dataUrl);
-        }
-      }
-    };
-    reader.readAsDataURL(file);
-  };
-
   // Particles generator for subtle embers and frost sparkles
   const fireEmbers = useMemo(() => [
     { id: 1, left: '8%', delay: 0, duration: 4.2, size: 4 },
@@ -103,7 +75,6 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({
       id="hero-banner-section" 
       className="relative w-full bg-[#06080d] overflow-hidden border-b border-zinc-800/60"
     >
-      {/* Subtle Ambient Atmosphere Glow in Background */}
       <div 
         className="absolute top-0 left-1/4 -translate-x-1/2 w-[550px] h-[380px] bg-amber-500/15 rounded-full blur-[120px] pointer-events-none" 
         aria-hidden="true" 
@@ -113,28 +84,21 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({
         aria-hidden="true" 
       />
 
-      {/* Hero Banner Container - Responsive & Full-Width */}
       <div className="w-full max-w-[1920px] mx-auto px-0 sm:px-2 md:px-4 pt-2 sm:pt-4 pb-4 sm:pb-6 relative z-10">
-        
-        {/* Banner Frame */}
         <div className="relative w-full overflow-hidden">
-          {/* Subtle Outer Edge Glow (Gold/Amber on Left, Cyan/Blue on Right) */}
           <div 
             className="absolute -inset-1 sm:-inset-2 rounded-2xl bg-gradient-to-r from-amber-500/25 via-amber-400/10 to-sky-500/25 blur-xl pointer-events-none -z-10" 
             aria-hidden="true" 
           />
 
-          {/* Banner Box with dynamic interaction */}
           <div
             ref={bannerContainerRef}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
             className="group relative w-full overflow-hidden bg-[#06080d] sm:rounded-xl md:rounded-2xl border-y sm:border border-amber-500/25 hover:border-amber-400/40 transition-colors duration-500 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.9)] select-none"
           >
-            {/* Aspect Ratio Box - Preserves exact 1279:476 proportion of the clean banner */}
             <div className="relative w-full aspect-[1279/476] min-h-[200px] sm:min-h-[280px] md:min-h-[380px] lg:min-h-[460px] xl:min-h-[540px] max-h-[85vh] overflow-hidden flex items-center justify-center">
               
-              {/* ORIGINAL BANNER IMAGE - 100% Faithful & Unaltered */}
               {!imgError ? (
                 <img
                   id="official-jhota-banner-img"
@@ -162,13 +126,10 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({
                 </div>
               )}
 
-              {/* DYNAMIC MODERN EFFECT LAYER 1: Cinematic Sheen Wave (Luminous Specular Sweep) */}
               <div className="absolute inset-0 pointer-events-none overflow-hidden mix-blend-screen opacity-75">
                 <motion.div
                   className="w-[50%] h-[200%] absolute top-[-50%] bg-gradient-to-r from-transparent via-amber-100/15 to-transparent skew-x-[-25deg]"
-                  animate={{
-                    x: ['-150%', '350%'],
-                  }}
+                  animate={{ x: ['-150%', '350%'] }}
                   transition={{
                     repeat: Infinity,
                     duration: 6,
@@ -178,94 +139,50 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({
                 />
               </div>
 
-              {/* DYNAMIC MODERN EFFECT LAYER 2: Left Realm Warm Pulsing Embers Aura */}
-              <div 
-                className="absolute inset-y-0 left-0 w-1/3 pointer-events-none overflow-hidden mix-blend-screen"
-                aria-hidden="true"
-              >
+              <div className="absolute inset-y-0 left-0 w-1/3 pointer-events-none overflow-hidden mix-blend-screen" aria-hidden="true">
                 <motion.div
                   className="w-full h-full bg-gradient-to-r from-orange-600/15 via-amber-500/10 to-transparent"
-                  animate={{
-                    opacity: [0.4, 0.8, 0.4],
-                  }}
-                  transition={{
-                    repeat: Infinity,
-                    duration: 4,
-                    ease: 'easeInOut',
-                  }}
+                  animate={{ opacity: [0.4, 0.8, 0.4] }}
+                  transition={{ repeat: Infinity, duration: 4, ease: 'easeInOut' }}
                 />
-                {/* Floating fire micro-particles */}
                 {fireEmbers.map((ember) => (
                   <motion.span
                     key={ember.id}
                     className="absolute rounded-full bg-gradient-to-t from-orange-500 to-amber-300 blur-[0.5px] shadow-[0_0_8px_rgba(245,158,11,0.8)]"
-                    style={{
-                      left: ember.left,
-                      width: `${ember.size}px`,
-                      height: `${ember.size}px`,
-                      bottom: '-10px',
-                    }}
+                    style={{ left: ember.left, width: `${ember.size}px`, height: `${ember.size}px`, bottom: '-10px' }}
                     animate={{
                       y: ['0px', '-260px'],
                       x: ['0px', '15px', '-10px', '5px'],
                       opacity: [0, 0.8, 0.8, 0],
                       scale: [0.8, 1.2, 0.9, 0.4],
                     }}
-                    transition={{
-                      repeat: Infinity,
-                      duration: ember.duration,
-                      delay: ember.delay,
-                      ease: 'easeInOut',
-                    }}
+                    transition={{ repeat: Infinity, duration: ember.duration, delay: ember.delay, ease: 'easeInOut' }}
                   />
                 ))}
               </div>
 
-              {/* DYNAMIC MODERN EFFECT LAYER 3: Right Realm Frost Shimmer Aura */}
-              <div 
-                className="absolute inset-y-0 right-0 w-1/3 pointer-events-none overflow-hidden mix-blend-screen"
-                aria-hidden="true"
-              >
+              <div className="absolute inset-y-0 right-0 w-1/3 pointer-events-none overflow-hidden mix-blend-screen" aria-hidden="true">
                 <motion.div
                   className="w-full h-full bg-gradient-to-l from-sky-500/15 via-cyan-400/10 to-transparent"
-                  animate={{
-                    opacity: [0.4, 0.8, 0.4],
-                  }}
-                  transition={{
-                    repeat: Infinity,
-                    duration: 4.5,
-                    delay: 1.5,
-                    ease: 'easeInOut',
-                  }}
+                  animate={{ opacity: [0.4, 0.8, 0.4] }}
+                  transition={{ repeat: Infinity, duration: 4.5, delay: 1.5, ease: 'easeInOut' }}
                 />
-                {/* Floating frost micro-sparkles */}
                 {iceSparkles.map((sparkle) => (
                   <motion.span
                     key={sparkle.id}
                     className="absolute rounded-full bg-gradient-to-t from-sky-400 to-cyan-100 blur-[0.5px] shadow-[0_0_8px_rgba(56,189,248,0.8)]"
-                    style={{
-                      right: sparkle.right,
-                      width: `${sparkle.size}px`,
-                      height: `${sparkle.size}px`,
-                      bottom: '-10px',
-                    }}
+                    style={{ right: sparkle.right, width: `${sparkle.size}px`, height: `${sparkle.size}px`, bottom: '-10px' }}
                     animate={{
                       y: ['0px', '-240px'],
                       x: ['0px', '-12px', '8px', '-4px'],
                       opacity: [0, 0.8, 0.8, 0],
                       scale: [0.8, 1.2, 0.9, 0.4],
                     }}
-                    transition={{
-                      repeat: Infinity,
-                      duration: sparkle.duration,
-                      delay: sparkle.delay,
-                      ease: 'easeInOut',
-                    }}
+                    transition={{ repeat: Infinity, duration: sparkle.duration, delay: sparkle.delay, ease: 'easeInOut' }}
                   />
                 ))}
               </div>
 
-              {/* DYNAMIC MODERN EFFECT LAYER 4: Interactive Dynamic Mouse Spotlight Tracker */}
               <div
                 className="absolute inset-0 pointer-events-none transition-opacity duration-500 mix-blend-screen"
                 style={{
@@ -281,58 +198,36 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({
                 aria-hidden="true"
               />
 
-              {/* Ultra-subtle vignette to seamlessly ground edges into the dark background */}
-              <div 
-                className="absolute inset-0 pointer-events-none shadow-[inset_0_0_40px_rgba(0,0,0,0.45)] sm:rounded-xl md:rounded-2xl" 
-                aria-hidden="true" 
-              />
-
-              {/* Hidden file input to upload any custom banner if desired */}
-              <input 
-                type="file" 
-                ref={fileInputRef} 
-                onChange={handleFileUpload} 
-                accept="image/*" 
-                className="hidden" 
-                aria-label="Upload banner"
-              />
-
-
+              <div className="absolute inset-0 pointer-events-none shadow-[inset_0_0_40px_rgba(0,0,0,0.45)] sm:rounded-xl md:rounded-2xl" aria-hidden="true" />
             </div>
           </div>
         </div>
 
-        {/* Brand Information & Site Exploration Underneath the Banner */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.25, ease: 'easeOut' }}
           className="mt-6 sm:mt-8 text-center max-w-4xl mx-auto px-4"
         >
-          {/* Subtle Tag badge */}
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-semibold mb-3 tracking-wide uppercase shadow-[0_0_12px_rgba(245,158,11,0.15)]">
             <Sparkles className="w-3.5 h-3.5 text-amber-400" />
             <span>Albion Online &bull; Lineage 2 &bull; MMORPGs & Sandbox</span>
           </div>
 
-          {/* Impact Title */}
           <h1 className="font-cinzel text-2xl sm:text-4xl lg:text-5xl font-black tracking-wide text-white mb-2 drop-shadow-md">
             <span className="bg-gradient-to-r from-amber-200 via-amber-400 to-orange-500 bg-clip-text text-transparent">
               {brandName}
             </span>
           </h1>
 
-          {/* Tagline */}
           <p className="text-base sm:text-xl lg:text-2xl font-rajdhani font-bold text-zinc-200 mb-2 tracking-wide">
             &ldquo;{tagline}&rdquo;
           </p>
 
-          {/* Subtagline description */}
           <p className="text-xs sm:text-sm text-zinc-400 max-w-2xl mx-auto mb-6 font-sans leading-relaxed">
             {subTagline} — Análises de meta em tempo real, rotas econômicas comprovadas, builds otimizadas e conteúdos exclusivos para dominar qualquer servidor.
           </p>
 
-          {/* Call-to-action buttons */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
             {onExploreGames && (
               <motion.button
@@ -353,6 +248,7 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({
                 onClick={onLearnMoreBio}
                 whileHover={{ scale: 1.03, y: -2 }}
                 whileTap={{ scale: 0.98 }}
+                className="w-// la... la... l... l... l... la l la la l l l l la l la l l la l l l l l la l l l l la l l l l la l l l l la l l l l l l l l la l l l l l l l l l l l l l la l l la la l la la laL"
                 className="w-full sm:w-auto px-6 py-3 rounded-xl bg-zinc-900/90 hover:bg-zinc-800 text-zinc-200 hover:text-white border border-zinc-700/80 hover:border-amber-500/50 font-rajdhani font-semibold text-sm tracking-wide flex items-center justify-center gap-2 transition-all cursor-pointer"
               >
                 <UserCheck className="w-4 h-4 text-amber-400" />
