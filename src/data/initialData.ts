@@ -551,54 +551,6 @@ export const initialNews: NewsItem[] = [
 ];
 
 export const initialVideos: VideoItem[] = [
-  {
-    id: "video-1",
-    gameId: "albion-online",
-    gameName: "Albion Online",
-    title: "COMO FAZER 10 MILHÕES DE PRATA POR DIA EM ALBION ONLINE (SEM RISCO!)",
-    duration: "18:42",
-    views: "24.5K visualizações",
-    date: "Há 3 dias",
-    youtubeId: "dQw4w9WgXcQ",
-    thumbnail: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=800&auto=format&fit=crop",
-    category: "Guia"
-  },
-  {
-    id: "video-2",
-    gameId: "lineage-2",
-    gameName: "Lineage 2",
-    title: "O CERCO DE GIRAN MAIS INSANO DA HISTÓRIA! (Lineage 2 PvP Massivo)",
-    duration: "24:15",
-    views: "19.8K visualizações",
-    date: "Há 1 semana",
-    youtubeId: "dQw4w9WgXcQ",
-    thumbnail: "https://images.unsplash.com/photo-1579373903781-fd5c0c30c4cd?q=80&w=800&auto=format&fit=crop",
-    category: "PvP"
-  },
-  {
-    id: "video-3",
-    gameId: "lineage-2",
-    gameName: "Lineage 2",
-    title: "GUIA COMPLETO DE SUB-CLASSES & CERTIFICAÇÕES (Lineage 2 Passo a Passo)",
-    duration: "19:30",
-    views: "27.4K visualizações",
-    date: "Há 2 semanas",
-    youtubeId: "dQw4w9WgXcQ",
-    thumbnail: "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=800&auto=format&fit=crop",
-    category: "Guia"
-  },
-  {
-    id: "video-4",
-    gameId: "albion-online",
-    gameName: "Albion Online",
-    title: "SOLO GANK NA ZONA NEGRA: 3 HORAS DE CAÇADA E MILHÕES EM LOOT!",
-    duration: "21:05",
-    views: "16.4K visualizações",
-    date: "Há 3 semanas",
-    youtubeId: "dQw4w9WgXcQ",
-    thumbnail: "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?q=80&w=800&auto=format&fit=crop",
-    category: "Gameplay"
-  }
 ];
 
 export const initialSocials: SocialMedia[] = [
