@@ -25,7 +25,6 @@ import { WhatYouFindSection } from './components/WhatYouFindSection';
 import { FeaturedGamesSection } from './components/FeaturedGamesSection';
 import { BioSection } from './components/BioSection';
 import { RecentVideosSection } from './components/RecentVideosSection';
-import { RecentNewsSection } from './components/RecentNewsSection';
 import { GamesPage } from './components/GamesPage';
 import { GameDetailPage } from './components/GameDetailPage';
 import { GuidePage } from './components/GuidePage';
@@ -269,7 +268,6 @@ export default function App() {
     localStorage.removeItem('jhota_videos');
     localStorage.removeItem('jhota_youtube_last_sync');
     localStorage.removeItem('jhota_social_last_sync');
-    setIsCustomizerOpen(false);
   };
 
   return (
@@ -309,10 +307,6 @@ export default function App() {
       videos={videos}
       onPlayVideo={(v) => setPlayingVideo(v)}
       onUpdateVideos={handleUpdateVideos}
-    />
-    <RecentNewsSection
-      news={news}
-      onSelectNews={(item) => setReadingNews(item)}
     />
   </>
 } />
