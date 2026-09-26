@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
-import { Gamepad2, UserCheck, Sparkles } from 'lucide-//lucide-react'; // Limpamos os ícones não usados
+import { Gamepad2, UserCheck, Sparkles } from 'lucide-react';
 import { motion } from 'motion/react';
 import { OFFICIAL_BANNER_URL } from '../data/initialData';
 
@@ -25,14 +25,12 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({
   const [imgError, setImgError] = useState(false);
   const bannerContainerRef = useRef<HTMLDivElement>(null);
 
-  // Mouse spotlight tracking for dynamic interactive lighting
   const [mousePos, setMousePos] = useState<{ x: number; y: number; isHovering: boolean }>({
     x: 50,
     y: 50,
     isHovering: false,
   });
   
-  // Active banner URL resolution
   const [activeBanner, setActiveBanner] = useState<string>(() => {
     return bannerUrl || OFFICIAL_BANNER_URL;
   });
@@ -55,7 +53,6 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({
     setMousePos((prev) => ({ ...prev, isHovering: false }));
   };
 
-  // Particles generator for subtle embers and frost sparkles
   const fireEmbers = useMemo(() => [
     { id: 1, left: '8%', delay: 0, duration: 4.2, size: 4 },
     { id: 2, left: '16%', delay: 1.2, duration: 5.1, size: 3 },
@@ -75,21 +72,12 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({
       id="hero-banner-section" 
       className="relative w-full bg-[#06080d] overflow-hidden border-b border-zinc-800/60"
     >
-      <div 
-        className="absolute top-0 left-1/4 -translate-x-1/2 w-[550px] h-[380px] bg-amber-500/15 rounded-full blur-[120px] pointer-events-none" 
-        aria-hidden="true" 
-      />
-      <div 
-        className="absolute top-0 right-1/4 translate-x-1/2 w-[550px] h-[380px] bg-sky-500/15 rounded-full blur-[120px] pointer-events-none" 
-        aria-hidden="true" 
-      />
+      <div className="absolute top-0 left-1/4 -translate-x-1/2 w-[550px] h-[380px] bg-amber-500/15 rounded-full blur-[120px] pointer-events-none" aria-hidden="true" />
+      <div className="absolute top-0 right-1/4 translate-x-1/2 w-[550px] h-[380px] bg-sky-500/15 rounded-full blur-[120px] pointer-events-none" aria-hidden="true" />
 
       <div className="w-full max-w-[1920px] mx-auto px-0 sm:px-2 md:px-4 pt-2 sm:pt-4 pb-4 sm:pb-6 relative z-10">
         <div className="relative w-full overflow-hidden">
-          <div 
-            className="absolute -inset-1 sm:-inset-2 rounded-2xl bg-gradient-to-r from-amber-500/25 via-amber-400/10 to-sky-500/25 blur-xl pointer-events-none -z-10" 
-            aria-hidden="true" 
-          />
+          <div className="absolute -inset-1 sm:-inset-2 rounded-2xl bg-gradient-to-r from-amber-500/25 via-amber-400/10 to-sky-500/25 blur-xl pointer-events-none -z-10" aria-hidden="true" />
 
           <div
             ref={bannerContainerRef}
@@ -98,7 +86,6 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({
             className="group relative w-full overflow-hidden bg-[#06080d] sm:rounded-xl md:rounded-2xl border-y sm:border border-amber-500/25 hover:border-amber-400/40 transition-colors duration-500 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.9)] select-none"
           >
             <div className="relative w-full aspect-[1279/476] min-h-[200px] sm:min-h-[280px] md:min-h-[380px] lg:min-h-[460px] xl:min-h-[540px] max-h-[85vh] overflow-hidden flex items-center justify-center">
-              
               {!imgError ? (
                 <img
                   id="official-jhota-banner-img"
@@ -130,12 +117,7 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({
                 <motion.div
                   className="w-[50%] h-[200%] absolute top-[-50%] bg-gradient-to-r from-transparent via-amber-100/15 to-transparent skew-x-[-25deg]"
                   animate={{ x: ['-150%', '350%'] }}
-                  transition={{
-                    repeat: Infinity,
-                    duration: 6,
-                    ease: [0.4, 0, 0.2, 1],
-                    repeatDelay: 2.5,
-                  }}
+                  transition={{ repeat: Infinity, duration: 6, ease: [0.4, 0, 0.2, 1], repeatDelay: 2.5 }}
                 />
               </div>
 
@@ -248,7 +230,6 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({
                 onClick={onLearnMoreBio}
                 whileHover={{ scale: 1.03, y: -2 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-// la... la... l... l... l... la l la la l l l l la l la l l la l l l l l la l l l l la l l l l la l l l l la l l l l l l l l la l l l l l l l l l l l l l la l l la la l la la laL"
                 className="w-full sm:w-auto px-6 py-3 rounded-xl bg-zinc-900/90 hover:bg-zinc-800 text-zinc-200 hover:text-white border border-zinc-700/80 hover:border-amber-500/50 font-rajdhani font-semibold text-sm tracking-wide flex items-center justify-center gap-2 transition-all cursor-pointer"
               >
                 <UserCheck className="w-4 h-4 text-amber-400" />
