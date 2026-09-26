@@ -374,6 +374,8 @@ export default function App() {
           </Routes>
         </main>
 
+        {/* ADICIONE ESTA LINHA ABAIXO PARA O RODAPÉ VOLTAR */}
+        <Footer brandName={bio.brandName} />
 
         {/* Modais Globais */}
         <GuideReaderModal guide={readingGuide} onClose={() => setReadingGuide(null)} />
@@ -381,6 +383,7 @@ export default function App() {
         <NewsReaderModal news={readingNews} onClose={() => setReadingNews(null)} />
       </div>
     </Router>
+
   );
 }
 
