@@ -18,7 +18,7 @@ export const YOUTUBE_CHANNEL_URL = 'https://www.youtube.com/@JhotaGamerOficial';
  * - Discord (Live Guild Widget API: 1549835537160867923)
  * - Instagram (@jhotagameroficial)
  * - Facebook (profile 61594432231685)
- * - Twitch (twitch.tv/jhotagamer)
+ * - Twitch (twitch.tv/jhotagameroficial)
  */
 export async function syncSocialMetrics(
   currentSocials: SocialMedia[],
@@ -106,14 +106,14 @@ export async function syncSocialMetrics(
     };
   }
 
-  // 5. Twitch Sync (twitch.tv/jhotagamer)
+  // 5. Twitch Sync (twitch.tv/jhotagameroficial)
   const twitchIdx = updatedSocials.findIndex((s) => s.platform === 'twitch');
   if (twitchIdx !== -1) {
     const current = updatedSocials[twitchIdx];
     updatedSocials[twitchIdx] = {
       ...current,
-      url: 'https://twitch.tv/jhotagamer',
-      username: 'twitch.tv/jhotagamer',
+      url: 'https://www.twitch.tv/jhotagameroficial',
+      username: 'twitch.tv/jhotagameroficial',
       followers: current.followers || '12.3K Seguidores'
     };
   }

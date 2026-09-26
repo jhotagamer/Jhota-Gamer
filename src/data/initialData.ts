@@ -583,8 +583,8 @@ export const initialSocials: SocialMedia[] = [
   {
     id: "social-twitch",
     name: "Twitch",
-    username: "twitch.tv/jhotagamer",
-    url: "https://twitch.tv",
+    username: "twitch.tv/jhotagameroficial",
+    url: "https://www.twitch.tv/jhotagameroficial",
     platform: "twitch",
     icon: "Tv",
     themeColor: "from-purple-600 to-violet-800",

@@ -78,6 +78,9 @@ export default function App() {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed)) {
           return parsed.filter((s: SocialMedia) => s.platform !== 'tiktok').map((s: SocialMedia) => {
+            if (s.platform === 'twitch') {
+              return { ...s, url: 'https://www.twitch.tv/jhotagameroficial', username: 'twitch.tv/jhotagameroficial' };
+            }
             if (s.platform === 'youtube' && (!s.url || s.url === 'https://youtube.com' || s.url.includes('@seucanal'))) {
               return { ...s, url: 'https://www.youtube.com/@JhotaGamerOficial', username: '@JhotaGamerOficial' };
             }
