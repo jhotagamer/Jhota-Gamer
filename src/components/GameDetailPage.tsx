@@ -1,3 +1,4 @@
+import { GameNewsSection } from './GameNewsSection';
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Game, Guide, Build, NewsItem, VideoItem } from '../types';
@@ -352,94 +353,8 @@ export const GameDetailPage: React.FC<GameDetailPageProps> = ({
           </div>
         )}
 
-        {/* TAB 4: NOTÍCIAS & ATUALIZAÇÕES */}
         {activeTab === 'noticias' && (
-          <div className="space-y-6">
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-4 border-b border-zinc-800/80">
-              <div>
-                <h2 className="font-cinzel text-xl font-bold text-white">
-                  {game.id === 'lineage-2' ? 'Comunicados do Exilium World' : 'Notícias e atualizações de Albion Online'}
-                </h2>
-                <p className="text-xs sm:text-sm text-zinc-400 mt-1">
-                  Seleção de links e resumos do Jhota Gamer. Consulte a publicação original para os detalhes e a data da atualização.
-                </p>
-              </div>
-              <a
-                href={
-                  game.id === 'albion-online'
-                    ? 'https://albiononline.com/news'
-                    : 'https://www.exiliumworld.com/news'
-                }
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold text-zinc-950 bg-cyan-400 hover:bg-cyan-300 transition-colors shrink-0 shadow-lg shadow-cyan-400/20"
-              >
-                <span>Portal Geral de Notícias</span>
-                <ExternalLink className="w-3.5 h-3.5" />
-              </a>
-            </div>
-
-            {gameNews.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {gameNews.map((n) => (
-                  <div
-                    key={n.id}
-                    className="group flex flex-col justify-between rounded-2xl bg-zinc-900/60 border border-zinc-800 hover:border-cyan-500/40 transition-all duration-300 hover:-translate-y-1 overflow-hidden shadow-lg"
-                  >
-                    {/* Image Header */}
-                    <div className="relative h-44 w-full overflow-hidden bg-zinc-950">
-                      <img
-                        src={n.imageUrl}
-                        alt={n.title}
-                        referrerPolicy="no-referrer"
-                        className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/20 to-transparent" />
-                      <div className="absolute top-3 left-3 flex items-center gap-1.5">
-                        <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-black/80 backdrop-blur-md text-cyan-300 border border-cyan-500/30">
-                          {n.category}
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Card Content */}
-                    <div className="p-5 flex-1 flex flex-col justify-between">
-                      <div>
-                        <div className="flex items-center gap-2 text-xs text-zinc-500 mb-2 font-mono">
-                          <span className="text-cyan-400/90 font-medium">{n.date}</span>
-                          <span>&bull;</span>
-                          <span className="text-zinc-400">{n.gameId === 'lineage-2' ? 'Fonte: Exilium World — servidor privado' : 'Fonte: Albion Online'}</span>
-                        </div>
-                        <h3 className="font-rajdhani text-lg font-bold text-white group-hover:text-cyan-300 transition-colors mb-2 leading-snug">
-                          {n.title}
-                        </h3>
-                        <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed line-clamp-3">
-                          {n.snippet}
-                        </p>
-                      </div>
-
-                      {/* Official Redirection Button */}
-                      <div className="mt-5 pt-4 border-t border-zinc-800/80">
-                        <a
-                          href={n.officialUrl || "#"}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-xs font-bold text-zinc-950 bg-cyan-400 hover:bg-cyan-300 transition-all duration-200 shadow-md shadow-cyan-400/10"
-                        >
-                          <span>Ler na fonte</span>
-                          <ExternalLink className="w-3.5 h-3.5" />
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className="p-8 rounded-2xl bg-zinc-900/40 border border-zinc-800 text-center text-zinc-400">
-                Sem notícias recentes para este jogo no momento.
-              </div>
-            )}
-          </div>
+          <GameNewsSection news={gameNews} gameId={game.id} />
         )}
 
         {/* TAB 5: MERCADO (Albion Online) */}
