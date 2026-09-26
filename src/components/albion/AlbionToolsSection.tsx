@@ -17,14 +17,14 @@ export const AlbionToolsSection: React.FC = () => {
           <div className="space-y-2">
             <div className="flex items-center gap-2 mb-2">
               <span className="px-3 py-1 rounded-full text-[11px] font-black uppercase tracking-wider bg-amber-400 text-zinc-950 shadow-md flex items-center gap-1.5">
-                <Calculator className="w-3.5 h-3.5" /> SISTEMA DE PRECISÃO
+                <Calculator className="w-3.5 h-3.5" /> SIMULAÇÃO DE CUSTOS
               </span>
             </div>
             <h2 className="font-cinzel text-2xl sm:text-4xl font-extrabold text-white tracking-wide">
-              FERRAMENTAS de <span className="text-amber-400">LUCRO REAL</span>
+              FERRAMENTAS de <span className="text-amber-400">ECONOMIA</span>
             </h2>
             <p className="text-sm sm:text-base text-zinc-300 mt-1 max-w-2xl">
-              Cálculos exatos com a matemática do jogo: Retorno de refino, Taxas de Mercado e Transporte entre Cidades.
+              Estimativas de refino e transporte conforme os valores informados. Confira os preços e as taxas no jogo antes de negociar.
             </p>
           </div>
         </div>
@@ -145,8 +145,9 @@ const FlipCalculator: React.FC = () => {
             <span className="text-zinc-400">Taxa de Mercado ({(tax * 100).toFixed(0)}%):</span>
             <span className="font-mono text-rose-400">-{formatSilver((sellPrice * qty) * tax)}</span>
           </div>
+          <p className="text-xs text-zinc-400">Considera compra e taxa de venda exibida. Não inclui taxas de criação de ordens, transporte, reparos ou perdas de carga. A venda pelo preço informado não é garantida.</p>
           <div className="p-4 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-between">
-            <span className="font-bold text-cyan-400">Lucro Líquido Final:</span>
+            <span className="font-bold text-cyan-400">Resultado estimado:</span>
             <span className={`font-mono text-2xl font-black ${netProfit > 0 ? 'text-cyan-400' : 'text-rose-400'}`}>
               {formatSilver(netProfit)}
             </span>
@@ -192,7 +193,7 @@ const RefineCalculator: React.FC = () => {
     <div className="space-y-8 animate-fadeIn">
       <div className="flex items-center gap-3 mb-6">
         <div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-400"><Recycle className="w-6 h-6" /></div>
-        <h3 className="font-cinzel text-2xl font-bold text-white">Refino de Alta Precisão</h3>
+        <h3 className="font-cinzel text-2xl font-bold text-white">Estimativa de Refino</h3>
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
         <div className="space-y-6">
@@ -314,7 +315,7 @@ const RefineCalculator: React.FC = () => {
             <span className="font-mono text-white font-bold">{Math.floor(finalOutput)} unidades</span>
           </div>
           <div className="flex items-center justify-between border-t border-zinc-800 pt-4">
-            <span className="font-bold text-white text-lg">Lucro Final:</span>
+            <span className="font-bold text-white text-lg">Resultado estimado:</span>
             <span className={`font-mono text-2xl font-black ${profit > 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
               {formatSilver(profit)}
             </span>

@@ -105,7 +105,7 @@ export const initialGuides: Guide[] = [
     id: "guia-albion-iniciante-2026",
     gameId: "albion-online",
     gameName: "Albion Online",
-    title: "Guia Definitivo do Iniciante: Do Tier 3 ao Tier 8 sem passar sufoco",
+    title: "Primeiros passos em Albion: equipamentos, economia e preparação",
     summary: "Como começar com o pé direito, entender o Quadro de Destino e evitar perdas fatais na sua primeira ida à Zona Vermelha.",
     category: "Iniciante",
     readTime: "8 min de leitura",
@@ -121,7 +121,7 @@ export const initialGuides: Guide[] = [
           text: "Ao sair da ilha do tutorial, escolha uma cidade com mercado forte que combine com o recurso que você deseja coletar. Cidades como Martlock (pedra), Bridgewatch (couro) e Lymhurst (madeira) possuem bônus regionais de refino que aumentam seu retorno em até 36.7%.",
           bulletPoints: [
             "Não gaste seus Pontos de Aprendizagem (LP) em níveis baixos de maestria.",
-            "Invista os primeiros 500k de prata comprando a Ilha Pessoal para criar hortas e trabalhadores.",
+            "Antes de investir em uma ilha, confira os requisitos e preços atuais no jogo e reserve prata para repor seus equipamentos.",
             "Use sempre montaria com bônus de peso proporcional à sua carga de coleta."
           ],
           tipBox: "Dica de Ouro do Jhota: Nunca viaje com itens que você não tenha condições de comprar novamente 3 vezes no mercado."
@@ -140,15 +140,15 @@ export const initialGuides: Guide[] = [
           text: "Focar em um único conjunto de armadura e arma é o segredo para atingir 100/100 de maestria. A diferença de poder de item (IP) entre um personagem especializado e um generalista é gigantesca durante os duelos."
         }
       ],
-      conclusion: "Siga esses fundamentos com consistência e em menos de duas semanas você estará participando ativamente das frotas da guilda na Zona Negra com respeito e poder de fogo."
+      conclusion: "Avance no seu ritmo, pratique com equipamentos que possa repor e combine suas primeiras atividades em grupo com jogadores experientes. O tempo de progressão varia conforme sua rotina e experiência."
     }
   },
   {
     id: "guia-albion-transporte-milionario",
     gameId: "albion-online",
     gameName: "Albion Online",
-    title: "Economia & Transporte: Como Lucrar Milhões de Prata entre Cidades",
-    summary: "Estratégia comprovada de arbitragem de mercado e transporte de matérias-primas aproveitando taxas de retorno de refino.",
+    title: "Economia & Transporte: Como Avaliar Oportunidades entre Cidades",
+    summary: "Como comparar preços, estimar custos e avaliar os riscos antes de transportar itens.",
     category: "Economia",
     readTime: "11 min de leitura",
     publishedDate: "05 de Setembro, 2026",
@@ -156,19 +156,19 @@ export const initialGuides: Guide[] = [
     recommendedLevel: "Intermediário / Avançado",
     tags: ["Economia", "Trade", "Prata", "Transporte", "Mercado"],
     content: {
-      intro: "A prata move o mundo de Albion. Se você não gosta de passar horas matando monstros mas quer encher os bolsos, o comércio interestadual nas Cidades Reais é uma das máquinas financeiras mais seguras se executada com método.",
+      intro: "O transporte entre cidades é uma atividade para quem gosta de acompanhar o mercado. Antes de sair, avalie preços, taxas, procura pelo item e riscos da rota. O resultado pode ser positivo ou negativo.",
       sections: [
         {
           heading: "1. O Ciclo das Cidades Reais",
-          text: "Cada cidade tem escassez de determinados itens e abundância de outros. Transportar barras de ferro de Fort Sterling para Thetford ou tábuas de Lymhurst para Caerleon gera margens brutas entre 15% e 40% por viagem.",
+          text: "Compare os preços de compra e venda no mesmo servidor, conferindo quando foram registrados e o volume disponível. Desconte as taxas e os custos da rota antes de decidir: uma diferença de preços não garante lucro nem venda imediata.",
           tipBox: "Atenção: Transportar para Caerleon exige atravessar zonas vermelhas. Faça isso apenas em grupos de batedores ou em horários de menor pico."
         },
         {
           heading: "2. Montarias Recomendadas para Cargas",
-          text: "Para iniciantes no transporte, o Boi T5 ou T6 é suficiente dentro de zonas seguras (Azuis e Amarelas). Para rotas com risco de gank, dê preferência ao Mamute de Transporte (se tiver capital) ou ao Javali Selvagem Blindado, que mantém velocidade de corrida alta mesmo se você for desmontado."
+          text: "Escolha a montaria considerando capacidade de carga, mobilidade, custo de reposição e risco da rota. Confira as habilidades e as condições de funcionamento no jogo antes de comprar. Uma montaria cara não garante proteção contra ganks."
         }
       ],
-      conclusion: "Comece com 200k de investimento em barras de bronze e veja seu montante dobrar em poucas rotas bem calculadas."
+      conclusion: "Comece com uma carga pequena, registre os custos e o valor realmente recebido na venda. Aumente o investimento apenas após avaliar seus resultados e o risco de perder a carga."
     }
   },
   {
@@ -400,7 +400,7 @@ export const initialNews: NewsItem[] = [
     id: "news-albion-1",
     gameId: "albion-online",
     gameName: "Albion Online",
-    title: "Notas de Atualização Oficiais: Atualização Dragonfire & Changelog",
+    title: "Arquivo de atualizações: Dragonfire & Changelog",
     snippet: "Página oficial da grande atualização Dragonfire com os novos dragões, Terras Antigas, balanceamento de combate e notas completas.",
     content: "A Sandbox Interactive publicou no site oficial todos os detalhes e notas de lançamento da atualização Dragonfire, trazendo novos chefes de raide, armaduras forjadas de dragão e otimizações gerais de jogabilidade.",
     category: "Patch Notes",
@@ -415,7 +415,7 @@ export const initialNews: NewsItem[] = [
     id: "news-albion-2",
     gameId: "albion-online",
     gameName: "Albion Online",
-    title: "Notas de Atualização Oficiais: Atualização Paths to Glory & Diário de Albion",
+    title: "Arquivo de atualizações: Paths to Glory & Diário de Albion",
     snippet: "Página oficial da atualização Paths to Glory: introdução ao Diário de Albion com recompensas dinâmicas, novas armas de cristal e balanceamento.",
     content: "Página dedicada da expansão Paths to Glory detalhando o sistema de conquistas do Diário de Albion, novas armas de cristal para ZvZ e combates de pequena escala, e melhorias de interface.",
     category: "Patch Notes",
@@ -430,7 +430,7 @@ export const initialNews: NewsItem[] = [
     id: "news-albion-3",
     gameId: "albion-online",
     gameName: "Albion Online",
-    title: "Notas de Atualização Oficiais: Atualização Foundations & Fortificações",
+    title: "Arquivo de atualizações: Foundations & Fortificações",
     snippet: "Página oficial da atualização Foundations: novo sistema de fortificações de territórios de guilda, estandartes de cerco e modo espectador.",
     content: "Apresentação oficial completa da atualização Foundations no site do Albion Online, trazendo fortificações aprimoráveis para territórios, novas armas de cristal e baús de atividade de território.",
     category: "Patch Notes",
@@ -445,7 +445,7 @@ export const initialNews: NewsItem[] = [
     id: "news-albion-4",
     gameId: "albion-online",
     gameName: "Albion Online",
-    title: "Notas de Atualização Oficiais: Atualização Wild Blood & Armas Transmorfas",
+    title: "Arquivo de atualizações: Wild Blood & Armas Transmorfas",
     snippet: "Página oficial da atualização Wild Blood: armas metamorfas com transformação de combate, rastreamento de monstros, itens despertados e poções.",
     content: "Página oficial com todos os recursos da expansão Wild Blood: a nova linha de armas transmorfas (Shapeshifter), sistema de rastreamento de criaturas raras no mundo aberto e reestruturação de ilhas pessoais.",
     category: "Patch Notes",
@@ -546,7 +546,7 @@ export const initialNews: NewsItem[] = [
     imageUrl: "https://i.postimg.cc/Mp63Thzt/lineage-2.png",
     badgeColor: "rose",
     officialUrl: "https://www.exiliumworld.com/news/274?lang=pt_BR",
-    officialLabel: "Ver Notícia Oficial"
+    officialLabel: "Ler no Exilium World"
   }
 ];
 

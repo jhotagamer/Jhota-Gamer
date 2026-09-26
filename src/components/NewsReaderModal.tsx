@@ -52,7 +52,7 @@ export const NewsReaderModal: React.FC<NewsReaderModalProps> = ({ news, onClose 
             <span>{news.date}</span>
             <span>&bull;</span>
             <Clock className="w-3.5 h-3.5" />
-            <span>{news.readTime}</span>
+            <span>{news.gameId === 'lineage-2' ? 'Fonte: Exilium World — servidor privado' : 'Fonte: Albion Online'}</span>
           </div>
 
           <h2 className="font-cinzel text-2xl font-bold text-white leading-snug">
@@ -66,7 +66,7 @@ export const NewsReaderModal: React.FC<NewsReaderModalProps> = ({ news, onClose 
           <div className="text-sm sm:text-base text-zinc-300 leading-relaxed space-y-3 pt-2">
             <p>{news.content}</p>
             <p className="text-xs text-zinc-400">
-              Clique no botão abaixo para acessar o portal oficial de notícias e conferir a publicação na íntegra.
+              Resumo editorial do Jhota Gamer. Consulte a fonte para ler a publicação original e conferir seus detalhes.
             </p>
           </div>
 
@@ -78,7 +78,7 @@ export const NewsReaderModal: React.FC<NewsReaderModalProps> = ({ news, onClose 
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold text-zinc-950 bg-cyan-400 hover:bg-cyan-300 transition-colors shadow-lg shadow-cyan-400/20"
               >
-                <span>{news.officialLabel || "Acessar Notícia Oficial na Íntegra"}</span>
+                <span>{news.officialLabel || "Ler na fonte"}</span>
                 <ExternalLink className="w-3.5 h-3.5" />
               </a>
             ) : <div />}
