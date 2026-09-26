@@ -2,24 +2,19 @@ import React from 'react';
 import { BioData } from '../types';
 import { 
   User, 
-  Trophy, 
   Calendar, 
   Target, 
-  Edit3, 
   CheckCircle2, 
-  Youtube, 
   Shield, 
   Flame 
 } from 'lucide-react';
 
 interface BioSectionProps {
   bio: BioData;
-  onOpenCustomizer: () => void;
 }
 
 export const BioSection: React.FC<BioSectionProps> = ({
   bio,
-  onOpenCustomizer
 }) => {
   return (
     <section id="secao-biografia" className="relative py-16 lg:py-20 bg-[#0c0f17] border-b border-zinc-800/80">
@@ -41,8 +36,7 @@ export const BioSection: React.FC<BioSectionProps> = ({
               Conheça o <span className="text-amber-400">{bio.brandName}</span>
             </h2>
           </div>
-
-          {/* Notice & Quick Edit Trigger */}
+        </div>
 
         {/* Main Bio Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
@@ -53,7 +47,6 @@ export const BioSection: React.FC<BioSectionProps> = ({
             {/* Avatar Frame */}
             <div className="relative rounded-2xl p-1 bg-gradient-to-b from-amber-500/30 via-zinc-800/80 to-zinc-900 shadow-2xl shadow-black/80">
               <div className="rounded-[15px] overflow-hidden bg-zinc-950 flex flex-col">
-                {/* Photo Display - Square (1:1) to match 800x800 image perfectly with zero zoom/cropping */}
                 <div className="relative w-full aspect-square overflow-hidden bg-[#090b10] flex items-center justify-center">
                   <img
                     src={bio.avatarUrl}
@@ -66,7 +59,6 @@ export const BioSection: React.FC<BioSectionProps> = ({
                   />
                 </div>
 
-                {/* Info Bar positioned cleanly BELOW the photo so it does not block the avatar */}
                 <div className="p-4 bg-zinc-900/95 border-t border-zinc-800/90 flex items-center justify-between">
                   <div>
                     <h3 className="font-cinzel text-lg font-bold text-white flex items-center gap-2">
@@ -117,9 +109,6 @@ export const BioSection: React.FC<BioSectionProps> = ({
                   <Flame className="w-5 h-5 text-amber-400" />
                   <span>História e Propósito do Canal</span>
                 </h3>
-                <span className="text-[11px] font-semibold text-amber-400/80 bg-amber-500/10 px-2.5 py-0.5 rounded border border-amber-500/20">
-                  Texto Editável
-                </span>
               </div>
 
               <div className="space-y-3.5 text-zinc-300 leading-relaxed font-sans text-sm sm:text-base">
@@ -151,7 +140,6 @@ export const BioSection: React.FC<BioSectionProps> = ({
                 </span>
               </div>
 
-              {/* Introdução da Trajetória */}
               <div className="mb-6 p-4 sm:p-5 rounded-xl bg-zinc-950/70 border border-amber-500/20 text-zinc-300 text-sm sm:text-base leading-relaxed relative overflow-hidden">
                 <div className="absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b from-amber-500 via-orange-500 to-rose-500" />
                 <p className="font-sans pl-1.5 text-zinc-200">
