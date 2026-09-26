@@ -34,10 +34,10 @@ export const initialBio: BioData = {
   ],
   favoriteGames: ["Albion Online", "Lineage 2", "World of Warcraft", "Elder Scrolls Online"],
   stats: {
-    subscribers: "45.8K+",
-    videos: "380+",
+    subscribers: "",
+    videos: "",
     yearsGaming: "18+ Anos",
-    guildMembers: "3.200+"
+    guildMembers: ""
   }
 };
 
@@ -563,7 +563,7 @@ export const initialSocials: SocialMedia[] = [
     icon: "Youtube",
     themeColor: "from-red-600 to-rose-700",
     description: "Canal principal com guias completos, vídeos de análise de meta, gravações de guerras de guildas e tutoriais passo a passo.",
-    followers: "45.8K Inscritos",
+    followers: "",
     ctaText: "Inscrever-se no Canal",
     featured: true
   },
@@ -576,7 +576,7 @@ export const initialSocials: SocialMedia[] = [
     icon: "MessageSquare",
     themeColor: "from-indigo-600 to-blue-700",
     description: "Nossa comunidade oficial para trocar ideias, recrutar membros para a guilda, tirar dúvidas de builds e jogar em grupo.",
-    followers: "8.400 Membros Ativos",
+    followers: "",
     ctaText: "Entrar no Servidor",
     featured: true
   },
@@ -589,7 +589,7 @@ export const initialSocials: SocialMedia[] = [
     icon: "Tv",
     themeColor: "from-purple-600 to-violet-800",
     description: "Transmissões ao vivo semanais com gameplay sem cortes, drop de recompensas e interação direta pelo chat.",
-    followers: "12.3K Seguidores",
+    followers: "",
     ctaText: "Acompanhar Lives"
   },
   {
@@ -601,7 +601,7 @@ export const initialSocials: SocialMedia[] = [
     icon: "Instagram",
     themeColor: "from-pink-600 via-rose-600 to-amber-500",
     description: "Bastidores das gravações, novidades rápidas em stories, enquetes de novos vídeos e avisos de lançamentos.",
-    followers: "1.8K Seguidores",
+    followers: "",
     ctaText: "Seguir no Instagram"
   },
   {
@@ -613,7 +613,7 @@ export const initialSocials: SocialMedia[] = [
     icon: "Facebook",
     themeColor: "from-blue-600 to-blue-800",
     description: "Página oficial para compartilhamento de artigos, avisos à comunidade e grupos de discussão sobre MMORPG.",
-    followers: "1.2K Seguidores",
+    followers: "",
     ctaText: "Curtir Página"
   }
 ];

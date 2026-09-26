@@ -74,28 +74,6 @@ export const BioSection: React.FC<BioSectionProps> = ({
               </div>
             </div>
 
-            {/* Channel Quick Stats Bento */}
-            <div className="grid grid-cols-2 gap-3">
-              <div className="p-4 rounded-xl bg-zinc-900/80 border border-zinc-800/90 text-center">
-                <div className="text-2xl font-bold font-rajdhani text-amber-400">{bio.stats.subscribers}</div>
-                <div className="text-xs text-zinc-400 font-medium">Inscritos no YouTube</div>
-              </div>
-
-              <div className="p-4 rounded-xl bg-zinc-900/80 border border-zinc-800/90 text-center">
-                <div className="text-2xl font-bold font-rajdhani text-rose-400">{bio.stats.videos}</div>
-                <div className="text-xs text-zinc-400 font-medium">Vídeos & Guias</div>
-              </div>
-
-              <div className="p-4 rounded-xl bg-zinc-900/80 border border-zinc-800/90 text-center">
-                <div className="text-2xl font-bold font-rajdhani text-cyan-400">{bio.stats.yearsGaming}</div>
-                <div className="text-xs text-zinc-400 font-medium">Experiência Gamer</div>
-              </div>
-
-              <div className="p-4 rounded-xl bg-zinc-900/80 border border-zinc-800/90 text-center">
-                <div className="text-2xl font-bold font-rajdhani text-emerald-400">{bio.stats.guildMembers}</div>
-                <div className="text-xs text-zinc-400 font-medium">Membros no Discord</div>
-              </div>
-            </div>
 
           </div>
 

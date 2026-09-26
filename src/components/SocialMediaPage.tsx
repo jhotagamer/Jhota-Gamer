@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React from 'react';
 import { SocialMedia, BioData } from '../types';
 import { 
   Share2, 
@@ -15,7 +15,6 @@ import {
   CheckCircle2,
   Radio
 } from 'lucide-react';
-import { syncSocialMetrics, getLastSyncInfo } from '../utils/socialSync';
 
 interface SocialMediaPageProps {
   socials: SocialMedia[];
@@ -112,54 +111,6 @@ export const SocialMediaPage: React.FC<SocialMediaPageProps> = ({
   onUpdateSocials,
   onUpdateBio
 }) => {
-  const [isSyncing, setIsSyncing] = useState(false);
-  const [syncFeedback, setSyncFeedback] = useState<string | null>(null);
-  const [lastSyncText, setLastSyncText] = useState<string>('Verificando...');
-
-  const handleSyncMetrics = useCallback(async (manual = false) => {
-    setIsSyncing(true);
-    try {
-      const res = await syncSocialMetrics(socials, bio);
-      if (onUpdateSocials) {
-        onUpdateSocials(res.socials);
-      }
-
-      if (res.discordPresence !== undefined && bio && onUpdateBio) {
-        const updatedBio = {
-          ...bio,
-          stats: {
-            ...bio.stats,
-            guildMembers: `${res.discordPresence} Online`
-          }
-        };
-        onUpdateBio(updatedBio);
-        try {
-          localStorage.setItem('jhota_bio', JSON.stringify(updatedBio));
-        } catch {
-          // ignore storage failure
-        }
-      }
-
-      setLastSyncText(getLastSyncInfo().lastSyncTime);
-      if (manual) {
-        setSyncFeedback('Todas as redes sincronizadas com sucesso!');
-        setTimeout(() => setSyncFeedback(null), 3500);
-      }
-    } catch (err) {
-      console.error('Falha ao sincronizar métricas:', err);
-    } finally {
-      setIsSyncing(false);
-    }
-  }, [socials, bio, onUpdateSocials, onUpdateBio]);
-
-  useEffect(() => {
-    handleSyncMetrics(false);
-    const interval = setInterval(() => {
-      setLastSyncText(getLastSyncInfo().lastSyncTime);
-    }, 30000);
-    return () => clearInterval(interval);
-  }, [handleSyncMetrics]);
-
   const getPlatformIcon = (platform: string) => {
     switch (platform) {
       case 'youtube': return <Youtube className="w-7 h-7 text-white" />;
@@ -188,37 +139,8 @@ export const SocialMediaPage: React.FC<SocialMediaPageProps> = ({
             Redes Sociais do <span className="text-amber-400">Jhota Gamer</span>
           </h1>
           <p className="text-zinc-400 text-sm sm:text-base leading-relaxed">
-            Faça parte da nossa comunidade gamer! Clique em qualquer rede para ser direcionamento instantaneamente ao perfil oficial.
+            Faça parte da nossa comunidade gamer! Clique em qualquer rede para ser direcionado ao perfil oficial.
           </p>
-        </div>
-
-        <div className="max-w-4xl mx-auto mb-10 p-3.5 sm:p-4 rounded-2xl bg-zinc-950/80 border border-zinc-800/90 shadow-lg flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <div className="relative flex items-center justify-center">
-              <span className="w-3 h-3 rounded-full bg-emerald-500 animate-ping absolute" />
-              <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 relative" />
-            </div>
-            <div className="text-left">
-              <div className="text-xs font-bold text-white flex items-center gap-2">
-                <span>Métricas de Seguidores & Membros Sincronizadas</span>
-                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                  Tempo Real
-                </span>
-              </div>
-              <p className="text-[11px] text-zinc-400 mt-0.5">
-                Status: <span className="text-zinc-200">Sincronizado ({lastSyncText})</span>
-              </p>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-2">
-            {syncFeedback && (
-              <span className="text-xs text-emerald-400 font-semibold flex items-center gap-1.5 animate-fadeIn">
-                <CheckCircle2 className="w-3.5 h-3.5" />
-                {syncFeedback}
-              </span>
-            )}
-          </div>
         </div>
 
         {featuredYouTube && (
@@ -241,10 +163,10 @@ export const SocialMediaPage: React.FC<SocialMediaPageProps> = ({
                   </p>
                   <div className="flex flex-wrap items-center justify-center sm:justify-start gap-4 text-xs font-mono text-zinc-400">
                     <span className="text-amber-300 font-bold text-sm bg-red-950/60 px-3 py-1 rounded-lg border border-red-800/40">
-                      {featuredYouTube.followers}
+                      Acesse o canal
                     </span>
                     <span>&bull;</span>
-                    <span>Vídeos Semanais</span>
+                    <span>Vídeos do canal</span>
                     <span>&bull;</span>
                     <span>Lives de Albion e Lineage 2</span>
                   </div>
@@ -272,7 +194,7 @@ export const SocialMediaPage: React.FC<SocialMediaPageProps> = ({
               Todas as Redes Sociais
             </h3>
             <p className="text-xs sm:text-sm text-zinc-400 mt-0.5">
-              Clique em qualquer card para ser direcionamento diretamente à rede social correspondente.
+              Clique em qualquer card para ser direcionado à rede social correspondente.
             </p>
           </div>
         </div>
@@ -311,7 +233,7 @@ export const SocialMediaPage: React.FC<SocialMediaPageProps> = ({
                   </div>
                   <span className={`text-[11px] font-mono font-bold px-3 py-1.5 rounded-full bg-zinc-950/90 border border-zinc-800 text-zinc-300 ${cfg.badgeBorder} transition-colors flex items-center gap-2 shadow-sm`}>
                     <span className={`w-2 h-2 rounded-full ${cfg.badgeDot} animate-pulse`} />
-                    <span>{social.followers}</span>
+                    <span>Perfil do Jhota Gamer</span>
                   </span>
                 </div>
                 <div className="mb-2.5 relative z-10">
@@ -351,7 +273,7 @@ export const SocialMediaPage: React.FC<SocialMediaPageProps> = ({
                   </h3>
                   <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 font-bold flex items-center gap-1">
                     <Radio className="w-3 h-3 text-emerald-400 animate-pulse" />
-                    {discordSocial.followers}
+                    Participe da comunidade
                   </span>
                 </div>
                 <p className="text-zinc-300 text-xs sm:text-sm max-w-xl leading-relaxed">
