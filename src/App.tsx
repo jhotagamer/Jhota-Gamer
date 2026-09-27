@@ -221,14 +221,20 @@ export default function App() {
       // fallback
     });
 
-    // 2. Sincronizar conteúdos recentes e vídeos do canal @JhotaGamerOficial
-    syncYoutubeVideos(videos).then((res) => {
-      if (res.videos && res.videos.length > 0) {
-        setVideos(res.videos);
-      }
-    }).catch(() => {
-      // fallback
-    }).finally(() => setVideosLoading(false));
+  }, []);
+
+  useEffect(() => {
+    let active = true;
+    const refresh = async () => {
+      if (document.hidden) return;
+      const result = await syncYoutubeVideos(videos);
+      if (!active) return;
+      if (result.channelConnected) setVideos(result.videos);
+      setVideosLoading(false);
+    };
+    void refresh();
+    const timer = window.setInterval(refresh, 600000);
+    return () => { active = false; window.clearInterval(timer); };
   }, []);
 
   // --- ESTADOS DE MODAIS ---

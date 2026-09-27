@@ -85,6 +85,9 @@ export interface NewsItem {
 }
 
 export interface VideoItem {
+  mediaType?: 'video' | 'short';
+  publishedAt?: string;
+  embeddable?: boolean;
   id: string;
   gameId: string;
   gameName: string;

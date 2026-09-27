@@ -12,7 +12,7 @@ export const VideoPlayerModal: React.FC<VideoPlayerModalProps> = ({ video, onClo
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/90 backdrop-blur-md animate-fadeIn">
-      <div className="relative w-full max-w-4xl rounded-3xl bg-[#0d1017] border border-red-500/40 shadow-2xl overflow-hidden my-8">
+      <div className="relative w-full max-w-4xl max-h-[95vh] overflow-y-auto rounded-3xl bg-[#0d1017] border border-red-500/40 shadow-2xl overflow-hidden my-8">
         
         {/* Top Header */}
         <div className="flex items-center justify-between px-6 py-4 bg-zinc-950 border-b border-zinc-800">
@@ -33,7 +33,7 @@ export const VideoPlayerModal: React.FC<VideoPlayerModalProps> = ({ video, onClo
         </div>
 
         {/* Video Screen container */}
-        <div className="relative aspect-video w-full bg-black overflow-hidden flex items-center justify-center">
+        <div className={`relative ${video.mediaType === 'short' ? 'aspect-[9/16] max-h-[65vh] mx-auto' : 'aspect-video w-full'} bg-black overflow-hidden flex items-center justify-center`}>
           {video.youtubeId && video.youtubeId !== 'dQw4w9WgXcQ' ? (
             <iframe
               src={`https://www.youtube-nocookie.com/embed/${video.youtubeId}?autoplay=1`}
@@ -58,7 +58,7 @@ export const VideoPlayerModal: React.FC<VideoPlayerModalProps> = ({ video, onClo
                   {video.title}
                 </h3>
                 <p className="text-xs sm:text-sm text-zinc-300 max-w-md mb-6">
-                  Vídeo demonstrativo oficial do canal Jhota Gamer. Você pode assistir diretamente ou abrir no YouTube.
+                  Abra o vídeo no YouTube para assistir.
                 </p>
                 <a
                   href={video.youtubeId && video.youtubeId !== 'dQw4w9WgXcQ' ? `https://www.youtube.com/watch?v=${video.youtubeId}` : "https://www.youtube.com/@JhotaGamerOficial"}

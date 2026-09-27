@@ -1,3 +1,4 @@
+import { RecentVideosSection } from './RecentVideosSection';
 import { GameNewsSection } from './GameNewsSection';
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -304,53 +305,7 @@ export const GameDetailPage: React.FC<GameDetailPageProps> = ({
 
         {/* TAB 3: VÍDEOS - ATUALIZADO PARA NAVEGAÇÃO */}
         {activeTab === 'videos' && (
-          <div className="space-y-6">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="font-cinzel text-xl font-bold text-white">Vídeos e Gameplays de {game.name}</h2>
-              <a
-                href="https://www.youtube.com/@JhotaGamerOficial"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-xs font-semibold text-red-400 hover:text-red-300 flex items-center gap-1"
-              >
-                <span>Canal Oficial Jhota Gamer</span>
-                <ExternalLink className="w-3.5 h-3.5" />
-              </a>
-            </div>
-            {gameVideos.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {gameVideos.map((vid) => (
-                  <div
-                    key={vid.id}
-                    onClick={() => {
-                      if (onPlayVideo) onPlayVideo(vid);
-                      navigate(`/jogo/${game.id}/video/${vid.id}`);
-                    }}
-                    className="group rounded-2xl bg-zinc-900/60 border border-zinc-800 hover:border-red-500/50 overflow-hidden cursor-pointer transition-all hover:-translate-y-1 shadow-lg"
-                  >
-                    <div className="relative aspect-video w-full overflow-hidden bg-zinc-950">
-                      <img src={vid.thumbnail} alt={vid.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
-                      <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-                        <div className="w-12 h-12 rounded-full bg-red-600 text-white flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform"><Play className="w-5 h-5 fill-current ml-0.5" /></div>
-                      </div>
-                      <div className="absolute bottom-2 right-2 px-2 py-0.5 rounded bg-black/80 text-[11px] font-mono text-white">
-                        {vid.duration}
-                      </div>
-                    </div>
-                    <div className="p-4">
-                      <h3 className="font-rajdhani text-base font-bold text-white group-hover:text-amber-300 transition-colors line-clamp-2">{vid.title}</h3>
-                      <div className="flex items-center justify-between text-xs text-zinc-500 mt-3 pt-2 border-t border-zinc-800">
-                        <span>{vid.views}</span>
-                        <span>{vid.date}</span>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className="p-8 rounded-2xl bg-zinc-900/40 border border-zinc-800 text-center text-zinc-400">Em breve novos vídeos!</div>
-            )}
-          </div>
+          <RecentVideosSection videos={videos} gameId={game.id} onPlayVideo={video => onPlayVideo?.(video)} />
         )}
 
         {activeTab === 'noticias' && (
