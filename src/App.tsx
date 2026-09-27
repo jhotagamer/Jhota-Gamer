@@ -1,4 +1,6 @@
 import { SupportPage } from './components/SupportPage';
+import { PrivacyPage } from './components/PrivacyPage';
+import { SeoHead } from './components/SeoHead';
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -207,6 +209,7 @@ export default function App() {
   return (
     <Router>
       <div className="min-h-screen flex flex-col bg-[#090b10] text-zinc-100 font-sans selection:bg-amber-500/30 selection:text-amber-200">
+        <SeoHead />
         
         {/* Navbar agora usa as rotas do Router */}
         <Navbar
@@ -216,6 +219,7 @@ export default function App() {
         <main className="flex-1">
           <Routes>
             <Route path="/apoie" element={<SupportPage />} />
+            <Route path="/privacidade" element={<PrivacyPage />} />
             {/* PÁGINA INICIAL (HOME) */}
 <Route path="/" element={
   <>

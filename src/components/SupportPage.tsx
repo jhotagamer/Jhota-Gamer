@@ -8,9 +8,6 @@ export function SupportPage() {
   const input = useRef<HTMLTextAreaElement>(null);
   useEffect(() => {
     window.scrollTo(0, 0);
-    const previous = document.title;
-    document.title = 'Apoie o Jhota Gamer | Apoio voluntário via Pix';
-    return () => { document.title = previous; };
   }, []);
   async function copyPix() {
     try {

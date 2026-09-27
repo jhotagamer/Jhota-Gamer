@@ -91,6 +91,7 @@ export const Footer: React.FC<FooterProps> = ({
               <li><button onClick={() => handleNav('links-uteis')} className="hover:text-amber-400 transition-colors cursor-pointer">Links Úteis & Wikis</button></li>
               <li><button onClick={() => handleNav('contato')} className="hover:text-amber-400 transition-colors cursor-pointer">Contato & Parcerias</button></li>
               <li><Link to="/apoie" onClick={scrollToTop} className="text-amber-400 hover:text-amber-300 transition-colors">Apoie o Jhota Gamer</Link></li>
+              <li><Link to="/privacidade" onClick={scrollToTop} className="hover:text-amber-400 transition-colors">Política de privacidade</Link></li>
             </ul>
           </div>
 

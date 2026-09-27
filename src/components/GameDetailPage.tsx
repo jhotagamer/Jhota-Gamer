@@ -67,15 +67,6 @@ export const GameDetailPage: React.FC<GameDetailPageProps> = ({
 
   const validTab = tabs.some(tab => tab.id === activeTab);
   const validTool = !tool || (activeTab === 'ferramentas' && ['transporte', 'refino'].includes(tool));
-  React.useEffect(() => {
-    const label = tabs.find(tab => tab.id === activeTab)?.label || 'Guias';
-    const oldTitle = document.title;
-    const meta = document.querySelector('meta[name="description"]');
-    const oldDescription = meta?.getAttribute('content') || '';
-    document.title = `${tool === 'refino' ? 'Calculadora de Refino' : tool === 'transporte' ? 'Calculadora de Transporte' : label} | ${game.name} | Jhota Gamer`;
-    meta?.setAttribute('content', `${label} de ${game.name} no Jhota Gamer. Confira os conteúdos e ferramentas da comunidade.`);
-    return () => { document.title = oldTitle; meta?.setAttribute('content', oldDescription); };
-  }, [game.id, activeTab, tool]);
   if (!validTab || !validTool) return <Navigate to={`/jogo/${game.id}`} replace />;
 
   return (
