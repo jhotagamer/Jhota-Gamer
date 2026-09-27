@@ -191,5 +191,97 @@ export const editorialGuides: Guide[] = [
       checklist: ['Estilo preferido definido', 'Caminho da raça conferido', 'Função no grupo considerada', 'Habilidades atuais testadas no jogo'],
       relatedTool: { label: 'Explorar a Árvore de Classes', path: '/jogo/lineage-2/classes' }
     }
+  },
+  {
+    id: 'guia-lineage2-up-iniciantes-exilium',
+    gameId: 'lineage-2',
+    gameName: 'Lineage 2',
+    title: 'Como upar no Lineage 2 Exilium: guia para iniciantes até o nível 85',
+    summary: 'Escolha a jornada, equipe-se sem desperdiçar adena, use buffs e shots corretos e aproveite a ajuda da comunidade para chegar ao 85.',
+    category: 'Iniciante',
+    readTime: '10 min de leitura',
+    publishedDate: '27 de setembro de 2026',
+    author: 'Jhota Gamer',
+    recommendedLevel: 'Níveis 1 a 85',
+    tags: ['Lineage 2', 'Exilium', 'Up', 'Iniciantes', 'Equipamentos'],
+    content: {
+      intro: 'Começou agora no Exilium World e quer chegar ao nível 85 sem gastar toda a adena? Reuni aqui as escolhas que eu considero mais importantes durante o up: caminho de evolução, grades de equipamento, buffs, shots e ajuda de outros jogadores. Use o guia como roteiro e confira as opções exibidas no seu cliente, porque o servidor recebe atualizações.',
+      highlight: 'Guarde adena para o que realmente melhora seu up. Você não precisa comprar um conjunto novo a cada grade: confira as recompensas da Campanha e priorize arma, armadura e joias adequadas à sua classe.',
+      sections: [
+        {
+          heading: 'Escolha Campanha ou Jornada Livre ao criar o personagem',
+          text: 'O servidor oferece dois caminhos. A Campanha foi feita para quem está começando: acompanha o personagem por quests até o nível 80, indica objetivos e áreas de caça e entrega recompensas ao longo da progressão. Nela, a experiência dos monstros é reduzida em relação à Jornada Livre; siga as missões para aproveitar essa proposta.',
+          paragraphs: ['A Jornada Livre permite escolher onde caçar e mantém a experiência padrão dos monstros. É uma opção para quem já conhece os locais ou está criando outro personagem. A orientação do tutorial permanece disponível até o 85; na Campanha, a habilidade Open Journey Guide permite consultar novamente o objetivo. Como as quests passaram a entregar armas, armaduras, joias e shots, olhe suas recompensas antes de gastar adena no mercado.'],
+          tipBox: 'Se você é novato, experimente a Campanha antes de sair comprando equipamentos. Se optar pela Jornada Livre, use as zonas indicadas pela GK e avalie o tempo de up em cada local.'
+        },
+        {
+          heading: 'Troque de grade sem desperdiçar adena',
+          text: 'A arma costuma ter grande impacto no tempo para derrotar monstros, mas armadura e joias também importam para sua sobrevivência. Use o quadro abaixo como referência das grades. Nas cidades, procure Weapon Shop ou Armor Shop para armas e armaduras: no Exilium, você encontra os dois NPCs juntos no mesmo lugar. Confira quais grades cada vendedor oferece antes de gastar adena; não espere encontrar todas as opções avançadas numa loja.',
+          bulletPoints: [
+            'Níveis 1–19: No-grade.',
+            'Níveis 20–39: Grade D.',
+            'Níveis 40–51: Grade C.',
+            'Níveis 52–60: Grade B; é possível continuar com um bom equipamento C para economizar.',
+            'Níveis 61–75: Grade A.',
+            'Níveis 76–83: Grade S; ela fica disponível nesse período, mas eu não aconselho gastar adena só para comprá-la durante um up rápido. A partir do 80, alguns itens S80 também podem existir.',
+            'Nível 84 em diante: Grade S84, conforme os requisitos de cada item.'
+          ],
+          paragraphs: ['Isso não significa comprar todos os conjuntos da lista. No Exilium, poupar adena pode ser mais valioso do que fazer uma troca temporária de B ou S. Eu priorizaria uma arma funcional, proteção suficiente para o lugar onde estou caçando e as recompensas que o próprio servidor entrega. Se o dano ou a defesa estiverem baixos, revise equipamento, shots, buffs e local de up antes de investir.'],
+          gradeExamples: [
+            { grade: "No-grade", levels: "Níveis 1–19", items: [{ kind: "Arma", name: "Short Sword", icon: "/images/l2-up/weapon_n.png", url: "https://l2hub.info/items/small_sword" }, { kind: "Armadura", name: "Wooden Breastplate", icon: "/images/l2-up/armor_n.png", url: "https://l2hub.info/items/wooden_breastplate" }, { kind: "Joia", name: "Necklace of Magic", icon: "/images/l2-up/jewel_n.png", url: "https://l2hub.info/items/necklace_of_magic" }] },
+            { grade: "Grade D", levels: "Níveis 20–39", items: [{ kind: "Arma", name: "Elven Long Sword", icon: "/images/l2-up/weapon_d.png", url: "https://l2hub.info/items/elven_long_sword" }, { kind: "Armadura", name: "Brigandine Tunic", icon: "/images/l2-up/armor_d.png", url: "https://l2hub.info/items/brigandine" }, { kind: "Joia", name: "Elven Necklace", icon: "/images/l2-up/jewel_d.png", url: "https://l2hub.info/items/elven_necklace" }] },
+            { grade: "Grade C", levels: "Níveis 40–51", items: [{ kind: "Arma", name: "Samurai Longsword", icon: "/images/l2-up/weapon_c.png", url: "https://l2hub.info/items/samurai_longsword" }, { kind: "Armadura", name: "Full Plate Armor", icon: "/images/l2-up/armor_c.png", url: "https://l2hub.info/items/full_plate_armor" }, { kind: "Joia", name: "Necklace of Binding", icon: "/images/l2-up/jewel_c.png", url: "https://l2hub.info/items/necklace_of_binding" }] },
+            { grade: "Grade B", levels: "Níveis 52–60", note: "Pode pular para economizar.", items: [{ kind: "Arma", name: "Sword of Damascus", icon: "/images/l2-up/weapon_b.png", url: "https://l2hub.info/items/sword_of_damascus" }, { kind: "Armadura", name: "Blue Wolf Breastplate", icon: "/images/l2-up/armor_b.png", url: "https://l2hub.info/items/blue_wolve%27s_breastplate" }, { kind: "Joia", name: "Necklace of Black Ore", icon: "/images/l2-up/jewel_b.png", url: "https://l2hub.info/items/necklace_of_black_ore" }] },
+            { grade: "Grade A", levels: "Níveis 61–75", items: [{ kind: "Arma", name: "Tallum Blade", icon: "/images/l2-up/weapon_a.png", url: "https://l2hub.info/items/tallum_blade" }, { kind: "Armadura", name: "Dark Crystal Breastplate", icon: "/images/l2-up/armor_a.png", url: "https://l2hub.info/items/dark_crystal_breastplate" }, { kind: "Joia", name: "Phoenix Necklace", icon: "/images/l2-up/jewel_a.png", url: "https://l2hub.info/items/phoenix%27s_necklace" }] },
+            { grade: "Grade S", levels: "Níveis 76–83", note: "Evite gastar adena se for trocar logo.", items: [{ kind: "Arma", name: "Forgotten Blade", icon: "/images/l2-up/weapon_s.png", url: "https://l2hub.info/items/forgotten_blade" }, { kind: "Armadura", name: "Imperial Crusader Breastplate", icon: "/images/l2-up/armor_s.png", url: "https://l2hub.info/items/imperial_crusader_armor" }, { kind: "Joia", name: "Tateossian Necklace", icon: "/images/l2-up/jewel_s.png", url: "https://l2hub.info/items/dragon_necklace" }] },
+            { grade: "Grade S84", levels: "Níveis 84+", note: "Confira o nível exigido em cada item.", items: [{ kind: "Arma", name: "Vesper Cutter", icon: "/images/l2-up/weapon_s84.png", url: "https://l2hub.info/items/vesper_cutter" }, { kind: "Armadura", name: "Vesper Breastplate", icon: "/images/l2-up/armor_s84.png", url: "https://l2hub.info/items/vesper_cuirass" }, { kind: "Joia", name: "Vesper Necklace", icon: "/images/l2-up/jewel_s84.png", url: "https://l2hub.info/items/vesper_necklace" }] }
+          ],
+          tipBox: 'A Campanha atualizada pode entregar armas de diferentes grades, conjunto Dark Crystal e, ao final, um conjunto Dynasty permanente adequado à classe. Confira o estágio das quests antes de comprar um item que você receberá logo adiante.'
+        },
+        {
+          heading: 'Buffs e shots: os dois cuidados que mais fazem falta',
+          text: 'Procure o NPC de buffs antes de sair para caçar. Escolha efeitos que combinem com sua classe: um personagem físico e um mago não aproveitam exatamente a mesma seleção. Eu ainda vou trazer um guia separado de buffs; por enquanto, revise sua configuração ao trocar de classe ou equipamento.',
+          paragraphs: ['Compre Soulshots para armas físicas ou Blessed Spiritshots para magia na Grocery Shop (Grocery Store), junto com poções e outros consumíveis. Os shots devem ter a mesma grade da arma equipada; confira se estão ativados e se o estoque basta para a viagem. Para quem usa magia, priorizo Blessed Spiritshots em vez dos Spiritshots comuns. O exemplo visual abaixo usa shots de grade A: se sua arma for C, compre shots C, e assim por diante.'],
+          gradeExamples: [
+            { grade: 'Shots para arma de grade A', levels: 'Exemplo visual: a grade dos shots acompanha a arma, não o nível do personagem.', items: [
+              { kind: 'Ataque físico', name: 'Soulshot A', icon: '/images/l2-up/soulshot.png', url: 'https://l2hub.info/items/soulshot_a' },
+              { kind: 'Magia', name: 'Blessed Spiritshot A', icon: '/images/l2-up/blessed_spiritshot.png', url: 'https://l2hub.info/items/blessed_spiritshot_a' }
+            ] }
+          ],
+          images: [
+            { src: '/images/l2-up/npc-buffs.png', alt: 'NPC Magic Support Horadrim, responsável pelos buffs no Exilium', caption: 'Magic Support Horadrim: converse com o NPC de buffs antes de ir caçar e escolha os efeitos para a sua classe.', layout: 'portrait' },
+            { src: '/images/l2-up/barra-buffs.png', alt: 'Exemplo visual de vários ícones de buffs ativos no Lineage 2', caption: 'Confira a barra de buffs depois de conversar com o NPC. Esta imagem mostra como os efeitos aparecem na interface.' }
+          ],
+          tipBox: 'Ao receber ou comprar uma arma nova, confirme a grade e ajuste seus shots antes de voltar ao local de caça.'
+        },
+        {
+          heading: 'Use as zonas de up e acompanhe suas classes',
+          text: 'A GK, ou Gatekeeper, é o NPC de teleporte. Ela oferece zonas de caça indicadas para o nível do personagem. Comece por essas opções e troque de área quando os monstros estiverem fáceis demais ou quando o equipamento não der conta. Se estiver na Campanha, siga também a quest, que pode indicar outro destino. No mapa abaixo você vê um exemplo de onde ficam a GK e as duas lojas em Heine.',
+          paragraphs: ['A primeira escolha de profissão ocorre por volta do nível 20, a segunda no 40 e a terceira no 76. Observe cada escolha com atenção, pois ela define o caminho da classe. No site, a Árvore de Classes mostra todas as etapas por raça. As habilidades do personagem são aprendidas automaticamente no Exilium; ao subir de nível ou mudar de classe, abra a janela de skills para conhecer as novas opções.'],
+          images: [
+            { src: '/images/l2-up/mapa-lojas-heine.png', alt: 'Mapa de Heine mostrando Grocery Shop à esquerda, Weapons and Armor Shop à direita e Gatekeeper no centro', caption: 'Exemplo em Heine: Grocery Shop no alto à esquerda, Weapons & Armor Shop no alto à direita e Gatekeeper (GK) na área central. Os NPCs e a disposição variam em outras cidades.', layout: 'wide' }
+          ],
+          tipBox: 'Se estiver em dúvida entre tank, arqueiro, dagger, mago ou suporte, consulte a Árvore de Classes antes de fazer a transferência.'
+        },
+        {
+          heading: 'A partir do 75, peça ajuda e participe dos eventos',
+          text: 'Quando o up desacelerar, use o chat do jogo com educação para procurar party ou pedir ajuda. Muitos jogadores ajudam novatos a ganhar níveis e chegar mais rápido ao 85; quando estou disponível, também gosto de ajudar. Não entregue seus itens ou dados de conta a ninguém para receber essa ajuda.',
+          paragraphs: ['Participe dos eventos quando estiver apto: além de conhecer pessoas, você aprende os sistemas do servidor. Verifique requisitos e recompensas na interface antes de entrar e volte para as zonas de caça quando o evento não fizer sentido para seu nível.']
+        },
+        {
+          heading: 'Premium ajuda, mas não é obrigatório',
+          text: 'Você consegue evoluir sem Premium. Para quem quer acelerar a rotina, ele pode acrescentar benefícios como mais EXP/SP ao caçar, Auto Play, acesso a Kamaloka e buffs extras. Kamaloka é uma instância em que você pode conseguir itens; drops não são garantidos. Confira os benefícios e preços atuais no jogo antes de decidir se vale a pena para você.',
+          paragraphs: ['Não conte com o Premium como substituto de uma classe bem escolhida, bons equipamentos, shots corretos e buffs adequados. Use primeiro os recursos gratuitos e considere o Premium apenas se ele fizer sentido para sua forma de jogar.']
+        },
+        {
+          heading: 'Dyes ficam para depois do up',
+          text: 'As dyes, também chamadas de tattoos, ajustam atributos e variam conforme a classe e o objetivo do personagem. Elas não precisam ser sua prioridade no começo. Primeiro alcance seu nível, conheça as skills e monte o equipamento. Depois você poderá comparar combinações para PvE e PvP; vou preparar um guia separado sobre dyes.',
+          paragraphs: ['Uma combinação boa para outra classe pode prejudicar a sua. Evite copiar qualquer fórmula sem entender o que você ganha e o que perde.']
+        }
+      ],
+      conclusion: 'Meu conselho para chegar ao 85 é simples: escolha a jornada que combina com você, use as recompensas disponíveis, não desperdice adena em trocas passageiras, mantenha buffs e shots corretos e peça ajuda quando precisar. Assim você conhece o servidor enquanto evolui e chega melhor preparado para se equipar depois.',
+      checklist: ['Jornada e classe escolhidas com atenção', 'Arma, armadura e joias adequadas ao nível', 'Buffs e shots da grade da arma ativos', 'GK ou objetivo da Campanha conferido', 'Adena reservada para etapas mais importantes'],
+      relatedTool: { label: 'Ver Árvore de Classes de Lineage 2', path: '/jogo/lineage-2/classes' }
+    }
   }
 ];

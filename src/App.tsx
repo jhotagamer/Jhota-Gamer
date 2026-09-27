@@ -270,6 +270,7 @@ export default function App() {
                 setReadingNews={setReadingNews}
               />
             } />
+            <Route path="/jogo/lineage-2/guia/guia-lineage2-siege-giran" element={<Navigate to="/jogo/lineage-2/guia/guia-lineage2-up-iniciantes-exilium" replace />} />
             <Route path="/jogo/:gameId/guia/:guideId" element={<GuidePage />} />
             <Route path="/jogo/:gameId/video/:videoId" element={<VideoPage videos={videos} loading={videosLoading} />} />
             {/* Redirecionamento de rotas legadas do marketplace */}

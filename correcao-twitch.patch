@@ -1,0 +1,73 @@
+diff --git a/src/App.tsx b/src/App.tsx
+index 1fca8b3..d166496 100644
+--- a/src/App.tsx
++++ b/src/App.tsx
+@@ -78,6 +78,9 @@ export default function App() {
+         const parsed = JSON.parse(saved);
+         if (Array.isArray(parsed)) {
+           return parsed.filter((s: SocialMedia) => s.platform !== 'tiktok').map((s: SocialMedia) => {
++            if (s.platform === 'twitch') {
++              return { ...s, url: 'https://www.twitch.tv/jhotagameroficial', username: 'twitch.tv/jhotagameroficial' };
++            }
+             if (s.platform === 'youtube' && (!s.url || s.url === 'https://youtube.com' || s.url.includes('@seucanal'))) {
+               return { ...s, url: 'https://www.youtube.com/@JhotaGamerOficial', username: '@JhotaGamerOficial' };
+             }
+diff --git a/src/components/Footer.tsx b/src/components/Footer.tsx
+index 255e667..016733d 100644
+--- a/src/components/Footer.tsx
++++ b/src/components/Footer.tsx
+@@ -75,7 +75,7 @@ export const Footer: React.FC<FooterProps> = ({
+             <div className="flex items-center gap-3 pt-2">
+               <a href="https://www.youtube.com/@JhotaGamerOficial" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-lg bg-zinc-900 hover:bg-red-600/20 hover:text-red-400 border border-zinc-800 hover:border-red-500/40 flex items-center justify-center text-zinc-300 transition-colors"><Youtube className="w-4 h-4" /></a>
+               <a href="https://discord.gg/Uq9pnCwDkq" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-lg bg-zinc-900 hover:bg-indigo-600/20 hover:text-indigo-400 border border-zinc-800 hover:border-indigo-500/40 flex items-center justify-center text-zinc-300 transition-colors"><MessageSquare className="w-4 h-4" /></a>
+-              <a href="https://twitch.tv/jhotagamer" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-lg bg-zinc-900 hover:bg-purple-600/20 hover:text-purple-400 border border-zinc-800 hover:border-purple-500/40 flex items-center justify-center text-zinc-300 transition-colors"><Tv className="w-4 h-4" /></a>
++              <a href="https://www.twitch.tv/jhotagameroficial" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-lg bg-zinc-900 hover:bg-purple-600/20 hover:text-purple-400 border border-zinc-800 hover:border-purple-500/40 flex items-center justify-center text-zinc-300 transition-colors"><Tv className="w-4 h-4" /></a>
+               <a href="https://www.instagram.com/jhotagameroficial/" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-lg bg-zinc-900 hover:bg-pink-600/20 hover:text-pink-400 border border-zinc-800 hover:border-pink-500/40 flex items-center justify-center text-zinc-300 transition-colors"><Instagram className="w-4 h-4" /></a>
+               <a href="https://www.facebook.com/profile.php?id=61594432231685" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-lg bg-zinc-900 hover:bg-blue-600/20 hover:text-blue-400 border border-zinc-800 hover:border-blue-500/40 flex items-center justify-center text-zinc-300 transition-colors"><Facebook className="w-4 h-4" /></a>
+             </div>
+diff --git a/src/data/initialData.ts b/src/data/initialData.ts
+index 762d99a..1fe3e97 100644
+--- a/src/data/initialData.ts
++++ b/src/data/initialData.ts
+@@ -583,8 +583,8 @@ export const initialSocials: SocialMedia[] = [
+   {
+     id: "social-twitch",
+     name: "Twitch",
+-    username: "twitch.tv/jhotagamer",
+-    url: "https://twitch.tv",
++    username: "twitch.tv/jhotagameroficial",
++    url: "https://www.twitch.tv/jhotagameroficial",
+     platform: "twitch",
+     icon: "Tv",
+     themeColor: "from-purple-600 to-violet-800",
+diff --git a/src/utils/socialSync.ts b/src/utils/socialSync.ts
+index 6dc66db..0de2dac 100644
+--- a/src/utils/socialSync.ts
++++ b/src/utils/socialSync.ts
+@@ -18,7 +18,7 @@ export const YOUTUBE_CHANNEL_URL = 'https://www.youtube.com/@JhotaGamerOficial';
+  * - Discord (Live Guild Widget API: 1549835537160867923)
+  * - Instagram (@jhotagameroficial)
+  * - Facebook (profile 61594432231685)
+- * - Twitch (twitch.tv/jhotagamer)
++ * - Twitch (twitch.tv/jhotagameroficial)
+  */
+ export async function syncSocialMetrics(
+   currentSocials: SocialMedia[],
+@@ -106,14 +106,14 @@ export async function syncSocialMetrics(
+     };
+   }
+ 
+-  // 5. Twitch Sync (twitch.tv/jhotagamer)
++  // 5. Twitch Sync (twitch.tv/jhotagameroficial)
+   const twitchIdx = updatedSocials.findIndex((s) => s.platform === 'twitch');
+   if (twitchIdx !== -1) {
+     const current = updatedSocials[twitchIdx];
+     updatedSocials[twitchIdx] = {
+       ...current,
+-      url: 'https://twitch.tv/jhotagamer',
+-      username: 'twitch.tv/jhotagamer',
++      url: 'https://www.twitch.tv/jhotagameroficial',
++      username: 'twitch.tv/jhotagameroficial',
+       followers: current.followers || '12.3K Seguidores'
+     };
+   }

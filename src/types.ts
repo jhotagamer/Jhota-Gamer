@@ -30,6 +30,13 @@ export interface Guide {
       paragraphs?: string[];
       bulletPoints?: string[];
       tipBox?: string;
+      images?: { src: string; alt: string; caption: string; layout?: 'portrait' | 'wide' }[];
+      gradeExamples?: {
+        grade: string;
+        levels: string;
+        note?: string;
+        items: { kind: string; name: string; icon: string; url: string }[];
+      }[];
     }[];
     conclusion: string;
     checklist?: string[];

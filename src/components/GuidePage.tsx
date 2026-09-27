@@ -223,6 +223,43 @@ export const GuidePage: React.FC = () => {
                     </ul>
                   )}
 
+                  {section.gradeExamples && (
+                    <div className="space-y-3" aria-label="Exemplos visuais de equipamento por grade">
+                      <p className="text-xs text-zinc-400">Exemplos para reconhecer cada grade. As imagens ilustram os itens; escolha arma e armadura para a sua classe e confirme a disponibilidade no jogo.</p>
+                      {section.gradeExamples.map(row => (
+                        <div key={row.grade} className="rounded-2xl border border-zinc-700/80 bg-zinc-900/60 p-4">
+                          <div className="flex flex-wrap items-center gap-2 mb-3">
+                            <span className="rounded-lg bg-amber-500/15 px-3 py-1 text-xs font-bold text-amber-300">{row.grade}</span>
+                            <span className="text-xs text-zinc-400">{row.levels}</span>
+                            {row.note && <span className="text-xs text-amber-200">{row.note}</span>}
+                          </div>
+                          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                            {row.items.map(item => (
+                              <a key={item.kind} href={item.url} target="_blank" rel="noopener noreferrer" className="group flex min-w-0 items-center gap-3 rounded-xl border border-zinc-800 bg-zinc-950/60 p-2.5 hover:border-amber-500/50">
+                                <img src={item.icon} alt="" loading="lazy" width="40" height="40" className="h-10 w-10 shrink-0 rounded-md border border-zinc-700 bg-zinc-800 object-contain [image-rendering:pixelated]" />
+                                <span className="min-w-0"><span className="block text-[10px] uppercase tracking-wider text-amber-400">{item.kind}</span><span className="block text-xs text-zinc-200 group-hover:text-white">{item.name}</span></span>
+                              </a>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                      <p className="text-xs text-zinc-500">Ícones e exemplos de itens: <a href="https://l2hub.info/items" target="_blank" rel="noopener noreferrer" className="text-amber-300 hover:underline">L2Hub</a>. Os valores e estoques das lojas do Exilium podem ser diferentes.</p>
+                    </div>
+                  )}
+
+                  {section.images && (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {section.images.map(image => (
+                        <figure key={image.src} className={`overflow-hidden rounded-2xl border border-zinc-700 bg-zinc-900/70 ${image.layout === 'wide' ? 'sm:col-span-2' : ''}`}>
+                          <a href={image.src} target="_blank" rel="noopener noreferrer" title="Abrir imagem em tamanho original" aria-label={`${image.alt}. Abrir imagem em tamanho original`}>
+                            <img src={image.src} alt={image.alt} loading="lazy" className={`mx-auto block w-full object-contain ${image.layout === 'portrait' ? 'max-h-96' : 'max-h-[560px]'}`} />
+                          </a>
+                          <figcaption className="border-t border-zinc-800 px-4 py-3 text-xs leading-relaxed text-zinc-300">{image.caption}</figcaption>
+                        </figure>
+                      ))}
+                    </div>
+                  )}
+
                   {/* Tip box se houver */}
                   {section.tipBox && (
                     <div className="p-4 rounded-xl bg-amber-500/10 border-l-4 border-amber-500 text-zinc-200 text-xs sm:text-sm">

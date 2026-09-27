@@ -147,35 +147,7 @@ export const initialGuides: Guide[] = [
     }
   },
   ...editorialGuides,
-  {
-    id: "guia-lineage2-siege-giran",
-    gameId: "lineage-2",
-    gameName: "Lineage 2",
-    title: "Guia Tático de Cerco a Castelos (Castle Siege): A Tomada de Giran",
-    summary: "Posicionamento de catapultas, quebra dos portões externos, controle da Throne Room e cancelamento de Holy Artifact.",
-    category: "Estratégia",
-    readTime: "10 min de leitura",
-    publishedDate: "28 de Agosto, 2026",
-    author: "Jhota Gamer",
-    recommendedLevel: "Clã Nível 5+",
-    tags: ["Lineage 2", "Siege", "Giran", "PvP Massivo", "Estratégia"],
-    content: {
-      intro: "No Lineage 2, não há glória maior do que ver o brasão do seu clã hasteado na torre mais alta de Giran Castle. Um cerco dura 2 horas de pura adrenalina militar, onde a coordenação de voz vence qualquer número isolado.",
-      sections: [
-        {
-          heading: "1. Composição Obrigatória das Partys (CPs)",
-          text: "Você precisa de 3 grupos fundamentais: a Party de Rush Melee/Dagger (foco em matar Bishops e dano explosivo), a Party de Mages de Área (Sorcerer/Spellsinger lançando Slow e AoE) e a Party de Suporte com Bishop, Elven Elder, Warcryer e Swordsinger.",
-          bulletPoints: [
-            "Bishops devem ficar recuados com foco em Greater Group Heal e Balance Life.",
-            "Swordsingers e Spectral Dancers mantêm Song of Wind e Dance of Fire sem interrupções.",
-            "O líder do clã deve estar protegido por guarda de tanques (Paladin ou Dark Avenger) durante o cast do selo."
-          ],
-          tipBox: "Lembre-se: O cast da Holy Artifact leva 3 minutos sem sofrer nenhum interrupt ou dano direto. Proteja o líder com escudos defensivos!"
-        }
-      ],
-      conclusion: "A vitória no Siege consolida o poder político da sua aliança por 14 dias inteiros com arrecadação de impostos das lojas da cidade."
-    }
-  }
+
 ];
 
 export const initialBuilds: Build[] = [
