@@ -1,3 +1,4 @@
+import { Link, useParams } from 'react-router-dom';
 import React, { useState, useMemo } from 'react';
 import { Calculator, Recycle, ArrowRightLeft, CheckCircle } from 'lucide-react';
 import { formatSilver } from '../../services/albionMarketApi';
@@ -8,7 +9,8 @@ import {
 } from '../../data/albionData';
 
 export const AlbionToolsSection: React.FC = () => {
-  const [activeTool, setActiveTool] = useState<'flip' | 'refine'>('flip');
+  const { tool } = useParams();
+  const activeTool = tool === 'refino' ? 'refine' : 'flip';
 
   return (
     <div className="space-y-8">
@@ -37,16 +39,16 @@ export const AlbionToolsSection: React.FC = () => {
         ].map((tool) => {
           const Icon = tool.icon;
           return (
-            <button
+            <Link
               key={tool.id}
-              onClick={() => setActiveTool(tool.id as 'flip' | 'refine')}
+              to={`/jogo/albion-online/calculadoras/${tool.id === 'refine' ? 'refino' : 'transporte'}`}
               className={`flex items-center gap-2 px-6 py-3 rounded-2xl text-sm font-bold transition-all cursor-pointer ${
                 activeTool === tool.id ? 'bg-amber-500 text-zinc-950 shadow-lg scale-105' : 'bg-zinc-900 text-zinc-400 border border-zinc-800 hover:text-white'
               }`}
             >
               <Icon className={`w-4 h-4 ${activeTool === tool.id ? 'text-zinc-950' : tool.color}`} />
               {tool.label}
-            </button>
+            </Link>
           );
         })}
       </div>

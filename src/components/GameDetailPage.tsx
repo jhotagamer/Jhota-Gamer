@@ -1,7 +1,7 @@
 import { RecentVideosSection } from './RecentVideosSection';
 import { GameNewsSection } from './GameNewsSection';
 import React, { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, Link, Navigate } from 'react-router-dom';
 import { Game, Guide, Build, NewsItem, VideoItem } from '../types';
 import { 
   ArrowLeft, BookOpen, Swords, Video, Newspaper, Clock, 
@@ -40,9 +40,8 @@ export const GameDetailPage: React.FC<GameDetailPageProps> = ({
   const navigate = useNavigate();
   const isAlbion = game.id === 'albion-online';
   const isLineage = game.id === 'lineage-2';
-  const [activeTab, setActiveTab] = useState<'guias' | 'builds' | 'videos' | 'noticias' | 'mercado' | 'ferramentas'>(
-    isLineage && initialTab === 'builds' ? 'guias' : (initialTab || 'guias')
-  );
+  const { section, tool } = useParams();
+  const activeTab = section === 'calculadoras' ? 'ferramentas' : (section || initialTab || 'guias');
   const [rawViewBuildId, setRawViewBuildId] = useState<string | null>(null);
   const [copiedBuildId, setCopiedBuildId] = useState<string | null>(null);
 
@@ -65,6 +64,19 @@ export const GameDetailPage: React.FC<GameDetailPageProps> = ({
         ]
       : [])
   ];
+
+  const validTab = tabs.some(tab => tab.id === activeTab);
+  const validTool = !tool || (activeTab === 'ferramentas' && ['transporte', 'refino'].includes(tool));
+  React.useEffect(() => {
+    const label = tabs.find(tab => tab.id === activeTab)?.label || 'Guias';
+    const oldTitle = document.title;
+    const meta = document.querySelector('meta[name="description"]');
+    const oldDescription = meta?.getAttribute('content') || '';
+    document.title = `${tool === 'refino' ? 'Calculadora de Refino' : tool === 'transporte' ? 'Calculadora de Transporte' : label} | ${game.name} | Jhota Gamer`;
+    meta?.setAttribute('content', `${label} de ${game.name} no Jhota Gamer. Confira os conteúdos e ferramentas da comunidade.`);
+    return () => { document.title = oldTitle; meta?.setAttribute('content', oldDescription); };
+  }, [game.id, activeTab, tool]);
+  if (!validTab || !validTool) return <Navigate to={`/jogo/${game.id}`} replace />;
 
   return (
     <div className="bg-[#090b10] min-h-screen pb-20">
@@ -137,12 +149,11 @@ export const GameDetailPage: React.FC<GameDetailPageProps> = ({
             const Icon = tab.icon;
             const isActive = activeTab === tab.id;
             return (
-              <button
+              <Link
                 key={tab.id}
                 id={`game-tab-${tab.id}`}
-                onClick={() => {
-                  setActiveTab(tab.id);
-                }}
+                to={`/jogo/${game.id}/${tab.id === 'ferramentas' ? 'calculadoras' : tab.id}`}
+                aria-current={isActive ? 'page' : undefined}
                 className={`flex items-center gap-2 px-4 py-3 border-b-2 text-xs sm:text-sm font-semibold whitespace-nowrap transition-all cursor-pointer ${
                   isActive
                     ? 'border-amber-400 text-amber-400 bg-amber-500/5'
@@ -154,7 +165,7 @@ export const GameDetailPage: React.FC<GameDetailPageProps> = ({
                 {tab.count > 0 && (
                   <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${isActive ? 'bg-amber-500/20 text-amber-300' : 'bg-zinc-800 text-zinc-400'}`}>{tab.count}</span>
                 )}
-              </button>
+              </Link>
             );
           })}
         </div>
@@ -168,12 +179,9 @@ export const GameDetailPage: React.FC<GameDetailPageProps> = ({
             {gameGuides.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {gameGuides.map((guide) => (
-                  <div
+                  <Link
                     key={guide.id}
-                    onClick={() => {
-                      if (onSelectGuide) onSelectGuide(guide);
-                      navigate(`/jogo/${game.id}/guia/${guide.id}`);
-                    }}
+                    to={`/jogo/${game.id}/guia/${guide.id}`}
                     className="p-6 rounded-2xl bg-zinc-900/60 border border-zinc-800 hover:border-amber-500/50 transition-all duration-200 hover:-translate-y-1 cursor-pointer flex flex-col justify-between shadow-lg"
                   >
                     <div>
@@ -191,7 +199,7 @@ export const GameDetailPage: React.FC<GameDetailPageProps> = ({
                       <span>Nível Recomendado: {guide.recommendedLevel}</span>
                       <div className="flex items-center gap-1"><span>Ler Guia Completo</span><ChevronRight className="w-4 h-4" /></div>
                     </div>
-                  </div>
+                  </Link>
                 ))}
               </div>
             ) : (

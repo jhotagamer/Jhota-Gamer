@@ -333,7 +333,7 @@ export default function App() {
             } />
 
             {/* PÁGINA DE DETALHES DO JOGO (URL DINÂMICA: /jogo/albion-online) */}
-            <Route path="/jogo/:gameId" element={
+            <Route path="/jogo/:gameId/:section?/:tool?" element={
               <GameDetailPageWrapper 
                 games={countedGames}
                 guides={guides} 
