@@ -312,8 +312,6 @@ export default function App() {
     />
     <WhatYouFindSection />
     
-    {/* ADICIONE ESTA LINHA ABAIXO PARA A BIO VOLTAR */}
-    <BioSection bio={bio} /> 
 
     <FeaturedGamesSection
       games={countedGames}
@@ -323,6 +321,7 @@ export default function App() {
       onPlayVideo={(v) => setPlayingVideo(v)}
       onUpdateVideos={handleUpdateVideos}
     />
+    <BioSection bio={bio} />
   </>
 } />
 

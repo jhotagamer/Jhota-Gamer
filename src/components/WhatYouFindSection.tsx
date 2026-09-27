@@ -1,6 +1,7 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { 
+  Calculator,
   BookOpen, 
   Newspaper, 
   TrendingUp, 
@@ -25,6 +26,18 @@ export const WhatYouFindSection: React.FC<WhatYouFindSectionProps> = ({ onNaviga
     }
   };
   const pillars = [
+    {
+      id: 'ferramentas',
+      title: 'Ferramentas do Albion',
+      subtitle: 'Calculadoras de refino e transporte',
+      description: 'Simule custos, taxas e retorno de materiais antes de refinar ou transportar seus itens. Calcule com os valores que você informar.',
+      icon: Calculator,
+      iconColor: 'text-amber-400',
+      badge: 'Calculadoras',
+      bgGlow: 'hover:border-amber-500/50 group-hover:shadow-amber-500/10',
+      actionPage: 'jogos' as PageType,
+      path: '/jogo/albion-online/calculadoras'
+    },
     {
       id: 'guias',
       title: 'Guias & Tutoriais',
@@ -103,15 +116,18 @@ export const WhatYouFindSection: React.FC<WhatYouFindSectionProps> = ({ onNaviga
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {pillars.map((item, index) => {
             const Icon = item.icon;
-            // Center the 5th item nicely on large screens or span full width
-            const isLast = index === 4;
+
             return (
-              <div
+              <Link
                 key={item.id}
-                onClick={() => handlePillarClick(item.actionPage)}
-                className={`group relative p-6 rounded-2xl bg-zinc-900/50 hover:bg-zinc-900/90 border border-zinc-800 transition-all duration-300 cursor-pointer shadow-lg ${item.bgGlow} ${
-                  isLast ? 'md:col-span-2 lg:col-span-1' : ''
-                }`}
+                to={item.path || '/' + item.actionPage}
+                onClick={(event) => {
+                  if (onNavigate && !item.path && !event.ctrlKey && !event.metaKey && !event.shiftKey && !event.altKey && event.button === 0) {
+                    event.preventDefault();
+                    handlePillarClick(item.actionPage);
+                  }
+                }}
+                className={`group relative p-6 rounded-2xl bg-zinc-900/50 hover:bg-zinc-900/90 border border-zinc-800 transition-all duration-300 cursor-pointer shadow-lg ${item.bgGlow}`}
               >
                 <div className="flex items-center justify-between mb-4">
                   <div className="w-12 h-12 rounded-xl bg-zinc-950/80 border border-zinc-800 flex items-center justify-center group-hover:scale-110 transition-transform">
@@ -132,10 +148,10 @@ export const WhatYouFindSection: React.FC<WhatYouFindSectionProps> = ({ onNaviga
                 </p>
 
                 <div className="flex items-center gap-1 text-xs font-semibold text-amber-400 group-hover:text-amber-300 pt-2 border-t border-zinc-800/80">
-                  <span>Acessar seção</span>
+                  <span>{item.id === 'ferramentas' ? 'Abrir calculadoras' : 'Acessar seção'}</span>
                   <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
                 </div>
-              </div>
+              </Link>
             );
           })}
         </div>
