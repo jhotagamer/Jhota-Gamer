@@ -31,9 +31,9 @@ export function SupportPage() {
         <p className="text-zinc-400 mt-4">O apoio é voluntário, com o valor que você escolher. Você também fortalece o projeto acompanhando o canal e compartilhando nossos conteúdos.</p>
       </div>
       <div className="grid md:grid-cols-2 gap-8 items-start">
-        <div className="rounded-2xl bg-white p-4">
-          <img src="/apoio/pix-jhota.png" alt="QR code Pix da Caixa para apoiar o Jhota Gamer" className="w-full h-auto" />
-          <a href="/apoio/pix-jhota.png" target="_blank" rel="noopener noreferrer" className="block text-center text-blue-800 underline py-3">Abrir QR code em tamanho original</a>
+        <div className="rounded-3xl border border-amber-500/20 bg-zinc-900/60 p-5 sm:p-8 shadow-xl">
+          <div className="rounded-2xl bg-white p-3 max-w-sm mx-auto"><img src="/apoio/pix-jhota-limpo.svg" alt="QR code Pix para apoiar o Jhota Gamer" className="w-full h-auto" /></div>
+          <a href="/apoio/pix-jhota-limpo.svg" target="_blank" rel="noopener noreferrer" className="block text-center text-amber-300 underline py-3">Abrir QR code em tamanho original</a>
         </div>
         <div className="rounded-2xl border border-amber-500/20 bg-zinc-900/60 p-6 sm:p-8">
           <Heart className="text-amber-400 w-8 h-8 mb-4" aria-hidden="true" />
@@ -44,8 +44,8 @@ export function SupportPage() {
             <li>Confira o beneficiário no banco antes de confirmar.</li>
           </ol>
           <div className="my-6 rounded-xl bg-zinc-950 p-4 text-sm">
-            <p className="text-zinc-400">Nome registrado no código Pix</p>
-            <p className="text-white font-semibold mt-1">JOAO FELIPE TENORIO DE SO</p>
+            <p className="text-zinc-400">Beneficiário</p>
+            <p className="text-white font-semibold mt-1">João Felipe T de S</p>
             <p className="text-zinc-400 mt-2">O nome completo será exibido pelo seu banco.</p>
           </div>
           <button onClick={copyPix} className="w-full flex items-center justify-center gap-2 rounded-xl bg-amber-400 hover:bg-amber-300 text-zinc-950 font-bold py-4 px-4 cursor-pointer">
