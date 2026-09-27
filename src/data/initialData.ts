@@ -555,97 +555,41 @@ export const initialSocials: SocialMedia[] = [
 export const initialUsefulLinks: UsefulLink[] = [
   {
     id: "link-albion-official",
-    title: "Albion Online — Site Oficial & Download",
-    description: "Portal oficial da Sandbox Interactive para download do jogo, registro de conta e notícias do servidor.",
-    url: "https://albiononline.com",
+    title: "Albion Online — Site Oficial",
+    description: "Site oficial do jogo com notícias, cadastro e download.",
+    url: "https://albiononline.com/home?hl=pt",
     category: "sites_oficiais",
     gameRelated: "Albion Online",
     isOfficial: true,
-    tags: ["Oficial", "Download", "Albion"]
+    tags: ["Albion", "Oficial"]
   },
   {
-    id: "link-albion-2d",
-    title: "Albion 2D Database & Calculadora de Crafting",
-    description: "Banco de dados completo de itens, cálculo de custo de refino, taxas de retorno e simulações de mercado.",
-    url: "https://albiononline2d.com",
-    category: "ferramentas",
+    id: "link-albion-wiki",
+    title: "Wiki de Albion Online",
+    description: "Enciclopédia do jogo com informações sobre itens, atividades e mecânicas.",
+    url: "https://wiki.albiononline.com/wiki/Albion_Online_Wiki",
+    category: "wikis_databases",
     gameRelated: "Albion Online",
-    tags: ["Database", "Calculadora", "Crafting"]
-  },
-  {
-    id: "link-albion-murderledger",
-    title: "MurderLedger — Ranking & Meta de 1v1 Corrupted",
-    description: "Estatísticas em tempo real das builds mais fortes em masmorras corrompidas, taxas de vitória e histórico de abates.",
-    url: "https://murderledger.com",
-    category: "ferramentas",
-    gameRelated: "Albion Online",
-    tags: ["Meta", "1v1", "PvP", "Corrupted"]
+    tags: ["Albion", "Wiki"]
   },
   {
     id: "link-exilium-official",
-    title: "Servidor Exilium World — Site Oficial & Download",
-    description: "Portal oficial do servidor Exilium World High Five x100. Registro de contas, download do cliente completo, launcher oficial, status dos servidores e eventos.",
+    title: "Exilium World — Site Oficial",
+    description: "Site oficial do servidor de Lineage 2 com notícias, cadastro e download.",
     url: "https://www.exiliumworld.com/",
     category: "sites_oficiais",
     gameRelated: "Lineage 2 Exilium World",
     isOfficial: true,
-    tags: ["Exilium World", "Oficial", "Download", "High Five", "Lineage 2"]
+    tags: ["Exilium", "Oficial"]
   },
   {
-    id: "link-exilium-forum",
-    title: "Fórum Oficial Exilium World — Guias, Classes & Economia",
-    description: "Fórum oficial da comunidade Exilium World com guias avançados de classes High Five, discussões de Olympiad, Sieges e recrutamento de clãs.",
-    url: "https://forum.exiliumworld.com",
-    category: "comunidades",
-    gameRelated: "Lineage 2 Exilium World",
-    isOfficial: true,
-    tags: ["Fórum", "Guias", "Comunidade", "Exilium World"]
-  },
-  {
-    id: "link-exilium-panel",
-    title: "Exilium World — Painel de Controle, Serviços & VIP",
-    description: "Painel do jogador para gerenciamento de personagens, histórico de doações, status de VIP, serviços de conta e mercado in-game do Exilium World.",
-    url: "https://www.exiliumworld.com/account",
-    category: "ferramentas",
-    gameRelated: "Lineage 2 Exilium World",
-    isOfficial: true,
-    tags: ["Painel", "Conta", "Serviços", "VIP", "Exilium World"]
-  },
-  {
-    id: "link-exilium-rankings",
-    title: "Exilium World — Rankings, Top PvP/PK & Heróis da Olympiad",
-    description: "Classificação em tempo real do servidor Exilium World: líderes de PvP, contagem de PKs, castelos conquistados e heróis ativos da Grand Olympiad.",
-    url: "https://www.exiliumworld.com/rankings",
-    category: "ferramentas",
-    gameRelated: "Lineage 2 Exilium World",
-    isOfficial: true,
-    tags: ["Rankings", "PvP", "Olympiad", "Heróis", "Exilium World"]
-  },
-  {
-    id: "link-exilium-news",
-    title: "Exilium World — Notícias & Atualizações do Servidor",
-    description: "Histórico de correções, notas de manutenções semanais, eventos sazonais e cronograma de Sieges do servidor Exilium World.",
-    url: "https://www.exiliumworld.com/news",
-    category: "sites_oficiais",
-    gameRelated: "Lineage 2 Exilium World",
-    isOfficial: true,
-    tags: ["Notícias", "Patch Notes", "Exilium World", "Manutenção"]
-  },
-  {
-    id: "link-exilium-database",
-    title: "Database High Five (Exilium World) — Drops, Spoil & Quests",
-    description: "Base de dados completa da crônica High Five usada no Exilium World para consulta de drops de raid bosses (Antharas, Valakas), spoilers de monstros e receitas de craft.",
-    url: "https://lineage.pmfun.com",
+    id: "link-exilium-wiki",
+    title: "Wiki do Exilium World",
+    description: "Wiki do servidor com informações sobre itens, habilidades e recursos de jogo.",
+    url: "https://www.exiliumworld.com/wiki",
     category: "wikis_databases",
     gameRelated: "Lineage 2 Exilium World",
-    tags: ["Database", "High Five", "Exilium World", "Drops", "Spoil"]
-  },
-  {
-    id: "link-discord-guild",
-    title: "Discord da Guilda Jhota Gamer",
-    description: "Comunidade principal para jogar em grupo, call para Albion ZvZ, parties de farm e Sieges no L2.",
-    url: "https://discord.gg/Uq9pnCwDkq",
-    category: "comunidades",
-    tags: ["Guilda", "Voz", "Comunidade", "Eventos"]
+    isOfficial: true,
+    tags: ["Exilium", "Wiki"]
   }
 ];

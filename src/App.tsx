@@ -6,7 +6,7 @@ import { SupportPage } from './components/SupportPage';
 
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useParams, useNavigate } from 'react-router-dom';
-import { Game, Guide, Build, NewsItem, VideoItem, SocialMedia, UsefulLink, BioData } from './types';
+import { Game, Guide, Build, NewsItem, VideoItem, SocialMedia, BioData } from './types';
 import { 
   initialBio, 
   initialGames, 
@@ -98,80 +98,7 @@ export default function App() {
     return initialSocials.filter((s) => s.platform !== 'tiktok');
   });
 
-  const isLeagueOfLegendsLink = (link: UsefulLink) => {
-    const text = `${link.title} ${link.description} ${link.gameRelated || ''} ${link.tags?.join(' ') || ''} ${link.url}`.toLowerCase();
-    return (
-      text.includes('league of legends') ||
-      text.includes('riot games') ||
-      text.includes('summoner') ||
-      text.includes('op.gg') ||
-      text.includes('u.gg') ||
-      text.includes('lolalytics') ||
-      /\b(lol|moba|rift)\b/i.test(text)
-    );
-  };
-
-  const sanitizeUsefulLink = (link: UsefulLink): UsefulLink | null => {
-    if (isLeagueOfLegendsLink(link)) return null;
-
-    const url = (link.url || '').toLowerCase();
-    const title = (link.title || '').toLowerCase();
-
-    // Remove any official retail Lineage 2 links (NCSoft, 4game, lineage2.com)
-    if (url.includes('lineage2.com') || url.includes('plaync.com') || url.includes('4game.com')) {
-      return null;
-    }
-    if ((title.includes('lineage 2') || title.includes('lineage ii')) && title.includes('oficial') && !title.includes('exilium') && !url.includes('exiliumworld')) {
-      return null;
-    }
-
-    // Ensure the official Exilium World link is correctly formatted
-    if (link.id === 'link-exilium-official' || (url.includes('exiliumworld.com') && (link.category === 'sites_oficiais' || link.isOfficial))) {
-      return {
-        ...link,
-        title: "Servidor Exilium World — Site Oficial & Download",
-        url: "https://www.exiliumworld.com/",
-        gameRelated: "Lineage 2 Exilium World",
-        isOfficial: true
-      };
-    }
-
-    return link;
-  };
-
-  const sanitizeAndEnsureLinks = (rawLinks: UsefulLink[]): UsefulLink[] => {
-    const cleaned = rawLinks
-      .map(sanitizeUsefulLink)
-      .filter((l): l is UsefulLink => l !== null);
-
-    const hasExiliumOfficial = cleaned.some(
-      (l) => l.url === 'https://www.exiliumworld.com/' || (l.url.includes('exiliumworld.com') && l.isOfficial)
-    );
-
-    if (!hasExiliumOfficial) {
-      const defaultExilium = initialUsefulLinks.find((l) => l.id === 'link-exilium-official');
-      if (defaultExilium) {
-        cleaned.unshift(defaultExilium);
-      }
-    }
-
-    return cleaned;
-  };
-
-  const [usefulLinks, setUsefulLinks] = useState<UsefulLink[]>(() => {
-    const saved = localStorage.getItem('jhota_useful_links');
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed)) {
-          return sanitizeAndEnsureLinks(parsed);
-        }
-      } catch {
-        return sanitizeAndEnsureLinks(initialUsefulLinks);
-      }
-    }
-    return sanitizeAndEnsureLinks(initialUsefulLinks);
-  });
+  const usefulLinks = initialUsefulLinks;
 
   const [guides] = useState<Guide[]>(initialGuides);
   const [builds] = useState<Build[]>(initialBuilds);
@@ -263,17 +190,10 @@ export default function App() {
     }
   };
 
-  const handleUpdateUsefulLinks = (updatedLinks: UsefulLink[]) => {
-    const cleanLinks = sanitizeAndEnsureLinks(updatedLinks);
-    setUsefulLinks(cleanLinks);
-    localStorage.setItem('jhota_useful_links', JSON.stringify(cleanLinks));
-  };
-
   const handleResetDefaults = () => {
     setBio(initialBio);
     setGames(initialGames);
     setSocials(initialSocials);
-    setUsefulLinks(sanitizeAndEnsureLinks(initialUsefulLinks));
     setVideos(initialVideos);
     localStorage.removeItem('jhota_bio');
     localStorage.removeItem('jhota_games');
