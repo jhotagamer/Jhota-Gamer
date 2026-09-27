@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { PageType } from '../types';
 import { 
   ArrowUp, 
@@ -90,6 +90,7 @@ export const Footer: React.FC<FooterProps> = ({
               <li><button onClick={() => handleNav('redes-sociais')} className="hover:text-amber-400 transition-colors cursor-pointer">Redes Sociais</button></li>
               <li><button onClick={() => handleNav('links-uteis')} className="hover:text-amber-400 transition-colors cursor-pointer">Links Úteis & Wikis</button></li>
               <li><button onClick={() => handleNav('contato')} className="hover:text-amber-400 transition-colors cursor-pointer">Contato & Parcerias</button></li>
+              <li><Link to="/apoie" onClick={scrollToTop} className="text-amber-400 hover:text-amber-300 transition-colors">Apoie o Jhota Gamer</Link></li>
             </ul>
           </div>
 

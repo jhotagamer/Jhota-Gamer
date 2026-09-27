@@ -1,3 +1,4 @@
+import { SupportPage } from './components/SupportPage';
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -294,6 +295,7 @@ export default function App() {
 
         <main className="flex-1">
           <Routes>
+            <Route path="/apoie" element={<SupportPage />} />
             {/* PÁGINA INICIAL (HOME) */}
 <Route path="/" element={
   <>

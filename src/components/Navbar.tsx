@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { PageType } from '../types';
 import { 
+  Heart,
   Menu, 
   X, 
   Gamepad2, 
@@ -31,6 +32,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     if (path.startsWith('/jogo/')) return 'jogo-detalhes';
     if (path.startsWith('/redes-sociais')) return 'redes-sociais';
     if (path.startsWith('/links-uteis')) return 'links-uteis';
+    if (path.startsWith('/apoie')) return 'apoie';
     if (path.startsWith('/contato')) return 'contato';
     return 'home';
   };
@@ -42,6 +44,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     { id: 'jogos', label: 'Jogos', icon: Gamepad2, path: '/jogos' },
     { id: 'redes-sociais', label: 'Redes Sociais', icon: Share2, path: '/redes-sociais' },
     { id: 'links-uteis', label: 'Links Úteis', icon: LinkIcon, path: '/links-uteis' },
+    { id: 'apoie', label: 'Apoie', icon: Heart, path: '/apoie' },
     { id: 'contato', label: 'Contato', icon: Mail, path: '/contato' }
   ];
 
