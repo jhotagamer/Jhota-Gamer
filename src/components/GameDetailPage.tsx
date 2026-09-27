@@ -11,6 +11,7 @@ import {
 import { AlbionMarketSection } from './albion/AlbionMarketSection';
 import { AlbionBuildsMetaSection } from './albion/AlbionBuildsMetaSection';
 import { AlbionToolsSection } from './albion/AlbionToolsSection';
+import { LineageClassTree } from './LineageClassTree';
 
 interface GameDetailPageProps {
   game: Game;
@@ -18,7 +19,7 @@ interface GameDetailPageProps {
   builds: Build[];
   news: NewsItem[];
   videos: VideoItem[];
-  initialTab?: 'guias' | 'builds' | 'videos' | 'noticias' | 'mercado' | 'ferramentas';
+  initialTab?: 'guias' | 'classes' | 'builds' | 'videos' | 'noticias' | 'mercado' | 'ferramentas';
   onBackToGames?: () => void;
   onSelectGuide?: (guide: Guide) => void;
   onPlayVideo?: (video: VideoItem) => void;
@@ -52,6 +53,7 @@ export const GameDetailPage: React.FC<GameDetailPageProps> = ({
 
   const tabs = [
     { id: 'guias' as const, label: 'Guias & Tutoriais', count: gameGuides.length, icon: BookOpen },
+    ...(isLineage ? [{ id: 'classes' as const, label: 'Árvore de Classes', count: 0, icon: Swords }] : []),
     ...(!isLineage
       ? [{ id: 'builds' as const, label: 'Builds & Meta', count: isAlbion ? 0 : gameBuilds.length, icon: Swords }]
       : []),
@@ -198,6 +200,8 @@ export const GameDetailPage: React.FC<GameDetailPageProps> = ({
             )}
           </div>
         )}
+
+        {activeTab === 'classes' && isLineage && <LineageClassTree />}
 
         {/* TAB 2: BUILDS - EXIBIDO APENAS PARA JOGOS COM SUPORTE A BUILDS */}
         {!isLineage && activeTab === 'builds' && (

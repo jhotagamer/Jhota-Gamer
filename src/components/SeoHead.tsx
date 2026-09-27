@@ -64,6 +64,12 @@ function getPage(path: string) {
           description: 'Consulte preços de compra e venda de itens do Albion Online por cidade e qualidade. Verifique a atualização dos dados antes de negociar.'
         };
       }
+      if (game.id === 'lineage-2' && section === 'classes') {
+        return {
+          title: 'Árvore de classes de Lineage 2 por raça | Jhota Gamer',
+          description: 'Veja os caminhos de evolução das classes de Lineage 2, com filtros por raça e busca por profissão ou função.'
+        };
+      }
       return { title: `${game.name}: guias, vídeos e builds | Jhota Gamer`, description: game.description };
     }
   }
