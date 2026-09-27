@@ -23,13 +23,18 @@ export interface Guide {
   tags: string[];
   content: {
     intro: string;
+    highlight?: string;
     sections: {
       heading: string;
       text: string;
+      paragraphs?: string[];
       bulletPoints?: string[];
       tipBox?: string;
     }[];
     conclusion: string;
+    checklist?: string[];
+    relatedTool?: { label: string; path: string };
+    sources?: { label: string; url: string }[];
   };
 }
 

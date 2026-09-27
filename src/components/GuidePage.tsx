@@ -107,7 +107,7 @@ export const GuidePage: React.FC = () => {
             </span>
             <div className="flex items-center gap-1 text-xs text-zinc-500 font-mono">
               <Clock className="w-3 h-3" />
-              <span>{guide.readTime} de leitura</span>
+              <span>{guide.readTime}</span>
             </div>
             <span className="text-xs text-zinc-500 font-mono">&bull; {guide.gameName}</span>
           </div>
@@ -189,7 +189,7 @@ export const GuidePage: React.FC = () => {
                 <div>
                   <strong className="text-amber-300 block mb-1">Dica do Jhota:</strong>
                   <p className="text-sm text-zinc-300">
-                    Não tente pular etapas! O segredo para evoluir rápido no {gameDisplayName} é a consistência.
+                    {guide.content.highlight || `Não tente pular etapas! O segredo para evoluir rápido no ${gameDisplayName} é a consistência.`}
                   </p>
                 </div>
               </div>
@@ -207,6 +207,9 @@ export const GuidePage: React.FC = () => {
                   <p className="text-sm sm:text-base text-zinc-300 leading-relaxed">
                     {section.text}
                   </p>
+                  {section.paragraphs?.map((paragraph, paragraphIndex) => (
+                    <p key={paragraphIndex} className="text-sm sm:text-base text-zinc-300 leading-relaxed">{paragraph}</p>
+                  ))}
 
                   {/* Bullet points da seção */}
                   {section.bulletPoints && section.bulletPoints.length > 0 && (
@@ -222,8 +225,8 @@ export const GuidePage: React.FC = () => {
 
                   {/* Tip box se houver */}
                   {section.tipBox && (
-                    <div className="p-4 rounded-xl bg-cyan-950/20 border-l-4 border-cyan-400 text-cyan-200 text-xs sm:text-sm">
-                      <strong className="block text-cyan-300 mb-1">Anotação Tática:</strong>
+                    <div className="p-4 rounded-xl bg-amber-500/10 border-l-4 border-amber-500 text-zinc-200 text-xs sm:text-sm">
+                      <strong className="block text-amber-300 mb-1">Dica prática:</strong>
                       {section.tipBox}
                     </div>
                   )}
@@ -244,10 +247,10 @@ export const GuidePage: React.FC = () => {
                 <div className="p-6 rounded-2xl bg-zinc-900/60 border border-zinc-800">
                   <h3 className="font-bold text-white mb-4 flex items-center gap-2">
                     <CheckCircle2 className="w-5 h-5 text-emerald-400" />
-                    Checklist Final para a Missão
+                    Antes de começar
                   </h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    {['Equipamento correto revisado', 'Consumíveis comprados no inventário', 'Rota ou objetivo traçado', 'Buffs e grupo alinhados'].map((item, i) => (
+                    {(guide.content.checklist || ['Equipamento correto revisado', 'Consumíveis comprados no inventário', 'Rota ou objetivo traçado', 'Buffs e grupo alinhados']).map((item, i) => (
                       <div key={i} className="flex items-center gap-2 text-sm text-zinc-300">
                         <div className="w-4 h-4 rounded border border-emerald-500/40 bg-emerald-500/10 flex items-center justify-center">
                           <Check className="w-3 h-3 text-emerald-400" />
@@ -257,9 +260,25 @@ export const GuidePage: React.FC = () => {
                     ))}
                   </div>
                 </div>
+                {guide.content.relatedTool && (
+                  <Link to={guide.content.relatedTool.path} className="mt-6 inline-flex items-center gap-2 rounded-xl border border-amber-500/40 bg-amber-500/10 px-5 py-3 text-sm font-semibold text-amber-300 hover:bg-amber-500/20">
+                    {guide.content.relatedTool.label}<ChevronRight className="h-4 w-4" />
+                  </Link>
+                )}
               </div>
 
             </div>
+
+            {guide.content.sources && guide.content.sources.length > 0 && (
+              <section className="mt-10 rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5" aria-label="Referências para conferência">
+                <h2 className="mb-3 text-sm font-bold text-zinc-200">Referências para conferência</h2>
+                <ul className="space-y-2 text-sm">
+                  {guide.content.sources.map(source => (
+                    <li key={source.url}><a href={source.url} target="_blank" rel="noopener noreferrer" className="text-amber-300 hover:underline">{source.label}</a></li>
+                  ))}
+                </ul>
+              </section>
+            )}
 
             {/* Footer do Artigo: Guias Relacionados */}
             <section className="mt-16 pt-8 border-t border-zinc-800">

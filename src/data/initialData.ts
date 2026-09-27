@@ -1,5 +1,6 @@
 import albionArtwork from '../assets/images/albion-jhota.png';
 import lineageArtwork from '../assets/images/lineage-jhota.png';
+import { editorialGuides } from './editorialGuides';
 import { BioData, Game, Guide, Build, NewsItem, VideoItem, SocialMedia, UsefulLink } from '../types';
 
 export const OFFICIAL_BANNER_URL = "https://i.postimg.cc/L4W075s2/banner-limpo.png";
@@ -145,34 +146,7 @@ export const initialGuides: Guide[] = [
       conclusion: "Avance no seu ritmo, pratique com equipamentos que possa repor e combine suas primeiras atividades em grupo com jogadores experientes. O tempo de progressão varia conforme sua rotina e experiência."
     }
   },
-  {
-    id: "guia-albion-transporte-milionario",
-    gameId: "albion-online",
-    gameName: "Albion Online",
-    title: "Economia & Transporte: Como Avaliar Oportunidades entre Cidades",
-    summary: "Como comparar preços, estimar custos e avaliar os riscos antes de transportar itens.",
-    category: "Economia",
-    readTime: "11 min de leitura",
-    publishedDate: "05 de Setembro, 2026",
-    author: "Jhota Gamer",
-    recommendedLevel: "Intermediário / Avançado",
-    tags: ["Economia", "Trade", "Prata", "Transporte", "Mercado"],
-    content: {
-      intro: "O transporte entre cidades é uma atividade para quem gosta de acompanhar o mercado. Antes de sair, avalie preços, taxas, procura pelo item e riscos da rota. O resultado pode ser positivo ou negativo.",
-      sections: [
-        {
-          heading: "1. O Ciclo das Cidades Reais",
-          text: "Compare os preços de compra e venda no mesmo servidor, conferindo quando foram registrados e o volume disponível. Desconte as taxas e os custos da rota antes de decidir: uma diferença de preços não garante lucro nem venda imediata.",
-          tipBox: "Atenção: Transportar para Caerleon exige atravessar zonas vermelhas. Faça isso apenas em grupos de batedores ou em horários de menor pico."
-        },
-        {
-          heading: "2. Montarias Recomendadas para Cargas",
-          text: "Escolha a montaria considerando capacidade de carga, mobilidade, custo de reposição e risco da rota. Confira as habilidades e as condições de funcionamento no jogo antes de comprar. Uma montaria cara não garante proteção contra ganks."
-        }
-      ],
-      conclusion: "Comece com uma carga pequena, registre os custos e o valor realmente recebido na venda. Aumente o investimento apenas após avaliar seus resultados e o risco de perder a carga."
-    }
-  },
+  ...editorialGuides,
   {
     id: "guia-lineage2-siege-giran",
     gameId: "lineage-2",
