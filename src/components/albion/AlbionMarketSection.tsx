@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import { 
   AlbionServer, 
   AlbionItem, 
@@ -62,7 +62,7 @@ export const AlbionMarketSection: React.FC = () => {
   const [selectedTier, setSelectedTier] = useState<string>('Todos');
   const [selectedEnchantment, setSelectedEnchantment] = useState<string>('Todos');
   const [selectedQuality, setSelectedQuality] = useState<number>(0);
-  const [priceDataFilter, setPriceDataFilter] = useState<PriceDataFilter>('all');
+  const [priceDataFilter, setPriceDataFilter] = useState<PriceDataFilter>('any_price');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [showOnlyFavorites, setShowOnlyFavorites] = useState<boolean>(false);
 
@@ -92,7 +92,8 @@ export const AlbionMarketSection: React.FC = () => {
   });
 
   // Dynamic timestamps & countdown
-  const [lastUpdated, setLastUpdated] = useState<Date>(new Date());
+  const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
+  const latestRequest = useRef(0);
   const [secondsUntilNextRefresh, setSecondsUntilNextRefresh] = useState<number>(300); // 5 min = 300s
 
   // Detail Modal selection
@@ -132,7 +133,17 @@ export const AlbionMarketSection: React.FC = () => {
 
   // 2. Filter items according to search, category, tier, favorites
   const filteredBaseItems = useMemo(() => {
-    let result = filterItems(itemsDatabase, searchQuery, selectedCategory, selectedTier);
+    // Lead with widely traded items on the initial view. The full catalog remains searchable.
+    const isInitialView = !searchQuery.trim() && selectedCategory === 'Todas' && selectedTier === 'Todos';
+    const catalog = isInitialView
+      ? [
+          ...POPULAR_ALBION_ITEMS.map(popular =>
+            itemsDatabase.find(item => item.id === popular.id)
+          ).filter((item): item is AlbionItem => Boolean(item)),
+          ...itemsDatabase.filter(item => !POPULAR_ALBION_ITEMS.some(popular => popular.id === item.id))
+        ]
+      : itemsDatabase;
+    let result = filterItems(catalog, searchQuery, selectedCategory, selectedTier);
 
     if (showOnlyFavorites) {
       result = result.filter((item) => favorites.includes(item.id));
@@ -169,8 +180,10 @@ export const AlbionMarketSection: React.FC = () => {
 
   // 3. Fetch Prices function
   const fetchPricesForCurrentView = useCallback(async (isManualRefresh: boolean = false) => {
+    const requestId = ++latestRequest.current;
     if (filteredBaseItems.length === 0) {
       setPrices([]);
+      setLoading(false);
       return;
     }
 
@@ -179,6 +192,7 @@ export const AlbionMarketSection: React.FC = () => {
     }
     setLoading(true);
     setErrorMessage(null);
+    if (!isManualRefresh) setPrices([]);
 
     // Compute item IDs to query
     const itemIdsToQuery: string[] = [];
@@ -195,6 +209,7 @@ export const AlbionMarketSection: React.FC = () => {
       const quals = selectedQuality > 0 ? [selectedQuality] : undefined;
 
       const data = await fetchMarketPrices(itemIdsToQuery, server, locs, quals, isManualRefresh);
+      if (requestId !== latestRequest.current) return;
       setPrices(data);
       setLastUpdated(new Date());
       setSecondsUntilNextRefresh(300); // Reset 5 min timer
@@ -204,13 +219,14 @@ export const AlbionMarketSection: React.FC = () => {
         setTimeout(() => setRefreshingButtonState('idle'), 2500);
       }
     } catch (err: any) {
+      if (requestId !== latestRequest.current) return;
       console.error('Market fetch error:', err);
-      setErrorMessage('Não foi possível atualizar o mercado no momento. Verifique sua conexão ou tente novamente.');
+      setErrorMessage('Não foi possível consultar a API do Albion. Os preços não foram atualizados. Tente novamente em instantes.');
       if (isManualRefresh) {
         setRefreshingButtonState('idle');
       }
     } finally {
-      setLoading(false);
+      if (requestId === latestRequest.current) setLoading(false);
     }
   }, [filteredBaseItems, numericEnchantment, server, selectedCity, selectedQuality]);
 
@@ -385,7 +401,7 @@ export const AlbionMarketSection: React.FC = () => {
             <div className="flex items-center gap-2 mb-2">
               <span className="px-3 py-1 rounded-full text-[11px] font-black uppercase tracking-wider bg-amber-400 text-zinc-950 shadow-md flex items-center gap-1.5">
                 <TrendingUp className="w-3.5 h-3.5" />
-                AO Data Live
+                Dados da comunidade Albion
               </span>
               <span className="text-xs text-amber-300/80 font-mono">
                 Servidor: {SERVER_LABELS[server]}
@@ -420,10 +436,10 @@ export const AlbionMarketSection: React.FC = () => {
 
             {/* Live Indicator & Dynamic Timers */}
             <div className="flex items-center gap-2 text-[11px] text-zinc-400 font-mono bg-zinc-950/80 px-3 py-1.5 rounded-xl border border-zinc-800">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span>Mercado online</span>
+              <span className={`w-2 h-2 rounded-full ${errorMessage ? 'bg-red-400' : 'bg-emerald-400'}`} />
+              <span>{errorMessage ? 'Falha na consulta' : 'API de preços'}</span>
               <span>&bull;</span>
-              <span>Atualizado: {lastUpdated.toLocaleTimeString('pt-BR')}</span>
+              <span>Última consulta: {lastUpdated ? lastUpdated.toLocaleTimeString('pt-BR') : '—'}</span>
             </div>
             <div className="text-[11px] text-zinc-500 font-mono">
               Próxima atualização automática em <span className="text-amber-400 font-semibold">{formatCountdown(secondsUntilNextRefresh)}</span>
@@ -592,10 +608,10 @@ export const AlbionMarketSection: React.FC = () => {
             </span>
             {(
               [
-                { id: 'all', label: 'Todos' },
+                { id: 'all', label: 'Todos (inclusive sem preço)' },
                 { id: 'sell_only', label: 'Somente com venda' },
                 { id: 'buy_only', label: 'Somente com compra' },
-                { id: 'any_price', label: 'Com qualquer preço' },
+                { id: 'any_price', label: 'Com preço' },
                 { id: 'no_data', label: 'Sem dados' },
               ] as const
             ).map((filterOpt) => (
@@ -692,9 +708,12 @@ export const AlbionMarketSection: React.FC = () => {
             </div>
           </div>
         </div>
+        <p className="px-4 sm:px-5 pb-3 text-[11px] text-zinc-500 bg-zinc-950/60">
+          A hora da última consulta indica quando buscamos os dados; confira a data de cada preço antes de negociar. A API depende de jogadores que enviam os preços vistos no jogo.
+        </p>
 
         {/* Loading Skeletons */}
-        {loading && matrixRows.length === 0 ? (
+        {loading && prices.length === 0 ? (
           <div className="p-6 space-y-4">
             {[1, 2, 3, 4, 5, 6].map((idx) => (
               <div key={idx} className="animate-pulse flex items-center justify-between p-4 rounded-2xl bg-zinc-950/40 border border-zinc-800/60">
@@ -719,7 +738,11 @@ export const AlbionMarketSection: React.FC = () => {
             </div>
             <h3 className="text-base font-bold text-white">Nenhum registro encontrado</h3>
             <p className="text-xs text-zinc-400 max-w-md mx-auto">
-              Nenhuma combinação de item, cidade ou qualidade atende aos filtros atuais. Tente alterar ou limpar os filtros.
+              {errorMessage
+                ? 'A consulta falhou. Use “Tentar novamente” acima.'
+                : priceDataFilter === 'any_price' && filteredBaseItems.length > 0
+                ? 'A API não tem preços registrados para esta seleção. Experimente outra cidade, qualidade ou item, ou escolha “Todos (inclusive sem preço)”.'
+                : 'Nenhuma combinação atende aos filtros atuais. Tente alterar ou limpar os filtros.'}
             </p>
             <button
               onClick={() => {
@@ -729,7 +752,7 @@ export const AlbionMarketSection: React.FC = () => {
                 setSelectedEnchantment('Todos');
                 setSelectedCity('Todas');
                 setSelectedQuality(0);
-                setPriceDataFilter('all');
+                setPriceDataFilter('any_price');
                 setShowOnlyFavorites(false);
               }}
               className="px-4 py-2 rounded-xl text-xs font-semibold bg-zinc-800 hover:bg-zinc-700 text-amber-300 transition-colors cursor-pointer"

@@ -60,8 +60,8 @@ export async function fetchMarketPrices(
   const host = SERVER_HOSTS[server] || SERVER_HOSTS.americas;
   const uniqueItemIds = Array.from(new Set(itemIds)).map(id => id.trim()).filter(Boolean);
   
-  const locKey = locations?.sort().join(',') || 'all';
-  const qualKey = qualities?.sort().join(',') || 'all';
+  const locKey = locations ? [...locations].sort().join(',') : 'all';
+  const qualKey = qualities ? [...qualities].sort().join(',') : 'all';
   const itemsKey = [...uniqueItemIds].sort().join(',');
   const cacheKey = `${server}:${locKey}:${qualKey}:${itemsKey}`;
 
@@ -70,53 +70,49 @@ export async function fetchMarketPrices(
     if (Date.now() - entry.timestamp < 60000) return entry.data;
   }
 
-  try {
-    const queryParams = new URLSearchParams();
-    const finalLocs = (locations && locations.length > 0 && !locations.includes('Todas')) 
-      ? locations 
-      : (MARKET_LOCATIONS[server] || MARKET_LOCATIONS.americas);
-    
-    queryParams.set('locations', finalLocs.join(','));
-    queryParams.set('qualities', (qualities && qualities.length > 0 && !qualities.includes(0)) 
-      ? qualities.join(',') 
-      : '1,2,3,4,5');
+  const queryParams = new URLSearchParams();
+  const finalLocs = (locations && locations.length > 0 && !locations.includes('Todas')) 
+    ? locations 
+    : (MARKET_LOCATIONS[server] || MARKET_LOCATIONS.americas);
+  
+  queryParams.set('locations', finalLocs.join(','));
+  queryParams.set('qualities', (qualities && qualities.length > 0 && !qualities.includes(0)) 
+    ? qualities.join(',') 
+    : '1,2,3,4,5');
 
-    const queryString = queryParams.toString();
-    const basePrefix = `${host}/api/v2/stats/prices/`;
-    
-    // Chunking logic to prevent URL length errors
-    const chunks: string[][] = [];
-    let currentChunk: string[] = [];
-    let currentLen = basePrefix.length + queryString.length + 10;
+  const queryString = queryParams.toString();
+  const basePrefix = `${host}/api/v2/stats/prices/`;
+  
+  // Chunking logic to prevent URL length errors
+  const chunks: string[][] = [];
+  let currentChunk: string[] = [];
+  let currentLen = basePrefix.length + queryString.length + 10;
 
-    for (const id of uniqueItemIds) {
-      const len = encodeURIComponent(id).length + 1;
-      if (currentLen + len > 3000 || currentChunk.length >= 30) {
-        chunks.push(currentChunk);
-        currentChunk = [id];
-        currentLen = basePrefix.length + queryString.length + len + 10;
-      } else {
-        currentChunk = [id];
-        currentLen += len;
-      }
+  for (const id of uniqueItemIds) {
+    const len = encodeURIComponent(id).length + 1;
+    if (currentLen + len > 3000 || currentChunk.length >= 30) {
+      chunks.push(currentChunk);
+      currentChunk = [id];
+      currentLen = basePrefix.length + queryString.length + len + 10;
+    } else {
+      currentChunk = [id];
+      currentLen += len;
     }
-    if (currentChunk.length > 0) chunks.push(currentChunk);
-
-    const results = await Promise.all(chunks.map(async (chunk) => {
-      try {
-        const url = `${basePrefix}${chunk.join(',')}.json?${queryString}`;
-        const res = await fetch(url);
-        return res.ok ? await res.json() : [];
-      } catch { return []; }
-    }));
-
-    const flatData = results.flat();
-    pricesCache.set(cacheKey, { timestamp: Date.now(), data: flatData });
-    return flatData;
-  } catch (err) {
-    console.error('Erro fatal na API de Albion:', err);
-    return [];
   }
+  if (currentChunk.length > 0) chunks.push(currentChunk);
+
+  const results = await Promise.all(chunks.map(async (chunk) => {
+    const url = `${basePrefix}${chunk.map(encodeURIComponent).join(',')}.json?${queryString}`;
+    const res = await fetch(url, { cache: forceFresh ? 'no-store' : 'default' });
+    if (!res.ok) throw new Error(`A consulta de preços falhou (HTTP ${res.status}).`);
+    const data: unknown = await res.json();
+    if (!Array.isArray(data)) throw new Error('A API retornou preços em formato inesperado.');
+    return data as AlbionMarketPrice[];
+  }));
+
+  const flatData = results.flat();
+  pricesCache.set(cacheKey, { timestamp: Date.now(), data: flatData });
+  return flatData;
 }
 
 export function buildMarketMatrix(
