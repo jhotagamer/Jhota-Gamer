@@ -235,15 +235,15 @@ export const GuidePage: React.FC = () => {
                           </div>
                           <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                             {row.items.map(item => (
-                              <a key={item.kind} href={item.url} target="_blank" rel="noopener noreferrer" className="group flex min-w-0 items-center gap-3 rounded-xl border border-zinc-800 bg-zinc-950/60 p-2.5 hover:border-amber-500/50">
+                              <div key={item.kind} className="flex min-w-0 items-center gap-3 rounded-xl border border-zinc-800 bg-zinc-950/60 p-2.5">
                                 <img src={item.icon} alt="" loading="lazy" width="40" height="40" className="h-10 w-10 shrink-0 rounded-md border border-zinc-700 bg-zinc-800 object-contain [image-rendering:pixelated]" />
-                                <span className="min-w-0"><span className="block text-[10px] uppercase tracking-wider text-amber-400">{item.kind}</span><span className="block text-xs text-zinc-200 group-hover:text-white">{item.name}</span></span>
-                              </a>
+                                <span className="min-w-0"><span className="block text-[10px] uppercase tracking-wider text-amber-400">{item.kind}</span><span className="block text-xs text-zinc-200">{item.name}</span></span>
+                              </div>
                             ))}
                           </div>
                         </div>
                       ))}
-                      <p className="text-xs text-zinc-500">Ícones e exemplos de itens: <a href="https://l2hub.info/items" target="_blank" rel="noopener noreferrer" className="text-amber-300 hover:underline">L2Hub</a>. Os valores e estoques das lojas do Exilium podem ser diferentes.</p>
+                      <p className="text-xs text-zinc-500">Imagens ilustrativas. Os itens disponíveis e os preços das lojas devem ser conferidos no jogo.</p>
                     </div>
                   )}
 

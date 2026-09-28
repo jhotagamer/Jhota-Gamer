@@ -35,7 +35,7 @@ export interface Guide {
         grade: string;
         levels: string;
         note?: string;
-        items: { kind: string; name: string; icon: string; url: string }[];
+        items: { kind: string; name: string; icon: string }[];
       }[];
     }[];
     conclusion: string;
