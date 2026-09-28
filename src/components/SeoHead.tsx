@@ -25,7 +25,7 @@ const pages: Record<string, { title: string; description: string }> = {
   },
   '/contato': {
     title: 'Contato e parcerias | Jhota Gamer',
-    description: 'Fale com a comunidade Jhota Gamer pelo Discord para dúvidas, sugestões de guias e parcerias.'
+    description: 'Envie uma proposta de parceria ou patrocínio diretamente ao Jhota Gamer pelo formulário de contato.'
   },
   '/apoie': {
     title: 'Apoie o Jhota Gamer | Apoio voluntário',

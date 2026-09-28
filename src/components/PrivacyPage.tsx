@@ -17,7 +17,12 @@ export function PrivacyPage() {
 
         <section className="space-y-3">
           <h2 className="text-xl font-semibold text-white">Dados salvos no navegador</h2>
-          <p>O site usa o armazenamento local do navegador para guardar preferências, favoritos, builds criadas e dados temporários que ajudam as ferramentas a funcionar. Esses dados podem ser apagados nas configurações do navegador. A página de contato não possui formulário nem recebe mensagens diretamente.</p>
+          <p>O site usa o armazenamento local do navegador para guardar preferências, favoritos, builds criadas e dados temporários que ajudam as ferramentas a funcionar. Esses dados podem ser apagados nas configurações do navegador.</p>
+        </section>
+
+        <section className="space-y-3">
+          <h2 className="text-xl font-semibold text-white">Formulário de contato</h2>
+          <p>Se você usar o formulário, seu nome, e-mail, assunto e mensagem serão enviados pelo serviço de e-mail Resend para o Jhota Gamer analisar e responder ao contato. As mensagens não são publicadas no site. O formulário usa o Cloudflare Turnstile para reduzir envios automáticos; dados da verificação são processados pela Cloudflare. Evite incluir informações sensíveis na mensagem.</p>
         </section>
 
         <section className="space-y-3">

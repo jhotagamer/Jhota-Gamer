@@ -6,24 +6,19 @@ import {
   ArrowRight, 
   BookOpen, 
   Swords, 
-  Video, 
-  PlusCircle, 
-  Sparkles, 
-  ShieldCheck 
+  Video
 } from 'lucide-react';
 
 interface FeaturedGamesSectionProps {
   games: Game[];
   onSelectGame?: (gameId: string) => void;
   onViewAllGames?: () => void;
-  onOpenCustomizer?: () => void;
 }
 
 export const FeaturedGamesSection: React.FC<FeaturedGamesSectionProps> = ({
   games,
   onSelectGame,
   onViewAllGames,
-  onOpenCustomizer
 }) => {
   const navigate = useNavigate();
 
@@ -69,7 +64,7 @@ export const FeaturedGamesSection: React.FC<FeaturedGamesSectionProps> = ({
         </div>
 
         {/* Games Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {games.map((game) => {
             const isAmber = game.themeColor === 'amber';
             const isRose = game.themeColor === 'rose';
@@ -184,32 +179,6 @@ export const FeaturedGamesSection: React.FC<FeaturedGamesSectionProps> = ({
             );
           })}
 
-          {/* Slot for Future Games as explicitly requested */}
-          <div 
-            onClick={() => onOpenCustomizer?.()}
-            className="group relative flex flex-col items-center justify-center p-8 rounded-2xl bg-zinc-900/30 border-2 border-dashed border-zinc-800 hover:border-amber-500/50 hover:bg-zinc-900/60 transition-all duration-300 text-center cursor-pointer min-h-[360px]"
-          >
-            <div className="w-16 h-16 rounded-2xl bg-zinc-800/80 border border-zinc-700 flex items-center justify-center text-amber-400 mb-4 group-hover:scale-110 transition-transform">
-              <PlusCircle className="w-8 h-8" />
-            </div>
-
-            <span className="text-[11px] font-bold uppercase tracking-wider text-amber-400 bg-amber-500/10 px-2.5 py-0.5 rounded border border-amber-500/30 mb-2">
-              Em Breve no Canal
-            </span>
-
-            <h3 className="font-cinzel text-xl font-bold text-white mb-2">
-              Novos Jogos no Radar
-            </h3>
-
-            <p className="text-xs sm:text-sm text-zinc-400 max-w-xs mb-4 leading-relaxed">
-              World of Warcraft, Ashes of Creation, Path of Exile 2 e sugestões da comunidade de inscritos.
-            </p>
-
-            <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-amber-400 group-hover:text-amber-300">
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>Sugerir ou Adicionar Jogo</span>
-            </span>
-          </div>
         </div>
 
       </div>
