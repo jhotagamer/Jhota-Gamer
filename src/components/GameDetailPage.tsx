@@ -68,7 +68,7 @@ export const GameDetailPage: React.FC<GameDetailPageProps> = ({
   ];
 
   const validTab = tabs.some(tab => tab.id === activeTab);
-  const validTool = !tool || (activeTab === 'ferramentas' && ['transporte', 'refino'].includes(tool));
+  const validTool = !tool || (activeTab === 'ferramentas' && ['transporte', 'refino', 'craft'].includes(tool));
   if (!validTab || !validTool) return <Navigate to={`/jogo/${game.id}`} replace />;
 
   return (
