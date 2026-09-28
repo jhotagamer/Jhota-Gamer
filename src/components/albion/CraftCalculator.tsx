@@ -3,7 +3,7 @@ import { Hammer, RefreshCw, Search } from 'lucide-react';
 import { MARKET_LOCATIONS, getCityDisplayName } from '../../data/albionPopularItems';
 import { AlbionMarketPrice, AlbionServer } from '../../types/albionMarket';
 import { fetchMarketPrices, getItemIconUrl, SERVER_LABELS } from '../../services/albionMarketApi';
-import { calculateCraftProfit, CraftRecipe } from '../../services/albionCraftCalculator';
+import { calculateCraftProfit, cityCraftReturnRate, CraftRecipe } from '../../services/albionCraftCalculator';
 
 const number = (value: number) => new Intl.NumberFormat('pt-BR', { maximumFractionDigits: 1 }).format(value);
 const money = (value: number) => `${number(value)} prata`;
@@ -38,6 +38,8 @@ export const CraftCalculator: React.FC = () => {
   const [quantity, setQuantity] = useState(1);
   const [premium, setPremium] = useState(false);
   const [useFocus, setUseFocus] = useState(false);
+  const [dailyBonus, setDailyBonus] = useState(0);
+  const [manualReturn, setManualReturn] = useState(false);
   const [returnNoFocus, setReturnNoFocus] = useState('15.3');
   const [returnWithFocus, setReturnWithFocus] = useState('43.5');
   const [stationCost, setStationCost] = useState('0');
@@ -57,6 +59,9 @@ export const CraftCalculator: React.FC = () => {
 
   const recipe = useMemo(() => recipes.find(item => item.id === selectedId), [recipes, selectedId]);
   const alternative = recipe?.alternatives[alternativeIndex] ?? recipe?.alternatives[0];
+  const hasCityBonus = !!recipe?.bonusCity && recipe.bonusCity === craftCity;
+  const calculatedNoFocus = cityCraftReturnRate(recipe?.bonusCity ?? null, craftCity, false, dailyBonus);
+  const calculatedWithFocus = cityCraftReturnRate(recipe?.bonusCity ?? null, craftCity, true, dailyBonus);
   const blackMarket = sellCity === 'Black Market';
   const isListing = !blackMarket && saleMode === 'listing';
   const shown = useMemo(() => {
@@ -98,7 +103,9 @@ export const CraftCalculator: React.FC = () => {
   const numeric = (value: string) => Number(value.replace(',', '.'));
   const materialPrices = Object.fromEntries((alternative?.materials ?? []).map(material => [material.id, numeric(prices[material.id]?.value ?? '')]));
   const missing = (alternative?.materials ?? []).filter(material => !(materialPrices[material.id] > 0));
-  const returnRate = numeric(useFocus && premium ? returnWithFocus : returnNoFocus);
+  const returnRate = manualReturn
+    ? numeric(useFocus && premium ? returnWithFocus : returnNoFocus)
+    : (useFocus && premium ? calculatedWithFocus : calculatedNoFocus);
   const invalidInputs = !Number.isInteger(quantity) || quantity < 1 || quantity > 10000 || !Number.isFinite(returnRate) || returnRate < 0 || returnRate >= 100 || !Number.isFinite(numeric(stationCost)) || numeric(stationCost) < 0 || !Number.isFinite(numeric(saleTax)) || numeric(saleTax) < 0 || numeric(saleTax) > 100 || !Number.isFinite(numeric(orderFee)) || numeric(orderFee) < 0 || numeric(orderFee) > 100;
   const calculation = alternative && missing.length === 0 && numeric(prices.output?.value ?? '') > 0 && !invalidInputs
     ? calculateCraftProfit({ recipe: alternative, quantity, materialPrices, outputPrice: numeric(prices.output.value), returnRate, stationCost: numeric(stationCost), saleTax: numeric(saleTax), orderFee: isListing ? numeric(orderFee) : 0 }) : null;
@@ -123,15 +130,42 @@ export const CraftCalculator: React.FC = () => {
           {priceError && <p role="alert" className="text-sm text-rose-400">{priceError} Você pode preencher os preços manualmente.</p>}
         </section>
         <section className="space-y-4 rounded-2xl border border-zinc-800 bg-zinc-950/50 p-5"><h4 className="font-bold text-amber-400">3. Preços por unidade (prata)</h4>
-          {alternative?.materials.map(material => <label key={material.id} className="flex items-center gap-3"><img src={getItemIconUrl(material.id)} alt="" className="h-11 w-11 shrink-0" loading="lazy" /><span className="min-w-0 flex-1"><span className="block text-sm text-zinc-200">{material.count}× {materialName(material.id)}</span><span className="block truncate text-xs text-zinc-500">{material.returnable ? 'Retorna conforme a taxa informada' : 'Artefato ou ingrediente sem retorno'} · {material.id}</span>{prices[material.id]?.source === 'API' && <span className="text-xs text-zinc-500">Último registro: {prices[material.id]?.date?.replace('T', ' ').slice(0, 16)} UTC</span>}</span><input aria-label={`Preço de ${materialName(material.id)}`} className={`${inputClass} !w-32`} type="number" min="0" value={prices[material.id]?.value ?? ''} placeholder="Sem preço" onChange={event => updatePrice(material.id, event.target.value)} /></label>)}
+          {alternative?.materials.map(material => <label key={material.id} className="flex items-center gap-3"><img src={getItemIconUrl(material.id)} alt="" className="h-11 w-11 shrink-0" loading="lazy" /><span className="min-w-0 flex-1"><span className="block text-sm text-zinc-200">{material.count}× {materialName(material.id)}</span><span className="block truncate text-xs text-zinc-500">{material.returnable ? 'Material com retorno' : 'Artefato ou ingrediente sem retorno'} · {material.id}</span>{prices[material.id]?.source === 'API' && <span className="text-xs text-zinc-500">Último registro: {prices[material.id]?.date?.replace('T', ' ').slice(0, 16)} UTC</span>}</span><input aria-label={`Preço de ${materialName(material.id)}`} className={`${inputClass} !w-32`} type="number" min="0" value={prices[material.id]?.value ?? ''} placeholder="Sem preço" onChange={event => updatePrice(material.id, event.target.value)} /></label>)}
           {recipe && <label className="flex items-center gap-3 border-t border-zinc-800 pt-4"><img src={getItemIconUrl(recipe.id, 0, quality)} alt="" className="h-11 w-11" /><span className="flex-1 text-sm text-zinc-200">Venda: {recipe.name}{alternative && alternative.outputCount > 1 ? ` (${alternative.outputCount} por craft)` : ''}{prices.output?.source === 'API' && <span className="block text-xs text-zinc-500">Último registro: {prices.output.date?.replace('T', ' ').slice(0, 16)} UTC</span>}</span><input aria-label="Preço de venda por unidade" className={`${inputClass} !w-32`} type="number" min="0" value={prices.output?.value ?? ''} placeholder="Sem preço" onChange={event => updatePrice('output', event.target.value)} /></label>}
           <p className="text-xs text-zinc-500">Compra dos materiais pelo menor anúncio de venda; venda pelo menor anúncio (ordem) ou pela maior ordem de compra (instantânea). Dados enviados por jogadores à Albion Online Data Project: preço ausente ou antigo exige conferência.</p>
         </section>
       </div>
       <div className="space-y-6"><section className="space-y-4 rounded-2xl border border-zinc-800 bg-zinc-950/50 p-5"><h4 className="font-bold text-amber-400">4. Bônus, foco e taxas</h4>
         <div className="flex flex-wrap gap-4 text-sm text-zinc-200"><label className="flex cursor-pointer items-center gap-2"><input type="checkbox" checked={premium} onChange={event => setPremium(event.target.checked)} /> Premium</label><label className="flex cursor-pointer items-center gap-2"><input type="checkbox" checked={useFocus} disabled={!premium} onChange={event => setUseFocus(event.target.checked)} /> Usar foco (requer Premium)</label></div>
-        <div className="grid grid-cols-2 gap-3"><label><span className={labelClass}>Retorno sem foco (%)</span><input className={inputClass} type="number" min="0" max="99" step="0.1" value={returnNoFocus} onChange={event => setReturnNoFocus(event.target.value)} /></label><label><span className={labelClass}>Retorno com foco (%)</span><input className={inputClass} type="number" min="0" max="99" step="0.1" value={returnWithFocus} onChange={event => setReturnWithFocus(event.target.value)} /></label><label><span className={labelClass}>Estação por craft (prata)</span><input className={inputClass} type="number" min="0" value={stationCost} onChange={event => setStationCost(event.target.value)} /></label><label><span className={labelClass}>Taxa de venda (%)</span><input className={inputClass} type="number" min="0" max="100" step="0.1" value={saleTax} onChange={event => setSaleTax(event.target.value)} /></label>{isListing && <label><span className={labelClass}>Taxa para anunciar (%)</span><input className={inputClass} type="number" min="0" max="100" step="0.1" value={orderFee} onChange={event => setOrderFee(event.target.value)} /></label>}{useFocus && <label><span className={labelClass}>Foco por craft</span><input className={inputClass} type="number" min="0" value={focusCost} onChange={event => setFocusCost(event.target.value)} /></label>}</div>
-        <p className="text-xs text-zinc-400">Os valores iniciais de retorno são exemplos; copie o retorno real da janela de craft, com bônus da cidade, especialização e bônus diário. Informe o custo da estação em prata por fabricação. Ajuste impostos conforme sua conta e o mercado. O custo real de foco depende da especialização.</p>
+        {recipe && <div className={`rounded-xl border p-3 text-sm ${hasCityBonus ? 'border-emerald-500/30 bg-emerald-500/5 text-emerald-200' : 'border-zinc-700 bg-zinc-900 text-zinc-300'}`}>
+          {recipe.bonusCity ? <>Bônus específico de <strong>{recipe.name}</strong>: <strong>{recipe.bonusCity}</strong>. {hasCityBonus ? 'Aplicado nesta cidade (+15 pontos de bônus de produção).' : `Em ${craftCity}, este item recebe apenas o bônus base da cidade.`}</> : 'Bônus específico deste item não cadastrado; confira a janela de craft antes de usar esta estimativa.'}
+        </div>}
+        <label><span className={labelClass}>Bônus diário de produção do item</span>
+          <select className={inputClass} value={dailyBonus} disabled={manualReturn} onChange={event => setDailyBonus(Number(event.target.value))}>
+            <option value={0}>Sem bônus diário (+0%)</option><option value={10}>Bônus do dia (+10%)</option><option value={20}>Bônus do dia (+20%)</option>
+          </select>
+        </label>
+        <div className="rounded-xl border border-zinc-700 bg-zinc-900 p-3 text-sm text-zinc-200">
+          <span className="block text-xs text-zinc-400">Retorno {manualReturn ? 'informado por você' : 'calculado para a cidade e o item'}</span>
+          <strong className="text-lg text-amber-400">{number(returnRate)}%</strong> {useFocus && premium ? 'com foco' : 'sem foco'}
+          {!manualReturn && <span className="block text-xs text-zinc-400">Sem foco: {number(calculatedNoFocus)}% · Com foco: {number(calculatedWithFocus)}%</span>}
+        </div>
+        <label className="flex cursor-pointer items-center gap-2 text-sm text-zinc-300">
+          <input type="checkbox" checked={manualReturn} onChange={event => {
+            if (event.target.checked) {
+              setReturnNoFocus(calculatedNoFocus.toFixed(1));
+              setReturnWithFocus(calculatedWithFocus.toFixed(1));
+            }
+            setManualReturn(event.target.checked);
+          }} /> Informar o retorno exato exibido no jogo
+        </label>
+        <div className="grid grid-cols-2 gap-3">
+          {manualReturn && <><label><span className={labelClass}>Retorno sem foco (%)</span><input className={inputClass} type="number" min="0" max="99" step="0.1" value={returnNoFocus} onChange={event => setReturnNoFocus(event.target.value)} /></label><label><span className={labelClass}>Retorno com foco (%)</span><input className={inputClass} type="number" min="0" max="99" step="0.1" value={returnWithFocus} onChange={event => setReturnWithFocus(event.target.value)} /></label></>}
+          <label><span className={labelClass}>Estação por craft (prata)</span><input className={inputClass} type="number" min="0" value={stationCost} onChange={event => setStationCost(event.target.value)} /></label><label><span className={labelClass}>Taxa de venda (%)</span><input className={inputClass} type="number" min="0" max="100" step="0.1" value={saleTax} onChange={event => setSaleTax(event.target.value)} /></label>
+          {isListing && <label><span className={labelClass}>Taxa para anunciar (%)</span><input className={inputClass} type="number" min="0" max="100" step="0.1" value={orderFee} onChange={event => setOrderFee(event.target.value)} /></label>}
+          {useFocus && <label><span className={labelClass}>Foco por craft</span><input className={inputClass} type="number" min="0" value={focusCost} onChange={event => setFocusCost(event.target.value)} /></label>}
+        </div>
+        <p className="text-xs text-zinc-400">Base estimada para estações nas cidades: 18% de bônus de produção (15,3% de retorno), +15% para o item na cidade especializada, +59% com foco. O bônus diário precisa ser selecionado por você. A taxa de retorno não é a soma desses percentuais: o jogo a converte pela fórmula bônus ÷ (100 + bônus). Confirme o valor na estação; ilhas e esconderijos seguem regras diferentes. Especialização reduz o custo de foco, não aumenta o retorno. Informe o custo da estação e as taxas reais.</p>
       </section><section className="space-y-3 rounded-2xl border border-amber-500/30 bg-zinc-950 p-5"><h4 className="font-bold text-amber-400">Resultado do lote</h4>
         {invalidInputs && <p className="text-sm text-rose-400">Revise quantidade, retorno e taxas. Aceitamos até 10.000 crafts e retorno menor que 100%.</p>}
         {!calculation ? <p className="text-sm text-zinc-400">{!alternative ? 'Carregando receitas...' : 'Informe o preço de venda e de todos os materiais para ver o lucro. Preços ausentes não são considerados zero.'}</p> : <>

@@ -15,6 +15,19 @@ PROJECT = Path(__file__).resolve().parents[1]
 LOCAL_ITEMS = PROJECT / "public/data/albion_items.json"
 OUTPUT = PROJECT / "public/data/albion_craft_recipes.json"
 EQUIPMENT_CATEGORIES = {"head", "armors", "shoes", "offhands", "capes", "bags"}
+CITY_BONUSES = {
+    "axe": "Martlock", "quarterstaff": "Martlock", "froststaff": "Martlock",
+    "plate_shoes": "Martlock", "booktype": "Martlock", "shieldtype": "Martlock", "torchtype": "Martlock",
+    "crossbow": "Bridgewatch", "dagger": "Bridgewatch", "cursestaff": "Bridgewatch",
+    "plate_armor": "Bridgewatch", "cloth_shoes": "Bridgewatch",
+    "sword": "Lymhurst", "bow": "Lymhurst", "arcanestaff": "Lymhurst",
+    "leather_helmet": "Lymhurst", "leather_shoes": "Lymhurst",
+    "hammer": "Fort Sterling", "spear": "Fort Sterling", "holystaff": "Fort Sterling",
+    "cloth_armor": "Fort Sterling", "plate_helmet": "Fort Sterling",
+    "mace": "Thetford", "naturestaff": "Thetford", "firestaff": "Thetford",
+    "leather_armor": "Thetford", "cloth_helmet": "Thetford",
+    "knuckles": "Caerleon", "shapeshifterstaff": "Caerleon",
+}
 
 
 def as_list(value):
@@ -54,10 +67,10 @@ def main():
     names = {item["id"]: item["name"] for item in json.loads(LOCAL_ITEMS.read_text(encoding="utf-8"))}
     recipes = []
 
-    for kind in ("weapon", "equipmentitem"):
+    for kind in ("weapon", "transformationweapon", "equipmentitem"):
         for item in as_list(source.get(kind)):
             base_id = item.get("@uniquename", "")
-            if not re.match(r"^T[4-8]_", base_id):
+            if not re.match(r"^T[4-8]_", base_id) or "_PROTOTYPE" in base_id:
                 continue
             category = item.get("@shopcategory")
             if category != "weapons" and category not in EQUIPMENT_CATEGORIES:
@@ -78,6 +91,7 @@ def main():
                     "name": names.get(base_id, base_id) + (f" .{level}" if level else ""),
                     "category": category,
                     "tier": int(base_id[1]),
+                    "bonusCity": ("Brecilien" if category in ("capes", "bags") else CITY_BONUSES.get(item.get("@shopsubcategory1"))),
                     "alternatives": alternatives,
                 })
 

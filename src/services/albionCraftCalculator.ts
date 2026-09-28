@@ -16,7 +16,14 @@ export interface CraftRecipe {
   name: string;
   category: string;
   tier: number;
+  bonusCity: string | null;
   alternatives: CraftAlternative[];
+}
+
+/** Production bonus is output per original materials, not the resource return percentage. */
+export function cityCraftReturnRate(bonusCity: string | null, craftCity: string, withFocus: boolean, dailyBonus: number = 0): number {
+  const productionBonus = 18 + (bonusCity === craftCity ? 15 : 0) + (withFocus ? 59 : 0) + dailyBonus;
+  return 100 * productionBonus / (100 + productionBonus);
 }
 
 export function calculateCraftProfit(input: {
