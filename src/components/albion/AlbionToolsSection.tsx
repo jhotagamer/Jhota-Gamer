@@ -1,6 +1,7 @@
 import { Link, useParams } from 'react-router-dom';
 import React, { useState, useMemo } from 'react';
-import { Calculator, Recycle, ArrowRightLeft, CheckCircle } from 'lucide-react';
+import { Calculator, Recycle, ArrowRightLeft, CheckCircle, Hammer } from 'lucide-react';
+import { CraftCalculator } from './CraftCalculator';
 import { formatSilver } from '../../services/albionMarketApi';
 import { 
   MATERIAL_NAMES, 
@@ -10,7 +11,7 @@ import {
 
 export const AlbionToolsSection: React.FC = () => {
   const { tool } = useParams();
-  const activeTool = tool === 'refino' ? 'refine' : 'flip';
+  const activeTool = tool === 'refino' ? 'refine' : tool === 'craft' ? 'craft' : 'flip';
 
   return (
     <div className="space-y-8">
@@ -26,7 +27,7 @@ export const AlbionToolsSection: React.FC = () => {
               FERRAMENTAS de <span className="text-amber-400">ECONOMIA</span>
             </h2>
             <p className="text-sm sm:text-base text-zinc-300 mt-1 max-w-2xl">
-              Estimativas de refino e transporte conforme os valores informados. Confira os preços e as taxas no jogo antes de negociar.
+              Estimativas de craft, refino e transporte conforme os valores informados. Confira os preços e as taxas no jogo antes de negociar.
             </p>
           </div>
         </div>
@@ -36,12 +37,13 @@ export const AlbionToolsSection: React.FC = () => {
         {[
           { id: 'flip', label: 'Calculadora de Transporte', icon: ArrowRightLeft, color: 'text-cyan-400' },
           { id: 'refine', label: 'Calculadora de Refino', icon: Recycle, color: 'text-emerald-400' },
+          { id: 'craft', label: 'Calculadora de Craft', icon: Hammer, color: 'text-amber-400' },
         ].map((tool) => {
           const Icon = tool.icon;
           return (
             <Link
               key={tool.id}
-              to={`/jogo/albion-online/calculadoras/${tool.id === 'refine' ? 'refino' : 'transporte'}`}
+              to={`/jogo/albion-online/calculadoras/${tool.id === 'refine' ? 'refino' : tool.id === 'craft' ? 'craft' : 'transporte'}`}
               className={`flex items-center gap-2 px-6 py-3 rounded-2xl text-sm font-bold transition-all cursor-pointer ${
                 activeTool === tool.id ? 'bg-amber-500 text-zinc-950 shadow-lg scale-105' : 'bg-zinc-900 text-zinc-400 border border-zinc-800 hover:text-white'
               }`}
@@ -56,6 +58,7 @@ export const AlbionToolsSection: React.FC = () => {
       <div className="bg-zinc-900/60 border border-zinc-800 rounded-3xl p-6 sm:p-10 shadow-2xl">
         {activeTool === 'flip' && <FlipCalculator />}
         {activeTool === 'refine' && <RefineCalculator />}
+        {activeTool === 'craft' && <CraftCalculator />}
       </div>
     </div>
   );

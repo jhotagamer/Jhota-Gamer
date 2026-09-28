@@ -29,8 +29,8 @@ export const WhatYouFindSection: React.FC<WhatYouFindSectionProps> = ({ onNaviga
     {
       id: 'ferramentas',
       title: 'Ferramentas do Albion',
-      subtitle: 'Calculadoras de refino e transporte',
-      description: 'Simule custos, taxas e retorno de materiais antes de refinar ou transportar seus itens. Calcule com os valores que você informar.',
+      subtitle: 'Calculadoras de craft, refino e transporte',
+      description: 'Simule custos, taxas e retorno de materiais antes de fabricar, refinar ou transportar seus itens. Consulte preços e ajuste os valores do jogo.',
       icon: Calculator,
       iconColor: 'text-amber-400',
       badge: 'Calculadoras',

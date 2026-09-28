@@ -6,7 +6,7 @@ const SITE_URL = 'https://jhotagamer.com.br';
 const IMAGE_URL = `${SITE_URL}/banner-limpo.png`;
 const HOME = {
   title: 'Jhota Gamer | Guias de Albion Online e Lineage 2',
-  description: 'Guias de Albion Online e Lineage 2 Exilium, builds, calculadoras de refino e transporte e vídeos da comunidade Jhota Gamer.'
+  description: 'Guias de Albion Online e Lineage 2 Exilium, builds, calculadoras de craft, refino e transporte e vídeos da comunidade Jhota Gamer.'
 };
 
 const pages: Record<string, { title: string; description: string }> = {
@@ -52,7 +52,7 @@ function getPage(path: string) {
     if (game) {
       const [, , section, tool] = gameMatch;
       if (game.id === 'albion-online' && section === 'calculadoras') {
-        const subject = tool === 'refino' ? 'refino' : tool === 'transporte' ? 'transporte' : 'refino e transporte';
+        const subject = tool === 'refino' ? 'refino' : tool === 'transporte' ? 'transporte' : tool === 'craft' ? 'craft' : 'craft, refino e transporte';
         return {
           title: `Calculadora de ${subject} no Albion Online | Jhota Gamer`,
           description: `Use as ferramentas de ${subject} do Jhota Gamer para comparar custos e planejar suas atividades no Albion Online.`
