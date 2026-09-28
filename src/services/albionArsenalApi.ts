@@ -120,6 +120,8 @@ export async function fetchArsenalWeapons(
     if (Date.now() - entry.timestamp < CACHE_TTL_MS) return entry.data as any;
   }
 
+  if (pendingRequests.has(cacheKey)) return pendingRequests.get(cacheKey) as Promise<{ weapons: ArsenalWeapon[]; meta: unknown }>;
+
   const fetchPromise = (async () => {
     const url = `${ARSENAL_BASE_URL}/weapons${query.toString() ? `?${query.toString()}` : ''}`;
     try {
@@ -138,6 +140,8 @@ export async function fetchArsenalWeapons(
       const local = getFromLocalStorage<any>(cacheKey);
       if (local) return local;
       throw new Error(err.message || 'Erro ao carregar armas.');
+    } finally {
+      pendingRequests.delete(cacheKey);
     }
   })();
 

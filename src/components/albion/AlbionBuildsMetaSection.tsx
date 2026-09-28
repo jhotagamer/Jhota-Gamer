@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import { 
   Swords, 
   BarChart3, 
@@ -47,7 +47,8 @@ export const AlbionBuildsMetaSection: React.FC = () => {
   const [builds, setBuilds] = useState<ArsenalBuild[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [lastSyncTime, setLastSyncTime] = useState<string>('Agora');
+  const [lastSyncTime, setLastSyncTime] = useState<string>('—');
+  const latestRequest = useRef(0);
   const [analyzedWeaponsCount, setAnalyzedWeaponsCount] = useState<number>(0);
 
   // Filters
@@ -159,28 +160,42 @@ export const AlbionBuildsMetaSection: React.FC = () => {
 
   // Load builds from Albion Arsenal API
   const loadBuilds = async (force: boolean = false) => {
+    const requestId = ++latestRequest.current;
     setLoading(true);
     setError(null);
     try {
       const apiKind = getArsenalKindForActivity(activity);
-      const [buildsRes, weaponsRes] = await Promise.all([
-        fetchArsenalBuilds({
-          region,
-          range,
-          kind: apiKind,
-          weapon: selectedWeaponFilter || undefined,
-          limit: 100
-        }, force),
-        fetchArsenalWeapons({ region, range, kind: apiKind, limit: 100 }, force)
-      ]);
+      const buildsRes = await fetchArsenalBuilds({
+        region,
+        range,
+        kind: apiKind,
+        weapon: selectedWeaponFilter || undefined,
+        limit: 100
+      }, force);
+      if (requestId !== latestRequest.current) return;
 
       setBuilds(buildsRes.builds || []);
-      setAnalyzedWeaponsCount(weaponsRes.weapons?.length || 0);
-      setLastSyncTime(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Falha ao buscar builds de Albion Arsenal.');
-    } finally {
+      const generatedAt = buildsRes.meta?.generatedAt;
+      setLastSyncTime(generatedAt && !Number.isNaN(new Date(generatedAt).getTime())
+        ? new Date(generatedAt).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })
+        : '—');
       setLoading(false);
+
+      // A falha do contador de armas não pode impedir a exibição das builds.
+      try {
+        const weaponsRes = await fetchArsenalWeapons({ region, range, kind: apiKind, limit: 100 }, force);
+        if (requestId === latestRequest.current) setAnalyzedWeaponsCount(weaponsRes.weapons?.length || 0);
+      } catch {
+        if (requestId === latestRequest.current) setAnalyzedWeaponsCount(0);
+      }
+    } catch (err) {
+      if (requestId === latestRequest.current) {
+        setBuilds([]);
+        setAnalyzedWeaponsCount(0);
+        setError(err instanceof Error ? err.message : 'Falha ao buscar builds de Albion Arsenal.');
+      }
+    } finally {
+      if (requestId === latestRequest.current) setLoading(false);
     }
   };
 
@@ -272,7 +287,7 @@ export const AlbionBuildsMetaSection: React.FC = () => {
             </h2>
             
             <p className="text-sm sm:text-base text-zinc-300 max-w-2xl leading-relaxed">
-              Explore builds atualizadas de Albion Online, acompanhe o meta e encontre equipamentos para diferentes atividades com dados oficiais de combate e preços reais no mercado.
+              Explore builds registradas em combates, compare armas e encontre equipamentos com dados de PvP e preços do mercado.
             </p>
 
             {/* Dynamic Status Badges */}
@@ -479,7 +494,7 @@ export const AlbionBuildsMetaSection: React.FC = () => {
                     setCurrentPage(1);
                   }}
                   className="w-full px-3 py-2 rounded-xl bg-zinc-950 border border-zinc-800 text-xs font-semibold text-zinc-200 focus:outline-none focus:border-amber-400 cursor-pointer"
-                  title="Filtrar por estilo ou atividade de jogo em Albion Online"
+                  title="Filtrar pelo tamanho do combate registrado pela fonte"
                 >
                   {ALBION_ACTIVITY_GROUPS.map((group) => (
                     <optgroup
@@ -515,6 +530,9 @@ export const AlbionBuildsMetaSection: React.FC = () => {
                 <option value="30d">Últimos 30 Dias</option>
               </select>
             </div>
+            <p className="text-[11px] text-zinc-500">
+              Os filtros indicam o tamanho do combate. A fonte não registra se uma build foi usada em Brumas, Avalon, masmorras ou PvE.
+            </p>
 
             {/* Sorting bar */}
             <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-zinc-800/80 text-xs text-zinc-400">
@@ -582,7 +600,7 @@ export const AlbionBuildsMetaSection: React.FC = () => {
                 {activeSubTab === 'favoritos'
                   ? 'Navegue pelo catálogo e clique na estrela de qualquer card para favoritá-lo.'
                   : activity !== 'all'
-                    ? `Nenhuma build foi classificada para "${selectedActivityOption?.label}" nos dados registrados pela API do Albion Arsenal para este filtro de período e servidor. Não geramos dados fictícios caso a fonte oficial não possua registros nesta atividade.`
+                    ? `A fonte não retornou builds de ${selectedActivityOption?.label} com este servidor, período e arma. Amplie o período ou retire o filtro de arma.`
                     : 'Tente alterar os filtros de período, servidor ou o termo pesquisado.'}
               </p>
               {activity !== 'all' && activeSubTab !== 'favoritos' && (
