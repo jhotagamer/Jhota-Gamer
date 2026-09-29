@@ -1,3 +1,4 @@
+import { exiliumRelicsGuide } from './exiliumRelicsGuide';
 import albionArtwork from '../assets/images/albion-jhota.png';
 import lineageArtwork from '../assets/images/lineage-jhota.png';
 import { editorialGuides } from './editorialGuides';
@@ -104,6 +105,7 @@ export const initialGames: Game[] = [
 ];
 
 export const initialGuides: Guide[] = [
+  exiliumRelicsGuide,
   {
     id: "guia-albion-iniciante-2026",
     gameId: "albion-online",

@@ -9,6 +9,11 @@ export type PageType =
 
 export type GameId = 'albion-online' | 'lineage-2' | string;
 
+export type GuideBlock =
+  | { type: 'paragraph'; text: string }
+  | { type: 'table'; headers: string[]; rows: string[][] }
+  | { type: 'source'; label: string; url: string };
+
 export interface Guide {
   id: string;
   gameId: string;
@@ -27,6 +32,7 @@ export interface Guide {
     sections: {
       heading: string;
       text: string;
+      blocks?: GuideBlock[];
       paragraphs?: string[];
       bulletPoints?: string[];
       tipBox?: string;

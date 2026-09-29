@@ -1,3 +1,4 @@
+import { GuideSectionBody } from './GuideSectionBody';
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { 
@@ -204,9 +205,7 @@ export const GuidePage: React.FC = () => {
                     <span>{section.heading}</span>
                   </h2>
 
-                  <p className="text-sm sm:text-base text-zinc-300 leading-relaxed">
-                    {section.text}
-                  </p>
+                  <GuideSectionBody section={section} />
                   {section.paragraphs?.map((paragraph, paragraphIndex) => (
                     <p key={paragraphIndex} className="text-sm sm:text-base text-zinc-300 leading-relaxed">{paragraph}</p>
                   ))}
