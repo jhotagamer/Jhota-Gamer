@@ -16,7 +16,7 @@ export function GameNewsSection({ news, gameId }: { news: NewsItem[]; gameId: st
           <p className="text-xs uppercase tracking-widest text-amber-400 font-bold mb-2">Radar Jhota Gamer</p>
           <h2 className="font-cinzel text-2xl sm:text-3xl text-white font-bold">{albion ? 'Notícias de Albion Online' : 'Comunicados do Exilium World'}</h2>
           <p className="text-sm text-zinc-400 mt-3 leading-relaxed">Resumos do Jhota Gamer com links para as fontes. {albion ? '' : 'Cobertura do servidor privado Exilium World.'}</p>
-          <p className="text-xs text-zinc-500 mt-2">Seleção revisada em 26/09/2026 • Atualização manual</p>
+          <p className="text-xs text-zinc-500 mt-2">Seleção revisada em {albion ? '26/09/2026' : '29/09/2026'} • Atualização manual</p>
         </div>
         <a href={albion ? 'https://albiononline.com/news' : 'https://www.exiliumworld.com/news'} target="_blank" rel="noopener noreferrer" className="shrink-0 inline-flex gap-2 items-center rounded-xl border border-zinc-700 px-4 py-3 text-sm text-zinc-200 hover:border-amber-400 hover:text-amber-300 transition-colors">Ver mural da fonte <ExternalLink className="w-4 h-4" /></a>
       </header>

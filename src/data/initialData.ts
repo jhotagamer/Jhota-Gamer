@@ -342,8 +342,22 @@ export const initialBuilds: Build[] = [
   }
 ];
 
-// Curadoria manual: fontes consultadas em 26/09/2026. Datas de publicação.
+// Curadoria manual: fontes consultadas até 29/09/2026. Datas de publicação.
 export const initialNews: NewsItem[] = [
+  {
+    "id": "news-exilium-relics-2026",
+    "gameId": "lineage-2",
+    "gameName": "Lineage 2 Exilium World",
+    "title": "Exilium apresenta 66 Relics e amplia a campanha de Faris",
+    "snippet": "A atualização adiciona relíquias com habilidades e bônus, 20 quests à campanha e novas recompensas. Também traz ajustes em itens, lojas, Olympiad, Grand Bosses e Fortresses.",
+    "content": "O Exilium World anunciou um sistema com 66 Relics para personalizar o personagem por meio de habilidades e bônus. O Relic Vault entrega uma relíquia aleatória de No-grade a A-grade. Raid Bosses, Grand Bosses, Atelia, Kamaloka e Merkios passam a oferecer Relics entre as recompensas. A missão diária Embers of Conflict passa a conceder 100 Forge Coal e 1 Relic Vault ao receber 30 recompensas no Battlefield ou Resonance Field. A campanha ganhou 20 quests e, a partir da faixa de nível 20–30, cada etapa oferece três rotas possíveis sorteadas de forma independente. Atenção aos itens: as versões comuns das 66 armas usadas no novo sistema serão retiradas de lojas, drops, spoil e recompensas da campanha, além dos inventários e locais de armazenamento. O comunicado ainda informa mudanças na loja de Ormus e correções na Olympiad, em Grand Bosses e nas Fortresses. Confira a publicação oficial para todos os detalhes.",
+    "category": "Atualização",
+    "date": "29/09/2026",
+    "readTime": "Resumo editorial",
+    "imageUrl": lineageArtwork,
+    "officialUrl": "https://www.exiliumworld.com/news/284?lang=pt_BR",
+    "officialLabel": "Ler publicação original"
+  },
   {
     "id": "news-africa-2026",
     "gameId": "albion-online",
